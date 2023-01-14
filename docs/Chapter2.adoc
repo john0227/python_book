@@ -1,0 +1,2399 @@
+= CSM Python Book
+:toc:
+:toclevels: 3
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:sectnumlevels: 3
+:imagesDir: images
+:stylesDir: stylesheets
+:stylesheet: asciidoctor.css
+:xrefstyle: full
+:experimental:
+:table-stripes: none
+:table-grid: all
+
+<<<
+
+== Chapter 1
+
+<<<
+
+== Chapter 2 - Manipulating Variables
+
+=== Variable
+
+Variables are a very important and powerful tool that programmers use to store and manage data. The definition of variable is *something that can change or take different values*. For example, let's say an experiment was done on a group of teenagers of age 15. The names of each test subject will be different, so each subject's *_name_* can be treated as a variable. On the other hand, every subject's age are the same (15), therefore, *_age_* cannot be treated as a variable, but rather, a _constant_.
+
+In programing, a variable is like a box that can store different values, such as numbers and words, inside.
+
+image::ch2_variable_ex1.jpg[]
+
+Suppose there is a number 15. It can refer to anything, like someone's age or someone's quiz score. To clarify what the value means, the box, or the variable, is given a name. In the example above, the variable is named _age_ to signify that 15 refers to someone's age.
+
+image::ch2_variable_ex2.jpg[]
+
+Today, there exists tons of different data, which would be very hard to distinguish and organize without meaningful specifiers. Therefore, we store them inside variables with relevant names.
+
+==== Basic Data Types in Python
+
+It was mentioned that we can store different types of data in variables. But what are the different data types that exist in Python? The three basic types are numbers, strings, and boolean values.
+
+*1. Number*
+
+Numbers are a familiar concept of data to all of us. We use it daily, whether it is to pay for an item at a supermarket or to do our math homework. In Python, numbers are split into two parts: integers and floating point numbers.
+
+*Integers*, or _int_ for short, are numbers that do not have decimal points.
+
+.*Examples of integers*
+* `1`
+* `10`
+* `253`
+* `2,147,483,648`
+
+*Floating point numbers*, or _float_ for short, are numbers with decimal points.
+
+.*Examples of floats*
+* `1.0`
+* `3.14159`
+* `171.3`
+* `1713e-1`
+* `1.713E2`
+
+[NOTE]
+====
+[small]#`e` or `E` means power of 10. `1713e-1` means `1713 * 10^-1^` and `1.713E2` means `1.713 * 10^2^`. We can see that both evaluates to `171.3`.#
+====
+
+We can use the built-in `type(x)` function to check the data type of `x`. Try the following examples on Python shell and check the output.
+
+.*`type()` Example*
+----
+>>> type(1)
+<class 'int'>
+>>> type(2_147_483_648)
+<class 'int'>
+>>> type(1.0)
+<class 'float'>
+>>> type(1713e-1)
+<class 'float'>
+----
+
+[NOTE]
+[small]#Line 3 says `2_147_483_648` instead of `2,147,483,648`. This is because commas have a special role in Python. We use underscores (`_`) in Python to increase readability of numbers instead of commas.#
+
+*2. String*
+
+Strings refers to any sequence of characters - a 'string' of characters. To express something as text, we would use strings to do that. In Python, in order to specify that something is a string, we surround the sequence of characters in single quotation marks.
+
+.*Examples of strings in Python*
+* `'strings'`
+* `'Hello World'`
+* `'I am 15 years old'`
+* `'15'`
+
+Like the last example, if numbers are surrounded by single quotation marks, Python will treat them as words, or strings, instead of a number.
+
+Let's use the `type(x)` function again to check the data type of `x`.
+
+.*`type()` Example*
+----
+>>> type('Hello World')
+<class 'str'>
+>>> type('I am 15 years old')
+<class 'str'>
+>>> type('15')
+<class 'str'>
+----
+
+*3. Boolean*
+
+Boolean values traditionally take two values only, 0 and 1. In computer programming, Booleans are used to express two values, _True_ and _False_.
+
+.*Two Boolean values*
+* `False` (`0`)
+* `True` (`1`)
+
+In certain cases, Python will treat `True`/`False` as `1`/`0` and vice versa.
+
+Let's use the `type(x)` function again to check the data type of `x`.
+
+.*`type()` Example*
+----
+>>> type(True)
+<class 'bool'>
+>>> type(False)
+<class 'bool'>
+----
+
+As of now, it may not be clear how to use this data type. Later, we will use this data type to evaluate conditional expressions (e.g. if-else statements).
+
+==== Variable Assignments
+
+To effectively use variables, we must _assign_ values to them. In this _assignment_ step, we create a new variable with an appropriate name and give them a value.
+
+.*assignment_ex.py*
+[source,python]
+----
+1    age = 15
+2    pi = 3.14159
+3    name = 'John Doe'
+4    is_same = True
+5    print(age, pi, name, is_same)
+----
+
+.*Output*
+----
+15 3.14159 John Doe True
+----
+
+The above example showcases the variable assignments of different data types. Line 1 assigns the integer value `15` to the variable named `age`. Line 2 assigns the floating point number approximate of π to the variable `pi`. Line 3 assigns the string value `'John Doe'` to the variable `name`. Line 4 assigns the boolean value `True` to the variable `is_name`. As this example shows, with meaningful variable names, others can see what the values are referring to.
+
+The `print()` statement in line 5 is used to display the values of each variable on the computer screen for us to see. The Output section shows how each data type looks like when printed. As shown, if the values/variables are listed by commas, they are separated by one whitespace and printed. The `print()` statement will be covered in more depth under <<Printing>>.
+
+.#*Exercise 2.1: Variable Assignment*#
+[source,python]
+----
+Evaluate the output of the following Python program.
+
+1    num_int = 123
+2    print('Data type of', num_int, 'is:', type(num_int))
+3
+4    num_float = 1618e-3
+5    print('Data type of', num_float, 'is:', type(num_float))
+6
+7    str1 = 'Python is Fun'
+8    print('The variable str1 is storing the following value:', str1)
+----
+
+#*Answer*#
+
+.*Output*
+----
+Data type of 123 is: <class 'int'>
+Data type of 1.618 is: <class 'float'>
+The variable str1 is storing the following value: Python is Fun
+----
+
+[[multiple-assignment]]
+===== A. Multiple Assignment
+
+We have showed that we can use 4 lines to create 4 variables, but can we do it in less? The answer is yes.
+
+.*Examples of multiple assignment*
+[source,python]
+----
+1    a, b = 1, 2
+2    age, pi, name = 15, 3.14159, 'John Doe'
+----
+
+Line 1 assigns the integer value `1` to the variable `a` and the integer value `2` to the variable `b`. The number of variables and values to assign must be equal, unless there is only one variable. But as line 2 shows, the types of values to assign may be different.
+
+.*Example of multiple assignment with one variable*
+[source,python]
+1    a = 1, 2, 3
+
+If multiple values are assigned to one variable, that variable will be interpreted as a _tuple_ by Python. A tuple is another data type supported by Python, not covered currently.
+
+.*Examples of invalid multiple assignments*
+[source,python]
+----
+1    a, b = 1, 2, 3
+2    a, b, c = 1, 2
+----
+
+Running the above lines of codes will cause Python to raise an exception.
+
+You can also assign a same value to multiple variables.
+
+.*Examples of mutual assignment*
+[source,python]
+----
+1    a = b = c = 1
+2    print(a, b, c)
+3    d = e = f = 'str'
+4    print(d, e, f)
+----
+
+.*Output*
+----
+1 1 1
+str str str
+----
+
+You can list as many variables as you want but can have only one value to assign on the rightmost side.
+
+.#*Exercise 2.2: Multiple Assignment*#
+----
+Q1. Write a Python program to assign the values 'John Doe', 175, 68, True to the variables name, height, weight, has_siblings in one line. Check your work using the print() statement.
+
+Values: 'John Doe', 175, 68, True
+Variables: name, height, weight, has_siblings
+
+Q2. Suppose you have the following program. How can you swap the two values in one line (i.e. store value of a in b and vice versa)?
+
+    1    a, b = 3, 5
+    2    # swap values in one line?
+    3    print(a, b)  # should print 5 3
+----
+
+#*Answer*#
+
+.*ex2_2.py*
+[source,python]
+----
+1    # Q1
+2    name, height, weight, has_siblings = 'John Doe', 175, 68, True
+3    print(name, height, weight, has_siblings)
+4
+5    # Q2
+6    a, b = 3, 5
+7    a, b = b, a
+8    print(a, b)
+----
+
+===== B. Equal Sign
+
+Another point to note is that the equal sign (=) has a different meaning in programming than in mathematics.
+
+In mathematics, equal sign signifies that the values on both sides are equal. `x = y` means that the value of variable `x` is the same as the value of variable `y`.
+
+On the other hand, in computer programming, equal sign signifies that we are storing the value on the right side of the `=` sign to the variable written on the left side of the `=` sign. Therefore, `x = y` in Python means that the value of `y` is stored in variable `x`.
+
+[source,python]
+----
+1    y = 10
+2    x = y
+----
+
+In the above snippet of code, since the value of `y` is 10, line 2 is storing the integer value 10 to the variable `x`.
+
+[[naming-conventions]]
+===== C. Naming Conventions of Variables
+
+// tag::naming-convention-a[]
+`Capitalized`, `PascalCase`, `camelCase` are all valid variable names. However, to standardize variable names, Python has a set of rules when naming variables.
+
+*1. Not allowed*
+
+... Cannot contain any characters other than alphabets, numbers, and underscores
+... Cannot start with a number
+... Cannot be a word reserved by Python (called a keyword)
+
+Below shows all 35 keywords reserved by Python:
+
+[width="70%", stripes=none, frame=none, grid=none]
+|====
+| [small]#`and`#      | [small]#`del`#     | [small]#`from`#   | [small]#`None`#     | [small]#`True`#
+| [small]#`as`#       | [small]#`elif`#    | [small]#`global`# | [small]#`nonlocal`# | [small]#`try`#
+| [small]#`assert`#   | [small]#`else`#    | [small]#`if`#     | [small]#`not`#      | [small]#`while`#
+| [small]#`break`#    | [small]#`except`#  | [small]#`import`# | [small]#`or`#       | [small]#`with`#
+| [small]#`class`#    | [small]#`False`#   | [small]#`in`#     | [small]#`pass`#     | [small]#`yield`#
+| [small]#`continue`# | [small]#`finally`# | [small]#`is`#     | [small]#`raise`#    | [small]#`async`#
+| [small]#`def`#      | [small]#`for`#     | [small]#`lambda`# | [small]#`return`#   | [small]#`await`#
+|====
+// end::naming-convention-a[]
+
+.#*Exercise 2.3: Valid Variable Names*#
+----
+Are the variable names listed below valid (Yes/No)?
+
+Q1. valid_variable
+Q2. name1_
+Q3. 1place
+Q4. safe_password@1^
+Q5. class
+Q6. elif_if
+----
+
+[%header, cols="^.^15%,^.^25, <.^60%", stripes=none]
+|====
+3+<| #Answer#
+h| Question h| Answer h| Explanation
+| Q1 | Yes
+a|
+. Only contains letters, numbers, and underscores
+. Does not start with a number
+. Is not a keyword
+| Q2 | Yes
+a|
+. Only contains letters, numbers, and underscores
+. Does not start with a number
+. Is not a keyword
+| Q3 | No | Starts with a number
+| Q4 | No | Contains characters other than letters, numbers, and underscores
+| Q5 | No | `class` is a keyword reserved by Python
+| Q6 | Yes | Even though `elif` and `if` are both keywords reserved by Python, `elif_if` is not
+|====
+
+// tag::naming-convention-b[]
+*2. Recommended*
+
+... Variable names should all be lowercase
+... Words in variable names should be separated by a single underscore (_)
+... Variable names should be concise while being sufficiently descriptive
+... Generally, should not start with an underscore (_)
+
+`age`, `full_name`, `height1` are all acceptable variable names in Python.
+
+// end::naming-convention-b[]
+
+.#*Exercise 2.4: Recommended Variable Names*#
+----
+Should you be using the following variable names (Yes/No)?
+
+Q1. my_friends_best_friends_cats_name
+Q2. myName
+Q3. cpu_name
+Q4. device__name
+Q5. animal_type
+----
+
+[%header, cols="^.^15%,^.^25, <.^60%", stripes=none]
+|====
+3+<| #Answer#
+h| Question h| Answer h| Explanation
+| Q1 | No
+a| Variable name is to wordy
+
+*Better:* cat_name, name
+| Q2 | No
+a|
+. Should not contain a capital letter
+. Words should be separated using one underscore
+
+*Better:* my_name, name
+| Q3 | Yes | Specifies what 'name' it is referring to
+| Q4 | No | Words should be separated using one underscore
+
+*Better:* device_name
+| Q5 | Yes | Specifies what 'type' it is referring to
+|====
+
+<<<
+
+=== Operators and Expressions
+
+==== Expressions
+
+An *expression* is a line of code that consists of values, variables, and/or operators. An operator is used to manipulate the values of the operands. In the expression `a + b`, `+` is the operator and `a` and `b` are the operands.
+
+.*Examples of an expression*
+[source,python]
+----
+1    3
+2    x
+3    x + 3
+----
+
+[[operators]]
+==== Operators
+
+===== A. Arithmetic Operators
+
+[cols="^.^15%,^.^20%,<.^65%", options="header"]
+|====
+| Operator | Example | Description
+| `+` (Unary) | `+x` | Signifies that the value/variable that follows `+` is a positive number
+| `+` (Binary) | `x + y` | Adds the two operands together
+| `+` (Strings) | `str1 + str2` +
+`'Hello' + 'World'` => `'HelloWorld'` | Concatenates the second string to then end of the first string
+| `-` (Unary) | `-x` | Signifies that the value/variable that follows `-` is a negative number
+| `-` (Binary) | `x - y` | Subtracts the right hand operand from the left hand operand
+| `*` | `x * y` | Multiplies the two operands
+| `*` (Strings) | `str * n` +
+`'a' * 4` => `aaaa` | Repeats the string operand by the number of times specified by the right hand operand
+| `/` | `x / y` +
+`3 / 2` => `1.5`| Divides the left hand operand by the right hand operand
+| `**` | `x ** y` | Raises the left hand operand to the power of the right hand operand
+| `%` | `x % y` +
+`4 % 2` => `0` +
+`5 % 3` => `2` | Evaluates the remainder when left hand operand is divided by the right hand operand
+| `//` | `x // y` +
+`3 // 2` => `1` | Performs a floor division, which means the portion after the decimal point of the quotient  is discarded. 3 divided by 2 is 1.5, so `3 // 2` discards `.5` and returns `1`.
+|====
+
+.*arithmetic_operators_ex.py*
+[source,python]
+----
+ 1    x, y = 10, 20
+ 2
+ 3    c = x + y
+ 4    print('x + y =', c)
+ 5
+ 6    c = x - y
+ 7    print('x - y =', c)
+ 8
+ 9    c = x * y
+10    print('x * y =', c)
+11
+12    c = x / y
+13    print('x / y =', c)
+14
+15    c = x ** y
+16    print('x ** y =', c)
+17
+18    c = x % y
+19    print('x % y =', c)
+20
+21    c = x // y
+22    print('x // y =', c)
+23
+24    bool = True
+25    c = x + bool
+26    print('x + bool =', c)
+----
+
+.*Output*
+----
+x + y = 30
+x - y = -10
+x * y = 200
+x / y = 0.5
+x ** y = 100000000000000000000
+x % y = 10
+x // y = 0
+x + bool = 11
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Most of the examples are self-explanatory. However, lines 24-26 seem pretty confusing. How can we add a boolean value to an integer value? Remember that Python can interpret boolean values as either `False`/`True` or `0`/`1`. If an operator is used on a numerical operand and a boolean operand, Python will convert the boolean value to its corresponding numerical value.
+|`x` is `10` and `bool` is `True`. Since line 25 is adding a boolean value to a numerical value, Python converts `bool` to `1`. As a result, `11` is stored in `c`.
+|====
+
+.*string_operators_ex.py*
+[source,python]
+----
+1    str1, str2 = 'Hello', 'World'
+2
+3    s = str1 + str2
+4    print('str1 + str2 =', s)
+5
+6    s = str1 * 3
+7    print('str1 * 3 =', s)
+----
+
+.*Output*
+----
+str1 + str2 = HelloWorld
+str1 * 3 = HelloHelloHello
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Line 3 concatenates `'World'` to the end of `'Hello'`, resulting in the string `'HelloWord'`.
+| Line 6 repeats `'Hello'` 3 times, resulting in the string `'HelloHelloHello'`.
+|====
+
+.#*Exercise 2.5: Arithmetic Operators*#
+----
+Evaluate the following expressions.
+
+Q1. 2 ** 10
+Q2. (10 + 40) / (12 / 3)
+Q3. (3 * 2) % 4
+Q4. (True * 10) // 3
+Q5. ('a' + 'bc') * 5
+----
+
+[%header,cols="^.^30%,<.^70%a", stripes=none]
+|====
+2+<.^| #Answer#
+2+<.^| *Q1.* 1024
+h| Explanation | [small]#2 to the power of 10 is 1024#
+
+2+<.^| *Q2.* 12.5
+h| Explanation
+| [small]#(10 + 40) / (12 / 3) +
+= 50 / (12 / 3) +
+= 50 / 4 +
+= 12.5#
+
+2+<.^| *Q3.* 2
+h| Explanation
+| [small]#(3 * 2) % 4 +
+= 6 % 4 +
+= 2 +
+When 6 is divided by 4, the remainder is 2.#
+
+2+<.^| *Q4.* 3
+h| Explanation
+| [small]#(True * 10) // 3 +
+= 10 // 3 +
+= 3 +
+`(True * 10)` is equivalent to `(1 * 10)` which evaluates to `10`. 10 divided by 3 is 3.333... Floor division discards the `.333...` part and yields `3`.#
+
+2+<.^| *Q5.* 'abcabcabcabcabc'
+h| Explanation
+| [small]#('a' + 'bc') * 5 +
+= 'abc' * 5 +
+= 'abcabcabcabcabc'#
+|====
+
+===== B. Relational Operators
+
+These operators are used to compare the two operands and return their relationship. In programming, such relationship will always be a boolean value: `True` or `False`.
+
+[cols="^.^15%,^.^20%,<.^65%", options="header"]
+|====
+| Operator | Example | Description
+| `==` | `x == y` | If the two operands are equal in value, then the expression evaluates to True.
+| `!=` | `x != y` | If the two operands are not equal in value, then the expression evaluates to True.
+| `>` | `x > y` | If the left hand operand is greater than the right hand operand, then the expression evaluates to True.
+| `<` | `x < y` | If the left hand operand is less than the right hand operand, then the expression evaluates to True.
+| `>=` | `x >= y` | If the left hand operand is greater than or equal to the right hand operand, then the expression evaluates to True.
+| `\<=` | `x \<= y` | If the left hand operand is less than or equal to the right hand operand, then the expression evaluates to True.
+|====
+
+.*equality_operators_ex.py*
+[source,python]
+----
+ 1    x, y, z = 10, 20, 10
+ 2    str1, str2 = 'aa', 'ab'
+ 3
+ 4    print('(x == z) =>', x == z)
+ 5    print('(str1 == str2) =>', str1 == str2)
+ 6    print('(x == str1) =>', x == str1)
+ 7
+ 8    print('(x != z) =>', x != z)
+ 9    print('(str1 != str2) =>', str1 != str2)
+10    print('(x != str1) =>', x != str1)
+----
+
+.*Output*
+----
+(x == z) => True
+(str1 == str2) => False
+(x == str1) => False
+(x != z) => False
+(str1 != str2) => True
+(x != str1) => True
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Lines 6 and 10 show that we can compare the equality of a numerical value to a string value. Comparing the equality of a number and a string will always evaluate to `False`. +
+Two strings are considered equal if and only if the two strings contain the same letters in the same order.
+|====
+
+.*comparison_operators_ex.py*
+[source,python]
+----
+11    print('(x > y) =>', x > y)
+12    print('(x > z) =>', x > z)
+13    print('(str1 > str2) =>', str1 > str2)
+14
+15    print('(x < y) =>', x < y)
+16    print('(x < z) =>', x < z)
+17    print('(str1 < str2) =>', str1 < str2)
+18
+19    print('(x >= y) =>', x >= y)
+20    print('(x >= z) =>', x >= z)
+21    print('(str1 >= str2) =>', str1 >= str2)
+22
+23    print('(x <= y) =>', x <= y)
+24    print('(x <= z) =>', x <= z)
+25    print('(str1 <= str2) =>', str1 <= str2)
+----
+
+.*Output*
+----
+(x > y) => False
+(x > z) => False
+(str1 > str2) => False
+(x < y) => True
+(x < z) => False
+(str1 < str2) => True
+(x >= y) => False
+(x >= z) => True
+(str1 >= str2) => False
+(x <= y) => True
+(x <= z) => True
+(str1 <= str2) => True
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Lines 13 and 17 checks if `str1` is either greater or less, respectively, than `str2`. The relevant magnitude of two strings are compared lexicographically (using ASCII values).
+| Unlike the equality operators, if we try to use the comparison operators to compare the relationship between a number and a string, Python will raise an exception. For example, `10 > 'hello'` or `True \<= 'world'` will cause the Python interpreter to raise an exception.
+|====
+
+.*comparison_boolean_ex.py*
+[source,python]
+----
+26    bool = True
+27    print('(x > bool) =>', x > bool)
+28    print('(x <= bool) =>', x <= bool)
+----
+
+.*Output*
+----
+(x > bool) => True
+(x <= bool) => False
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| As explained before, numerical values can be compared to boolean values. Python will convert the boolean value to its corresponding numerical value. Therefore, essentially, line 27 is the same as writing `10 > 1`, which evaluates to `True`, and line 28 is the same as writing `10 \<= 1`, which evaluates to `False`.
+|====
+
+.#*Exercise 2.6: Relational Operators*#
+----
+Evaluate the following expressions.
+
+Q1. 'A' > 'a'
+Q2. 'A' > '1'
+Q3. 'catc' + 'atc' + 'at' == 'cat' * 3
+Q4. 33 // 3 < 9 + 2
+Q5. 2 ** 10 >= 10 ** 3
+----
+
+[%header,cols="^.^30%,<.^70%a", stripes=none]
+|====
+2+<.^| #Answer#
+2+<.^| *Q1.* False
+h| Explanation | [small]#Uppercase letters have lower ASCII values than lowercase letters.#
+
+2+<.^| *Q2.* True
+h| Explanation
+| [small]#Numbers (represented as strings) have lower ASCII values than alphabets (both lower and uppercase).#
+
+2+<.^| *Q3.* True
+h| Explanation
+| [small]#'catc' + 'atc' + 'at' == 'cat' * 3 +
+=> 'catcatcat' == 'catcatcat +
+=> True#
+
+2+<.^| *Q4.* False
+h| Explanation
+| [small]#33 // 3 < 9 + 2 +
+=> 11 < 11 +
+=> False#
+
+2+<.^| *Q5.* True
+h| Explanation
+| [small]#2 \\** 10 >= 10 ** 3 +
+=> 1024 >= 1000 +
+=> True#
+|====
+
+===== C. Logical Operators
+
+Whereas *Relational Operators* compared the _values_ of the two operands, *Logical Operators* are mainly used to manipulate two boolean values. The resulting value will always be a boolean value. In Python, there are 3 logical operators, which are `and`, `or`, and `not`.
+
+Let's think of the `and` and `or` operators as  function that takes in two inputs, the two operands as inputs to the function, and the result as the output. The `and` operator outputs `True` if and only if the two inputs are `True`. The `or` operator outputs `True` if and only if at least one of the two inputs is `True`.
+
+Unlike the two operators above, the `not` operator is unary, meaning it takes only one operand. The `not` operator negates the boolean value. So if the input is `True`, the output will be `False`, and vice versa.
+
+[cols="^.^,^.^,^.^,^.^,^.^", options="header", stripes=none]
+|====
+2+| Input 3+| Output
+h| X h| Y h| X and Y h| X or Y h| not X
+| `False` | `False` | `False` | `False` | `True`
+| `False` | `True` | `False` | `True` | `True`
+| `True` | `False` | `False` | `True` | `False`
+| `True` | `True` | `True` | `True` | `False`
+|====
+
+.*logical_operators_ex.py*
+[source,python]
+----
+ 1    a, b, c = 10, 20, 10
+ 2
+ 3    x = a > b
+ 4    y = a == c
+ 5    print('x is', x, 'and y is', y)
+ 6    print('x and y =>', x and y)
+ 7
+ 8    x = a <= b
+ 9    y = a > b
+10    print('x is', x, 'and y is', y)
+11    print('x or y =>', x or y)
+12
+13    x = a < b or b == c
+14    print('x is', x)
+15    print('not x =>', not x)
+----
+
+.*Output*
+----
+x is False and y is True
+x and y => False
+x is True and y is False
+x or y => True
+x is True
+not x => False
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Lines 1 - 11 should be pretty straightforward if you look at it step-by-step.
+| But Line 13 may be a bit confusing at first glance. In one statement, there are both relational and logical operators. In such cases, always evaluate the relational operations first, then the logical operations. Order of operations will be covered in more depth later.
+|====
+
+.#*Exercise 2.7: Logical Operators*#
+----
+Evaluate the following expressions.
+
+Q1. 'A' > 'a' and 'A' > '1'
+Q2. not (33 // 3 < 9 + 2)
+Q3. False or 2 ** 10 >= 10 ** 3
+----
+
+[%header,cols="^.^30%,<.^70%a", stripes=none]
+|====
+2+<.^| #Answer#
+2+<.^| *Q1.* False
+h| Explanation | [small]#'A' > 'a' and 'A' > '1' +
+=> False and True +
+=> False#
+
+2+<.^| *Q2.* True
+h| Explanation
+| [small]#not (33 // 3 < 9 + 2) +
+=> not False +
+=> True#
+
+2+<.^| *Q3.* True
+h| Explanation
+| [small]#False or 2 \\** 10 >= 10 ** 3 +
+=> False or True +
+=> True#
+|====
+
+===== D. Bitwise Operators
+
+Bit operators are ones that operator on _binary numbers_. ACS Theory Lesson 6 will help in understanding this section.
+
+*Basic Explanation of Binary Numbers*
+
+It is convenient for us to count in base 10 because we have 10 fingers. However, computers do not have fingers to count with. Instead, they can 'count' in base 2 using electricity.
+
+Suppose there is a little light bulb inside computers that lights up if there is electricity and turns off if there is no electricity. If the light bulb lights up, the computer interprets it as a `1`, and if the light bulb is off, the computer interprets it as a `0`.
+
+image::ch2_binary_ex1.jpg[]
+
+The above picture is a rough demonstration of how numerical data is represented inside computers. Each `0`/`1` is called a *bit*, similar to how each number in decimal is called _digits_. Let's compare binary (base 2) numbers to decimal (base 10) numbers.
+
+====
+*If 10110 is a decimal:*
+
+10110~10~ = 1 * 10^4^ + 0 * 10^3^ + 1 * 10^2^ + 1 * 10^1^ + 0 * 10^0^
+
+*If 10110 is a binary number:*
+
+10110~2~ = 1 * 2^4^ + 0 * 2^3^ + 1 * 2^2^ + 1 * 2^1^ + 0 * 2^0^ = 22~10~
+
+[small]#*_Additional Example_* +
++
+Likewise, if 10110 is in base _n_: +
++
+10110~_n_~ = 1 * _n_^4^ + 0 * _n_^3^ + 1 * _n_^2^ + 1 * _n_^1^ + 0 * _n_^0^#
+====
+
+[NOTE]
+====
+[small]#In Python, we can represent binary numbers by preceding the binary number with `0b`. +
++
+For example, if there is a line that says `a = 0b10110`, the value `22~10~` is stored in the variable `a`. +
++
+In addition, in computer science, numbers in base 8 and 16 are also often used. They are called _octal_ and _hexadecimal_ numbers, respectively. +
++
+In Python, we can represent octal numbers by preceding the octal number with `0o` and hexadecimal numbers by preceding the hexadecimal number with `0x`.#
+====
+
+*Bitwise Operators*
+
+For bitwise operators, the two operands must be integer (or boolean) values. The three bitwise operators are `&` (`and`), `|` (`or`), `^` (`xor`), and `~` (`not`).
+
+====
+[small]#`xor` is another logical operator (not in Python) that evaluates to `True` if the two boolean operands have different values.#
+
+[cols="^.^,^.^,^.^", options="header", stripes=none]
+|====
+2+| [small]#Input# | [small]#Output#
+h| [small]#X# h| [small]#Y# h| [small]#X xor Y#
+| [small]#`False`# | [small]#`False`# | [small]#`False`#
+| [small]#`False`# | [small]#`True`# | [small]#`True`#
+| [small]#`True`# | [small]#`False`# | [small]#`True`#
+| [small]#`True`# | [small]#`True`# | [small]#`False`#
+|====
+
+====
+
+If a base-10 integer is converted to a binary number, it will contain only ``0``s and ``1``s. Then, bitwise operators interpret each `0`/`1` bit as `False`/`True` and performs operations shown under <<C. Logical Operators, Section C. Logical Operators>>. The resulting boolean value is converted back to `0`/`1`.
+
+[cols="^.^15%,^.^20%,<.^65%", options="header"]
+|====
+| Operator | Example | Description
+| & | `x & y` | Performs bitwise AND on `x` and `y`.
+| \| | `x \| y` | Performs bitwise OR on `x` and `y`.
+| ^ | `x ^ y` | Performs bitwise XOR on `x` and `y`.
+| ~ | `~x` | Performs bitwise NOT on `x`.
+|====
+
+[NOTE]
+[small]#`x` and `y` are integers (or booleans)#
+
+.*bitwise_operators_ex.py*
+[source,python]
+----
+ 1    x, y = 5, 6  # 5 -> 101, 6 -> 110
+ 2
+ 3    print('x & y is', x & y, 'in base 10')
+ 4    print('x & y is', bin(x & y), 'in base 2')
+ 5
+ 6    print('x | y is', x | y, 'in base 10')
+ 7    print('x | y is', bin(x | y), 'in base 2')
+ 8
+ 9    print('x ^ y is', x ^ y, 'in base 10')
+10    print('x ^ y is', bin(x ^ y), 'in base 2')
+11
+12    print('~x is', ~x, 'in base 10')
+13    print('~x is', bin(~x), 'in base 2')
+----
+
+.*Output*
+----
+x & y is 4 in base 10
+x & y is 0b100 in base 2
+x | y is 7 in base 10
+x | y is 0b111 in base 2
+x ^ y is 3 in base 10
+x ^ y is 0b11 in base 2
+~x is -6 in base 10
+~x is -0b110 in base 2
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| The `\#` symbol in Line 1 is called a _comment_. Everything that follows `#` is ignored by the Python interpreter. We will go more in depth under <<C. Comments, Section C. Comments>>.
+| The `bin(x)` statement in lines 4, 7, 10, and 13 is a built-in statement in Python that outputs a string form of `x` (decimal value) in binary. For example, `bin(22)` will return `0b10110`. +
+[small]#Similarly, `oct()` and `hex()` can be used for octal and hexadecimal numbers, respectively#
+
+a| Let's analyze how `5 & 6` works. First, `5` is converted to `101~2~` and `6` is converted to `110~2~`.
+
+image::ch2_bitwise_ex1.jpg[width="35%",align="center"]
+
+Remember that Python treats `1` as `True` and `0` as `False`. Therefore, `1 & 1` (same as `True and True`) evaluates to `True` and `0 & 1` evaluates to `False`. Then, `True`/`False` is converted back to `1`/`0`, hence, the result. Since `100~2~` is `4~10~`, `5 & 6` evaluates to `4`.
+
+|====
+
+[TIP]
+[small]#If you need to check whether a number `x` is even or not, check the following condition `x & 1 == 0`. This is slightly faster than using the arithmetic modulus operator `x % 2 == 0`. This works because a binary number is even if the last bit is `0` and odd if the last bit is `1`.#
+
+.#*Exercise 2.8: Bitwise Operators*#
+----
+Evaluate the following expressions.
+
+Q1. 24 & 1
+Q2. 25 & 17
+Q3. 45 | 29
+Q4. 13 ^ 7
+----
+
+[%header,cols="^.^30%,<.^70%a", stripes=none]
+|====
+2+<.^| #Answer#
+2+<.^| *Q1.* 0
+h| Explanation | [small]#24 & 1 +
+= 11000~2~ & 00001~2~ +
+= 0~2~ = 0~10~ +
+If `x` is even, `x & 1` is `0`.#
+
+2+<.^| *Q2.* 17
+h| Explanation
+| [small]#25 & 17 +
+= 11001~2~ & 10001~2~ +
+= 10001~2~ = 17~10~#
+
+2+<.^| *Q3.* 61
+h| Explanation
+| [small]#45 \| 29 +
+= 101101~2~ \| 011101~2~ +
+= 111101~2~ = 61~10~#
+
+2+<.^| *Q4.* 10
+h| Explanation
+| [small]#13 ^ 7 +
+= 1101~2~ \| 0111~2~ +
+= 1010~2~ = 10~10~#
+|====
+
+===== E. Bitwise Shift Operators
+
+Bitwise shift operators also operate on binary numbers. More precisely, the left hand operand is converted to a binary number and the right hand operand is left as a decimal number. Bitwise shift operators shift the left hand operand (represented in binary) either to the left or right by the number of bits specified by the right hand operand.
+
+[%header, stripes=none, grid=none]
+|====
+| _Example_
+| *Shift 5~10~ to the left by 3 bits* +
+5~10~ in binary is 101~2~. Then, we move 101~2~ to the left by 3 bits and fill the empty bits with 0. Therefore, the result is 101000~2~, or 40~10~.
+
+Do you see a relationship between the two numbers? 40 is 8 (= 2^3^) times 5. Do you think this is a coincidence? No, it's not.
+
+In decimal, if we shift a number `x` to the left by `n` digits, we are multiplying `x` by `10^n^`. For example, 5 shifted 3 times to the left is 5000 (= `5 * 10^3^`).
+
+Likewise, in binary, if we shift a number `x` to the left by `n` bits, we are multiplying `x` by `2^n^`. Therefore, when we shifted 5 to the left by 3 bits, we got 40 (= `5 * 2^3^`).
+| *Shift 10~10~ to the right by 1 bit* +
+10~10~ in binary is 1010~2~. We move 1010~2~ to the right by 1 bit and discard the shifted bit. Since the last '0' bit is shifted, it is discarded. Therefore, we get 101~2~. If we shifted 10 to the right by 2 bits, we would have gotten 10~2~.
+
+Similar to left shift, if we shift a number `x` to the right by `n` bits, we are performing a floor division by `2^n^`. Therefore, when we shifted 10 to the right by 2 bits, we got 2 (= `10 // 2^2^`)
+|====
+
+[cols="^.^15%,^.^20%,<.^65%", options="header"]
+|====
+| Operator | Example | Description
+| `<<` | `x << y` | Shifts `x` (represented in binary) to the left by `y` bits.
+| `>>` | `x >> y` | Shifts `x` (represented in binary) to the right by `y` bits.
+|====
+
+.*bitwise_shift_operators_ex.py*
+[source,python]
+----
+1    x, y = 5, 2  # 5 -> 101
+2
+3    print('x << y is', x << y, 'in base 10')
+4    print('x << y is', bin(x << y), 'in base 2')
+5
+6    print('x >> y is', x >> y, 'in base 10')
+7    print('x >> y is', bin(x >> y), 'in base 2')
+----
+
+.*Output*
+----
+x << y is 20 in base 10
+x << y is 0b10100 in base 2
+x >> y is 1 in base 10
+x >> y is 0b1 in base 2
+----
+
+[TIP]
+[small]#If you ever need to multiply or divide a number by a power of 2, using bitwise shift operators will be slightly faster than using arithmetic operators.#
+
+.#*Exercise 2.9: Bitwise Shift Operators*#
+----
+Evaluate the following expressions.
+
+Q1. 2 << 9
+Q2. 45 >> 3
+Q3. 9 << 2
+Q4. 64 >> 6
+----
+
+[%header,cols="^.^30%,<.^70%a", stripes=none]
+|====
+2+<.^| #Answer#
+2+<.^| *Q1.* 1024
+h| Explanation | [small]#2 << 9 +
+= 10~2~ << 9 +
+= 10_000_000_000~2~ +
+= 2^10^~10~ = 1024~10~ +
+Equivalent to 2 * 2^9^#
+
+2+<.^| *Q2.* 5
+h| Explanation
+| [small]#45 >> 3 +
+= 101101~2~ >> 3 +
+= 101~2~ = 5~10~ +
+Equivalent to 45 // 2^3^#
+
+2+<.^| *Q3.* 36
+h| Explanation
+| [small]#9 << 2 +
+= 1001~2~ << 2 +
+= 100100~2~ = 36~10~ +
+Equivalent to 9 * 2^2^#
+
+2+<.^| *Q4.* 1
+h| Explanation
+| [small]#64 >> 6 +
+= 1000000~2~ >> 6 +
+= 1~2~ = 1~10~ +
+Equivalent 64 // 2^6^#
+|====
+
+===== F. Assignment Operators
+
+We met one assignment operator so far, which was `=`. The other assignment operators we are going to explore is a combination of `=` and assignment operators.
+
+[cols="^.^15%,^.^20%,<.^65%", options="header"]
+|====
+| Operator | Example | Description
+| `=` | `x = y` | Stores the value `y` in the variable `x`.
+| `+=` | `x += y` | Same as `x = x + y`.
+| `-=` | `x -= y` | Same as `x = x - y`.
+| `*=` | `x *= y` | Same as `x = x * y`.
+| `/=` | `x /= y` | Same as `x = x / y`.
+| `**=` | `x **= y` | Same as `x = x ** y`.
+| `%=` | `x %= y` | Same as `x = x % y`.
+| `//=` | `x //= y` | Same as `x = x // y`.
+|====
+
+.*assignment_operators_ex.py*
+[source,python]
+----
+ 1    x, y = 10, 20
+ 2
+ 3    x += y
+ 4    print('After x += y, x is', x)
+ 5
+ 6    x = 10
+ 7    x -= y
+ 8    print('After x -= y, x is', x)
+ 9
+10    x = 10
+11    x *= y
+12    print('After x *= y, x is', x)
+13
+14    x = 10
+15    x /= y
+16    print('After x /= y, x is', x)
+17
+18    x = 10
+19    x **= y
+20    print('After x **= y, x is', x)
+21
+22    x = 10
+23    x %= y
+24    print('After x %= y, x is', x)
+25
+26    x = 10
+27    x //= y
+28    print('After x //= y, x is', x)
+----
+
+.*Output*
+----
+After x += y, x is 30
+After x -= y, x is -10
+After x *= y, x is 200
+After x /= y, x is 0.5
+After x **= y, x is 100000000000000000000
+After x %= y, x is 10
+After x //= y, x is 0
+----
+
+.#*Exercise 2.10: Assignment Operators*#
+[source,python]
+----
+Evaluate the final value stored inside x.
+
+1    x = 5
+2    x **= 3
+3    x //= 4
+4    x %= 11
+5    x -= 4
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+| *Q1.* 5
+a|
+[source,python]
+.*Explanation*
+----
+1    x = 5
+2    x **= 3   # x = 125
+3    x //= 4   # x = 31
+4    x %= 11   # x = 9
+5    x -= 4    # x = 5
+6    print(x)  # will print 5
+----
+|====
+
+===== G. Ternary Operators
+
+As the name suggests, ternary operators have three operands in the following form:
+
+[source,python]
+----
+value1 if boolean_condition else value2
+----
+
+As the above code snippet shows, `if`-`else` is the ternary operator while `value1`, `boolean_condition`, and `value2` are the three operands. If the `boolean_condition` evaluates to `True`, the operator returns `value1` and returns `value2` otherwise.
+
+.*ternary_operators_ex.py*
+[source,python]
+----
+1    age = 10
+2    youth = 'young' if age <= 25 else 'old'
+3    print('My brother is 10 years old, so he is', youth)
+4
+5    x, y = 5, 7
+6    big = x if x > y else y
+7    small = x if x < y else y
+8    print(big, 'is greater than', small)
+----
+
+.*Output*
+----
+My brother is 10 years old, so he is young
+7 is greater than 5
+----
+
+.#*Exercise 2.11: Ternary Operators*#
+----
+Q1. Suppose we have a variable x with an integer value. Write a program using ternary operators to print 'Up' if x is greater than or equal to 50 and 'Down' otherwise. Assume that variable x already has an integer value stored inside (or you can assign an arbitrary value).
+
+Q2. Suppose we have a variable x with an integer value. Write a program using ternary operators to print 'Even' if x is even and 'Odd' if x is odd. Assume that variable x already has an integer value stored inside (or you can assign an arbitrary value).
+
+Q3. Suppose we have a variable s with a string value. Write a program using ternary operators to print 'Before' if s is lexicographically lower than the string 'programming'. Assume that variable s already has a string value stored inside (or you can assign an arbitrary value).
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex2_11.py*
+[source,python]
+----
+1    # Q1
+2    print('Up' if x >= 50 else 'Down')
+3
+4    # Q2
+5    print('Even' if x % 2 == 0 else 'Odd')
+6    # print('Even' if x & 1 == 0 else 'Odd')
+7
+8    # Q3
+9    print('Before' if s < 'programming' else 'After')
+----
+|====
+
+==== Type Conversion
+
+In Section 1.1, we took a look at some of the basic data types in Python. If we add two integers together, the resulting value will be an integer type. If we add two strings together, the resulting value will be a string type.
+
+However, if we look at the division example shown in <<A. Arithmetic Operators, Section A. Arithmetic Operators>>, `3 / 2` resulted in `1.5`. At first glance, this does not seem important at all. But if we look closely, we can see that an operation with two _integer_ operands resulted in a _floating point number_. This change of data type is called a *type conversion*.
+
+Also, in the same section, we saw that if we add two string values, the second value is concatenated to the first value. What if we want to concatenate a number to a string? For example, if I want to say `I am 12 years old`, will `'I am ' + 12 + ' years old'` work? Let's find out in the following sections.
+
+===== A. Implicit Type Conversion
+
+What does the word 'implicit' mean?
+
+[horizontal]
+Implicit::
+. implied though not plainly expressed
+. capable of being understood from something else though unexpressed
+
+In other words, if something is expressed _implicitly_, others will be able to assume the meaning without a straightforward explanation. As such, implicit type conversion is one that Python assumes and automatically does for us.
+
+`3 / 2` -> `1.5` is an example of implicit type conversion in Python. In some other languages, like Java or C/C++, `3 / 2` will yield `1`. Because it is an operation involving two integer values, the resulting value is also an integer value. But Python will automatically convert, or implicitly convert, integer into a _float_ data type.
+
+Another example of an implicit type conversion in Python is operations involving booleans and numbers. We have seen that if boolean values are used in arithmetic operations, Python will treat them as either `0` (if `False`) or `1` (if `True`). Python is implicitly converting boolean values to integers (or floats).
+
+In Python, the data types have a rank. Some of them are shown below.
+
+[.text-center]
+boolean < integer < float
+
+We can see that boolean is of lower rank than numbers, and integer is of lower rank than floating point numbers. When Python implicitly converts data types, it will always convert from lower to higher rank, in order to *_avoid data loss_*.
+
+.#*Exercise 2.12: Implicit Type Conversion*#
+----
+What are the results of the following expressions?
+Also check the data type of the result using type() statement if applicable (read Section 1.1 if you forgot what type() statement is).
+
+Q1. 10 / 4
+Q2. 10 // 4
+Q3. 314 / 1
+Q4. True + 12
+Q5. False + True
+Q6. '100 + 1 is ' + 101
+----
+
+[%header,cols="^.^30%,<.^70%a", stripes=none]
+|====
+2+<.^| #Answer#
+2+<.^| *Q1.* 2.5, <class 'float'>
+h| Explanation
+| [small]#Plain division in Python will always yield a _float_ data type. Since `10 / 4 = 2.5`, Python yields `2.5`.#
+
+2+<.^| *Q2.* 2, <class 'int'>
+h| Explanation
+| [small]#Floor division discards the numbers after the decimal point and only returns the integer value. Since `10 / 4 = 2.5`, floor division will discard `.5` and return `2`.#
+
+2+<.^| *Q3.* 314.0, <class 'float'>
+h| Explanation
+| [small]#As explained before, division in Python will always result in a _float_ data type, even if it is a division without a remainder.#
+
+2+<.^| *Q4.* 13, <class 'int'>
+h| Explanation
+| [small]#Since `True` is equal to `1` in Python, `True + 12` yields the integer value `13`.#
+
+2+<.^| *Q5.* 1, <class 'int'>
+h| Explanation
+| [small]#`False + True` is equivalent to saying `0 + 1`, which evaluates to the integer value `1`. Even though two boolean values were added, since the + operator only works for integer values, the result is converted to an integer type.#
+
+2+<.^| *Q6.* TypeError: unsupported operand type(s) for +: 'int' and 'str'
+h| Explanation
+| [small]#Python will not implicitly convert numbers to strings, unlike some other languages. Since Q6 attempted to concatenate the integer `101` to a string, Python raises an exception (name of exception is not important for now)#
+|====
+
+===== B. Explicit Type Conversion
+
+If you attempted Exercise 2.12, you have seen that Q6. `'100 + 1 is ' + 101` did not work. This means that concatenating a number to a string by using the plus (`+`) operator does not work. Then what should we do in these kinds of situations?
+
+We can use the built-in `str()`, `int()`, and `float()` functions.
+
+`str(x)`::
+`str(x)` function will convert `x` into its corresponding string value.
++
+[source,python]
+----
+1    str(10)                           # yields '10'
+2    type(str(10))                     # yields '<class 'str'>'
+3    str(3.14)                         # yields '3.14'
+4    str(1 + 2 + 3)                    # yields '6'
+5    'I am ' + str(15) + ' years old'  # yields 'I am 15 years old'
+----
+
+`int(x)`::
+`int(x)` will convert `x` into its corresponding integer value.
++
+[source,python]
+----
+1    int('13')        # yields 13
+2    type(int('13'))  # yields '<class 'int'>'
+3    int('  14  ')    # yields 14
+4    int(3.14)        # yields 3
+5    10 + int('15')   # yields 25
+----
+
+`int(x, b)`::
+`int(x, b)` will interpret the string value `x` as a number in base `b` and yield the corresponding integer value (in base 10).
++
+[source,python]
+----
+1    int('10', 2)    # yields 2
+2    int('1011', 2)  # yields 11
+3    int('13', 8)    # yields 11
+4    int('b', 16)    # yields 11
+----
+
+`float(x)`::
+`float(x)` will convert `x` into its corresponding float value.
++
+[source,python]
+----
+1    float(10)           # yields 10.0
+2    type(float(10))     # yields '<class 'float'>'
+3    float('3.14')       # yields 3.14
+4    float(' 1  ')       # yields 1.0
+5    1.0 + float('2.0')  # yields 3.0
+----
+
+Explicit type conversion can also be called type casting because we are _casting_, or forcefully imposing, another data type to the values.
+
+.#*Exercise 2.13: Explicit Type Conversion*#
+----
+What are the results of the following expressions?
+Also check the data type of the result using type() statement if applicable (read Section 1.1 if you forgot what type() statement is).
+
+Q1. int('13' + '14')
+Q2. int('13' + ' 14')
+Q3. int(13 + '14')
+Q4. str(123) + '456'
+Q5. 123 + int('456')
+Q6. str(int('1010', 2))
+Q7. 4 / 2 == float(2)
+----
+
+[%header,cols="^.^30%,<.^70%a", stripes=none]
+|====
+2+<.^| #Answer#
+2+<.^| *Q1.* 1314, <class 'int'>
+h| Explanation
+| [small]#First, the expression inside the parentheses is evaluated. `'13' + '14'` evaluates to `'1314'`, which is then converted to its corresponding integer value, which is `1314`.#
+
+2+<.^| *Q2.* ValueError: invalid literal for int() with base 10: '13 14'
+h| Explanation
+| [small]#The expression inside the parentheses evaluates to `'13 14'` which is not a valid integer value. So Python raises an exception.#
+
+2+<.^| *Q3.* TypeError: unsupported operand type(s) for +: 'int' and 'str'
+h| Explanation
+| [small]#As explained before, a number cannot be added to a string value, so Python raises an exception.#
+
+2+<.^| *Q4.* '123456', <class 'str'>
+h| Explanation
+| [small]#The integer value `123` is converted to a string. Then `'123'` is added to `'456'`, resulting in the string value `'123456'`.#
+
+2+<.^| *Q5.* 579, <class 'int'>
+h| Explanation
+| [small]#The string value `'456'` is converted to an integer. Then the two numbers are added together, yielding the integer value 579.#
+
+2+<.^| *Q6.* '10', <class 'str'>
+h| Explanation
+| [small]#`'1010'` is interpreted as a binary number, which is `10` in decimal. So `str(int('1010', 2))` evaluates to `str(10)`, which yields `'10'`.#
+
+2+<.^| *Q7.* True, <class 'bool'>
+h| Explanation
+| [small]#The left hand side of the equation evaluates to `2.0`, and the right hand side also evaluates to `2.0`. So the equation is `True`.#
+|====
+
+==== Order of Operations
+
+Now that we have looked at seven types of operators, if you saw the following statement, how would you solve it?
+
+[source,python]
+----
+not (1 + 3 * 2) >= 3 ** 3 * 2 // 6 and 35 & 12 < 25
+----
+
+It is not immediately clear which operation you should start with. This is why Python designated the order in which the operations will be solved in, called *Order of Operations* or *Operator Precedence*.
+
+[%header, cols="^.^15%,^.^30%,^.^25%,<.^30%", stripe=none]
+|====
+| Priority<<priority_ft,^[1]^>> | Operator | Example | Name
+| 1 | `(` _expressions..._ `)` | `(a + b - c)` | Parenthesized Expression
+| 2 | `**` | `a ** b` | Exponentiation<<exp_ft,^[2]^>>
+.3+| 3 | `+` (unary) | `+a` | Positive (number)
+| `-` (unary) | `-a` <.^| Negation (of a number)
+| `~` (unary) | `~a` <.^| Bitwise NOT
+.4+| 4 | `*` | `a * b` | Multiplication
+| `/` | `a / b` <.^| Division
+| `//` | `a // b` <.^| Floor division
+| `%` | `a % b` <.^| Modulus (Remainder)
+.2+| 5 | `+` | `a + b` | Addition
+| `-` | `a - b` <.^| Subtraction
+.2+| 6 | `<<` | `a << b` | Bitwise left shift
+| `>>` | `a >> b` <.^| Bitwise right shift
+| 7 | `&` | `a & b` | Bitwise AND
+| 8 | `^` | `a ^ b` | Bitwise XOR
+| 9 | `\|` | `a \| b` | Bitwise OR
+.7+| 10 | `<` | `a < b` | Less than
+| `\<=` | `a \<= b` <.^| Less than or equal to
+| `>` | `a > b` <.^| Greater than
+| `>=` | `a >= b` <.^| Greater than or equal to
+| `==` | `a == b` <.^| Equal to
+| `!=` | `a != b` <.^| Not equal to
+| `in`, `not in`, `is`, `is not` | _Omitted_ <.^| Membership and Identity tests (not covered)
+| 11 | `not` | `not X` | Boolean NOT
+| 12 | `and` | `X and Y` | Boolean AND
+| 13 | `or` | `X or Y` | Boolean OR
+.2+| 14 | `=` | `a = b` | Assignment operator
+| `+=`, `-=`, `*=` ... | _Omitted_ <.^| Shorted assignment operators
+|====
+
+[horizontal]
+[[priority_ft]][blue small]#[1]#::
+[small]#1 has highest priority while 14 is of the lowest priority. If there are multiple operators of the same priority, they are evaluated from left to right.#
+[[exp_ft]][blue small]#[2]#::
+[small]#`\\**` (Exponentiation) has lower precedence than the arithmetic/bitwise unary operators to its right. For example, `2**-1` is `0.5` (Do `-1` first. Then calculate `2 ** (-1)`)#
+
+[NOTE]
+Like mathematics, arithmetic expressions in programming also follow the *PEMDAS* [small]#(Parentheses-Exponent-Multiplication-Division-Addition-Subtraction)# rule.
+
+.#*Exercise 2.14: Order of Operations*#
+----
+Q1. 10 - 6 + 3 * 4 // 4
+Q2. -5 - --6 * 9 / (2 - 1) * 3
+Q3. not (1 + 3 * 2) >= 3 ** 3 * 2 // 6 and 35 & 12 < 25
+----
+
+[%header,cols="^.^30%,<.^70%a", stripes=none]
+|====
+2+<.^| #Answer#
+2+<.^| *Q1.* 7
+h| Explanation
+| [small]#10 - 6 + 3 * 4 // 4 +
+= 10 - 6 + `*3 * 4*` // 4 +
+= 10 - 6 + `*12 // 4*` +
+= `*10 - 6*` + 3 +
+= `*4 + 3*` +
+= `*7*`#
+
+2+<.^| *Q2.* -167.0
+h| Explanation
+| [small]#-5 - --6 * 9 / (2 - 1) * 3 +
+= -5 - --6 * 9 / `*(2 - 1)*` * 3 +
+= `*-5*` - --6 * 9 / 1 * 3 +
+= -5 - -`*-6*` * 9 / 1 * 3 +
+= -5 - `*--6*` * 9 / 1 * 3 +
+= -5 - `*6 * 9*` / 1 * 3 +
+= -5 - `*54 / 1*` * 3 +
+= -5 - `*54.0 * 3*` +
+= `*-5 - 162.0*` +
+= `*-167.0*`#
+
+2+<.^| *Q3.* `True`
+h| Explanation
+| [small]#not (1 + 3 * 2) >= 3 \\** 3 * 2 // 6 and 35 & 12 < 25 +
+= not `pass:q[*(1 + 3 * 2)*]` >= 3 ** 3 * 2 // 6 and 35 & 12 < 25 +
+= not 7 >= `*pass:q[3 ** 3]*` * 2 // 6 and 35 & 12 < 25 +
+= not 7 >= `*pass:q[27 * 2]*` // 6 and 35 & 12 < 25 +
+= not 7 >= `*54 // 6*` and 35 & 12 < 25 +
+= not 7 >= 9 and `*35 & 12*` < 25 +
+= not `*7 >= 9*` and 0 < 25 +
+= not False and `*0 < 25*` +
+= `*not False*` and True +
+= `*True and True*` +
+= `*True*`#
+|====
+
+<<<
+
+=== Printing
+
+When we are programming, we may want to display information on screen, whether it is to check the output or debug. Since computers cannot talk, displaying information on screen is sometimes a convenient way to communicate with the computer while coding.
+
+To achieve this, we can use the built-in `print()` function. We have seen this function a few times in previous examples and exercises. Now, let's take a deeper look at this function.
+
+==== print(_x_)
+
+`print(x)` will first convert `x` into its corresponding string value. If `x` is an expression, the expression will be evaluated first, then converted to a string value. Then, the string value will be printed on screen, and the cursor moves to the next line.
+
+.*print_ex.py*
+[source,python]
+----
+1    print('Hello World')
+2    print(1 + 2 + 3)
+3    print('I have ' + str(3) + ' cats')
+----
+
+.*Output*
+----
+Hello World
+6
+I have 3 cats
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| `print('Hello World')` displays `Hello World` on screen, then the cursor is moved to the next line. The second statement, `print(1 + 2 + 3)` prints `6` from where the cursor is placed, which is the line after `Hello World`. That is why the output is separated by lines.
+
+a| If the `print()` statement did not move the cursor to the next line, the output will look like:
+
+----
+Hello World6I have 3 cats
+----
+|====
+
+.#*Exercise 2.15: Print Statements*#
+----
+Write a Python program to print the following sentences using 3 print() statements.
+
+Python is fun.
+To become better at Python,
+you should spend at least 1 hour each day practicing.
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex2_15.py*
+[source,python]
+----
+1    print('Python is fun.')
+2    print('To become better at Python,')
+3    print('you should spend at least 1 hour each day practicing.')
+----
+|====
+
+[discrete]
+===== Escape Characters
+
+What if we want to print single quotations with the `print()` statement? Can we write the following?
+
+ print('I said, 'Hello'')
+
+To achieve this task, we can use a special character, called backslash (`\`). Below lists some of the most commonly used escape characters (characters used with a backslash). If you want to learn more, Google is your best friend.
+
+[%header, cols="^.^20%,^.^30%,<.^50%", stripes=none]
+|====
+| Escape Character | Name ^.^| Description
+| `\n` | newline | Moves the cursor to the next line
+| `\t` | tab | Prints the ASCII Horizontal Tab (TAB)
+| `\'` | Single quote | Prints a single quote
+| `\"` | Double quote | Prints a double quote
+|====
+
+.*escape_characters_ex.py*
+[source,python]
+----
+1    print('Hello World\n')
+2    print('\ta')
+3    print('I said, \'Hello\'')
+4    print('I said, \"Hello\"')
+----
+
+.*Output*
+----
+Hello World
+
+        a
+I said, 'Hello'
+I said, "Hello"
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| The output from Line 1 results in a blank line. Why is this so? If we include the escape character `'\n'`, the escape character will move the cursor to the next line once. Then, the `print()` statement will move the cursor to the next line once more time, causing a blank line.
+|====
+
+[NOTE]
+[small]#Since we use single quotes to represent strings, using double quotes without the backslash character is also fine. For example, `print('I said, "Hello"')` will also print `I said, "Hello"`. +
++
+The reason why there is a `\"` is because, in Python, we can represent strings with double quotes as well (although this is discouraged). If we used double quotation marks, then we would have to write `print("I said, \"Hello\"")`, in order to print `I said, "Hello"`. +
++
+Similarly, we can use single quotes without the backslash character if we represent strings with double quotation marks. For example, `print("I said, 'Hello'")` will print `I said, 'Hello'`.#
+
+.#*Exercise 2.16: Escape Characters*#
+----
+Write a Python program to print the following sentences using 3 print() statements and escape characters.
+
+        The start of a paragraph should be indented.
+Can I write one sentence in
+two lines using one print statement?
+We can print quotation marks, like ' and ", using print statements.
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex2_16.py*
+[source,python]
+----
+1    print('\tThe start of a paragraph should be indented.')
+2    print('Can I write one sentence in\ntwo lines using one print statement?')
+3    print('We can print quotation marks, like \' and \", using print statements.')
+----
+|====
+
+==== print(_x1_, _x2_, ...)
+
+This is the statement that was used often in previous exercises. The values to be printed are separated by commas. Then Python will print all of the values separated by a single whitespace.
+
+.*comma_print_ex.py*
+[source,python]
+----
+1    print(1, 2, 3)
+2    print('I have', 3, 'cats')
+----
+
+.*Output*
+----
+1 2 3
+I have 3 cats
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Line 1 is trying to print three integer values. `1`, `2`, and `3` are converted into strings and printed, separated by a single whitespace. It is equivalent to saying `print(str(1) + " " + str(2) + " " + str(3))`.
+| Line 2 shows that you can print strings together with numbers by listing them with commas. This is a clearer and more concise alternative to writing `print('I have ' + str(3) + ' cats')`.
+|====
+
+.#*Exercise 2.17: Printing Multiple Values*#
+----
+Write a Python program to print the following sentences using 2 print() statements.
+
+I want to have 2 puppies
+1 plus 1 is 2
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex2_17.py*
+[source,python]
+----
+1    print('I want to have', 2, 'puppies')
+2    print(1, 'plus', 1, 'is', 2)
+----
+|====
+
+==== print(_x_, end=_s_)
+
+`print(x, end=s)` will concatenate `s` to the end of `x` and print the resulting value without moving the cursor to the next line.
+
+It was mentioned before that the `print()` statement automatically moves the cursor to the next line. This was a very simplified way of explaining the `print()` statement. In reality, when we use the `print()` statement, `s` is set to `'\n'` by default. Therefore, `print(x)` is equivalent to `print(x, end='\n')`. In any case where the value for `end` is not specified, it is set to `'\n'` by default.
+
+.*end_print_ex.py*
+[source,python]
+----
+1    print('Hello World', end='\n')
+2    print('1 2 3', end='\n\n')
+3    print('Hello', end='World ')
+4    print('The line does not change.', end='Weird!\n')
+----
+
+.*Output*
+----
+Hello World
+1 2 3
+
+HelloWorld The line does not change.Weird!
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Line 1 is equivalent to saying `print('Hello World')`.
+| Line 2 concatenates two newline characters to the end of `'1 2 3'`, so a blank line is created.
+| Line 3 concatenates `'World '` to the end of `'Hello'` (which results in `'HelloWorld '`) and is printed without moving the cursor to the next line. Therefore, the `print()` statement in Line 4 starts from the end of `'HelloWorld '`.
+|====
+
+.#*Exercise 2.18: End Strings*#
+----
+Write a Python program to print the following sentences using 3 print() statements.
+
+This print statement has no line change.This is the next print statement ending in **
+The last print statement ending in HelloWorld
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex2_18.py*
+[source,python]
+----
+1    print('This print statement has no line change.', end='')
+2    print('This is the next print statement ending in ', end='**\n')
+3    print('The last print statement ending in ', end='HelloWorld\n')
+----
+|====
+
+==== print(_x_..., sep=_s_)
+
+`print(x\..., sep=s)` will separate the given values `x\...` by the given string `s`. For example, if we say `print(x1, x2, x3, sep=s)`, it equivalent to saying `print(x1 + s + x2 + s + x3)`, assuming `x1`, `x2`, and `x3` are all string values.
+
+Remember that if we list multiple values with commas, the values are printed separated by a single whitespace. This is because `sep` value is set to `' '` by default.
+
+.*sep_print_ex.py*
+[source,python]
+----
+1    print('Hello', 'World', sep=' ')
+2    print(1, 2, 3, sep='+')
+3    print('apples', 'banana', 'oranges', sep=', ')
+4    print('Nothing happens if there is only one value', sep='What would happen?')
+----
+
+.*Output*
+----
+Hello World
+1+2+3
+apples, banana, oranges
+Nothing happens if there is only one value
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Line 1 is equivalent to saying `print('Hello', 'World')`.
+| Line 2 is equivalent to saying `print(str(1) + '+' + str(2) + '+' + str(3))`.
+| Nothing happens in Line 4 because there is only one value. This `print()` statement joins multiple values together separated by the `sep` value. If there is only one value, there is nothing to join together.
+|====
+
+.#*Exercise 2.19: Separating Characters*#
+----
+Write a Python program to print the following sentences using 2 print() statements.
+
+We can separate values by commas like A, B, C.
+Parentheses->Exponent->Multiplication->Division->Addition->Subtraction.
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex2_19.py*
+[source,python]
+----
+1    print('We can separate values by commas like A', 'B', 'C.', sep=',')
+2    print('Parentheses', 'Exponent', 'Multiplication', 'Division', 'Addition', 'Subtraction.', sep='->')
+----
+|====
+
+<<<
+
+=== Input
+
+So far, to store a value inside a variable, we specified it directly in the program. For example, if we wanted to store the value `10` in the variable `a`, we would have to write a line in our program as such: `a = 10`. However, say we have a program to store personal data. We would have hundreds or thousands of users using our program. To store each user's information, such as their name, age, and gender, we cannot be updating our program directly each time. We need the users to input their own information and a way for our program to interpret and store the users' inputted information.
+
+To do this, we use the built-in `input()` function.
+
+==== input(_prompt_)
+
+To see what `input(prompt)` function does, let's take a look at an example.
+
+.*input_ex1.py*
+[source,python]
+----
+1    name = input('What is your name: ')
+2    print('User\'s name is ' + name)
+----
+
+.*CLI*
+----
+What is your name: John Doe
+User's name is John Doe
+----
+
+[NOTE]
+[small]#CLI (command line interface) is a platform where you can interact with your program.#
+
+[width="100%", stripes=none, grid=none]
+|====
+| _Explanation_
+| `input('What is your name: ')` in Line 1 prints the prompt message `'What is your name: '` on screen (without a newline character).
+| The user types his/her input on the CLI. In this example, the user typed `John Doe` as the input and pressed kbd:[enter] (which is recognized as a newline character).
+| When Python sees the newline character, Python takes all the characters from after the prompt message and before (and not including) the newline character and stores it in the variable `name` as a string type. Therefore, after the user presses kbd:[enter], `'John Doe'` is stored in the variable `name`.
+| Line 2 prints the user's name along with some explanatory text.
+|====
+
+`input()` treats all user inputs as a string. In order to treat them as other data types, such as integers or floats, we have to type cast them (covered under <<B. Explicit Type Conversion>>).
+
+.*input_ex2.py*
+[source,python]
+----
+ 1    # Input section
+ 2    name = input('Write your name: ')
+ 3    age = int(input('Write your age: '))
+ 4    letter = input('Write a letter: ')
+ 5    pi_approx = float(input('Write the pi approximate: '))
+ 6
+ 7    # Output section
+ 8    print('Your name is', name)
+ 9    print('You are', age, 'years old')
+10    print('Your letter is', letter)
+11    print('Pi is approximately', pi_approx)
+----
+
+.*CLI*
+----
+Write your name: John Doe
+Write your age: 24
+Write a letter: A
+Write the pi approximate: 3.14159
+Your name is John Doe
+You are 24 years old
+Your letter is A
+Pi is approximately 3.14159
+----
+
+[width="100%", stripes=none, grid=none]
+|====
+| *_Additional Explanation_*
+| Lines 3 and 5 are casting the user input into an integer and float, respectively. In the example program above, there is no reason to type cast the user input, but in other situations, you might need to.
+|====
+
+.#*Exercise 2.20: Input*#
+----
+Q1. Suppose there is a new amusement park built in your city. You are asked to make a program that calculates the ticket price. The price of each ticket is $5. Prompt the user how many tickets they need and calculate the price for them.
+
+Example interaction:
+How many tickets do you need: 5
+Total ticket price is $25
+
+Q2. The ticket pricing has changed. Now, the ticket price for children under the age of 7 is $3, and for everyone else, it is $5. Write a program that calculates the ticket price.
+(Hint: use more than one input() statement with meaningful prompt messages)
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex2_20.py*
+[source,python]
+----
+1    # Q1
+2    num_ticket = int(input('How many tickets do you need: '))
+3    print('Total ticket price is $' + str(num_ticket * 5))
+4
+5    # Q2
+6    num_child = int(input('How many children (under the age of 7) are there: '))
+7    num_adult = int(input('How many adults are there: '))
+8    print('Total ticket price is $' + str(num_child * 3 + num_adult * 5))
+----
+|====
+
+<<<
+
+=== Tips
+
+This section covers some tips on how you can become a better programmer.
+
+==== Coding Style
+
+Just like how spoken languages have grammar, programming languages have syntax. And no matter how your code is written, as long as it correctly follows the syntax, the Python interpreter will be able to understand it. However, it might not be the case for humans. If you start working, you will not be the only one looking at your code. Others would have to take a look and make corrections or give feedback on your work. Suppose you saw the following block of code:
+
+[source,python]
+----
+ 1    A= 3
+ 2    B=5
+ 3
+ 4    a= int(input())
+ 5    b =  int(input() )
+ 6
+ 7    c =  a+b
+ 8    d= a  *A  + b*B
+ 9
+10    print(c , d)
+----
+
+Can you tell what this snippet of code is trying to achieve? It can be an example showcasing the use of different arithmetic operators, or it can be a program to calculate something more meaningful, like ticket prices. Also, the code does not look clean overall. The following snippet of code would be more appreciated by your peers or coworkers:
+
+[source,python]
+----
+ 1    # Calculate and display the total number of visitors coming to this zoo
+ 2    # and the total ticket price.
+ 3
+ 4    CHILD_TICKET_PRICE = 3  # in dollars
+ 5    ADULT_TICKET_PRICE = 5  # in dollars
+ 6
+ 7    num_child = int(input('Number of children: '))
+ 8    num_adult = int(input('Number of adults: '))
+ 9
+10    total_visitor = num_child + num_adult
+11    total_price = num_child * CHILD_TICKET_PRICE + num_adult * ADULT_TICKET_PRICE
+12
+13    print('Total number of visitors:', total_visitor)
+14    print('Total ticket price:', total_price)
+----
+
+How well a code can be understood by other people is called _readability_, and Python has a set of styling guidelines to make your code more _readable_ to others. Let's take a look at some of them.
+
+===== A. Variable Naming Conventions
+
+[small]#*pass:q[* Included from]* *<<C. Naming Conventions of Variables>>*#
+
+'''
+
+include::python_book.adoc[tag=naming-convention-a]
+include::python_book.adoc[tag=naming-convention-b]
+
+'''
+
+Also, there is a difference when naming constants and variables. As covered before, constants are values that do not change, like pi and speed of light, and variables are values that can change. As shown above, variable names should be in lowercase.
+
+Constants should follow the same rules as other variables, but they should all be capitalized.
+
+[source,python]
+----
+4    CHILD_TICKET_PRICE = 3  # in dollars
+5    ADULT_TICKET_PRICE = 5  # in dollars
+----
+
+We know that ticket prices for children and adults will not change, so we set them as constants when we write our code. When we do so, we capitalize their names to let others know that the corresponding variable is storing a constant value.
+
+===== B. Spacing
+
+Remember the first code example? It looked like the following:
+
+[source,python]
+----
+ 1    A = 3
+ 2    B = 5
+ 3
+ 4    a = int(input())
+ 5    b =  int(input() )
+ 6
+ 7    c = a+b
+ 8    d = a  *A  + b*B
+ 9
+10    print(c , d)
+----
+
+See lines 5, 7, 8, and 10? What do they all have in common? They have spacing issues.
+
+Generally, for expressions, we separate operands and operators (except for unary operators) with one whitespace.
+
+----
+# Binary operators
+operand_a operator operand_b
+
+# Ternary operators
+operand_a operator operand_b operator operand_c
+----
+
+Below are some examples.
+
+[source,python]
+----
+# Unary operators (no space)
++x
+-x
+~x
+
+# Binary operators
+# Bad
+x+y
+x- y
+x  *  y
+a=6
+
+# Good
+x + y
+x - y
+x * y
+a = 6
+
+# Ternary operator
+# Bad
+x  if boolean_condition  else  y
+
+# Good
+x if boolean_condition else y
+----
+
+When we are listing things with a comma, we place the comma right after the previous element with no space and separate the next element with one space.
+
+----
+A, B, C, D, ...
+----
+
+Below are some examples.
+
+[source,python]
+----
+# Bad
+print(x,y,z)
+print(x , y , z)
+
+# Good
+print(x, y, z)
+----
+
+===== C. Comments
+
+It was briefly mentioned before that whatever comes after `#` is called a _comment_. A comment is not recognized by the Python interpreter and will have no effect whatsoever on your code.
+
+Then why should we write comments? After finishing a long piece of code, if you leave it and come back a few months later, chances are, you will not be able to understand what you wrote. To help you and others understand what your code is talking about, it is necessary to write meaningful comments.
+
+The two types of comments that we are going to cover are _block comments_ and _inline comments_.
+
+[discrete]
+====== Block Comments
+
+What is a block? Let's look at the previous example again and find out.
+
+[source,python]
+----
+ 1    # Calculate and display the total number of visitors coming to this zoo
+ 2    # and the total ticket price.
+ 3
+ 4    CHILD_TICKET_PRICE = 3  # in dollars
+ 5    ADULT_TICKET_PRICE = 5  # in dollars
+ 6
+ 7    num_child = int(input('Number of children: '))
+ 8    num_adult = int(input('Number of adults: '))
+ 9
+10    total_visitor = num_child + num_adult
+11    total_price = num_child * CHILD_TICKET_PRICE + num_adult * ADULT_TICKET_PRICE
+12
+13    print('Total number of visitors:', total_visitor)
+14    print('Total ticket price:', total_price)
+----
+
+You can see that all the code in Lines 1-14 are performing one task: to calculate the total number of visitors and ticket price. Likewise, a _block_ in Python can be loosely defined as a set of code that serves the same purpose or task.
+
+Another way to think of a _block_ is to check if a chunk of code has the same indentation. Later, you will learn _if-statements_ and _while-loops_ that will have different indentations. Those would also be containing distinct _blocks_ of code.
+
+Then what is a _block comment_? It is a comment explaining what the subsequent _code block_ is trying to do.
+
+[source,python]
+----
+1    # Calculate and display the total number of visitors coming to this zoo
+2    # and the total ticket price.
+----
+
+This block comment explains what Lines 4-14 are trying to achieve. As such, meaningful block comments can help others understand what your program is doing without dissecting each line of code.
+
+Block comments should be placed in the same indentation level as the following block. Also, each block comment should generally start with a `#` followed by a single whitespace. For example:
+
+[source,python]
+----
+# Bad
+#   Calculate and display the total number of visitors coming to this zoo
+#   and the total ticket price.
+
+    # Calculate and display the total number of visitors coming to this zoo
+    # and the total ticket price.
+
+# Good
+# Calculate and display the total number of visitors coming to this zoo
+# and the total ticket price.
+----
+
+[discrete]
+====== Inline Comment
+
+Like the name suggests, an _inline comment_ is one that is written in the same line as the statement you are trying to explain.
+
+[source,python]
+----
+4    CHILD_TICKET_PRICE = 3  # in dollars
+5    ADULT_TICKET_PRICE = 5  # in dollars
+----
+
+This is an example of inline comments. `# in dollars` explains that the written price is measured in dollars.
+
+As shown in the example, inline comments should be written at least two spaces from the statement you are trying to explain. Also, like block comments, they should start with a `#` followed by a single whitespace.
+
+However, try to avoid overusing inline comments, especially if the line of code is very obvious.
+
+[source,python]
+----
+# Bad
+x = x + 1  # increment x by 1
+name = input()  # Get user's name
+print(name)  # print the user's name
+----
+
+<<<
+
+=== Practice Problems
+
+#*A. Variable Naming Convention*#
+
+*A-1* Are the following variable names acceptable? If not, explain why.
+
+[%header, cols="^.^25%,^.^15%,60%", stripes=none]
+|====
+| Variable | Yes/No | Explain (if applicable)
+| first name | |
+| cpu_price | |
+| _distance | |
+| child-age | |
+| PI | |
+| [small]#name_of_my_new_cpu# | |
+|====
+
+*Answer*
+
+[%header, cols="^.^25%,^.^15%,60%", stripes=none]
+|====
+| Variable | Yes/No | Explain (if applicable)
+| first name | No
+| [small]#Variable names cannot contain spaces. Multiple words should be separated with an underscore. +
+*Better:* first_name, name#
+
+| cpu_price | Yes |
+| _distance | No
+| [small]#It is a valid name, but variable names generally should not start with an underscore. +
+*Better:* distance, dist#
+
+| child-age | No
+| [small]#Variable names cannot contain hyphens. Multiple words should be separated with an underscore. +
+*Better:* child_age, age#
+
+| PI | Yes | [small]#Constant names should be all capitalized.#
+
+| [small]#name_of_my_new_cpu# | No
+| [small]#Variable name is too lengthy +
+*Better:* cpu_name, name#
+|====
+
+#*B. Evaluate the output*#
+
+*B-1*
+
+.*B_1.py*
+[source,python]
+----
+f = 100.32;
+a = int(f)
+s = str(f + a)
+
+print('f =', f, 'a =', a, 's =', s)
+----
+
+*Answer*
+
+.*Output*
+----
+f = 100.32 a = 100 s = 200.32
+----
+
+*B-2*
+
+.*B_2.py*
+[source,python]
+----
+a = 10
+mystery = str(a) * 2
+print(int(mystery, 2))
+----
+
+*Answer*
+
+.*Output*
+----
+10
+----
+
+*B-3* What is the following the program doing? What would the output be if the input was 12? 28? 32? 45?
+
+.*B_3.py*
+[source,python]
+----
+mystery_num = int(input('Mystery number: '))
+mystery_condition = mystery_num % 3 == 0
+
+print('Yes :)' if mystery_condition else 'No :(')
+----
+
+*Answer*
+
+The program is checking if the inputted number is divisible by 3 (prints `Yes :)`) or not (prints `No :(`).
+
+.*Output*
+----
+Mystery number: 12
+Yes :)
+Mystery number: 28
+No :(
+Mystery number: 32
+No :(
+Mystery number: 45
+Yes :)
+----
+
+*B-4*
+
+.*B_4.py*
+[source,python]
+----
+x = 1
+
+print(True and (3 > 4))
+print(not x > 0)
+print(x != 1 or x < 1)
+print(x >= 0 or not x == 1)
+----
+
+*Answer*
+
+.*Output*
+----
+False
+False
+False
+True
+----
+
+*B-5*
+
+.*B_5.py*
+[source,python]
+----
+print(4 << 2)
+print(10 & 5)
+print(23 ^ 13)
+print(15 | 4)
+----
+
+*Answer*
+
+.*Output*
+----
+16
+0
+26
+15
+----
+
+*B-6*
+
+.*B_6.py*
+[source,python]
+----
+a, b, c, d, e = 3, 2, 1, 4, 5
+
+num1 = a * b + d / c % e
+num2 = -a * (b+b) - c * d // (4 - 2) * e
+num3 = (a - b) * 10 % 3 + c * d - (4 - 2)
+
+print('num1 =', num1)
+print('num2 =', num2)
+print('num3 =', num3)
+----
+
+*Answer*
+
+.*Output*
+----
+num1 = 10.0
+num2 = -22
+num3 = 3
+----
+
+#*C. Find any errors in following Python programs*#
+
+*C-1*
+
+.*C_1.py*
+[source,python]
+----
+var.name = 1
+print(var.name + 9)
+----
+
+*Answer*
+
+[source,python]
+----
+var.name = 1         # -> var_name = 1
+print(var.name + 9)  # -> print(var_name + 9)
+----
+
+*C-2*
+
+.*C_2.py*
+[source,python]
+----
+int x = 1
+int y = 2
+
+print(x + y)
+----
+
+*Answer*
+
+[source,python]
+----
+int x = 1  # -> x = 1
+int y = 2  # -> x = 2
+
+print(x + y)
+----
+
+*C-3*
+
+.*C_3.py*
+[source,python]
+----
+num1 = input('Type first number: ')
+num2 = input('Type second number: ')
+
+print('The average of the two numbers are', (num1 + num2) / 2)
+----
+
+*Answer*
+
+[source,python]
+----
+num1 = input('Type first number: ')   # -> num1 = int(input(...))
+num2 = input('Type second number: ')  # -> num2 = int(input(...))
+
+print('The average of the two numbers are', (num1 + num2) / 2)
+# or print('...', (int(num1) + int(num2)) / 2)
+----
+
+#*D. Write your own program*#
+
+*D-1*
+
+You are making a program to register users in a game company. Get the user's profile and print their information in the following manner:
+
+.*Example Output*
+----
+Name: John Doe
+Age: 15
+E-mail: johndoe@zmail.com
+Phone: 4082839123
+John Doe, 15 years old, johndoe@zmail.com, 4082839123
+----
+
+*Answer*
+
+.*d_1_sample.py*
+[source,python]
+----
+name = input('Name: ')
+age = input('Age: ')
+email = input('E-mail: ')
+phone = input('Phone: ')
+print(name, age + ' years old', email, phone, sep=', ')
+----
+
+*D-2*
+
+Before the actual construction, a building company needs to find out the volume of the intended building. The building designer Sam who has to build thousands of buildings does not want to calculate volume of each building by hand. So, he plans to make a program that calculates the volume if a user inputs the width, length, height. Write this program.
+
+.*Example Output*
+----
+Width: 200
+Length: 200
+Height: 400
+Volume: 16000000
+----
+
+*Answer*
+
+.*d_2_sample.py*
+[source,python]
+----
+width = int(input('Width: '))
+length = int(input('Length: '))
+height = int(input('Height: '))
+
+vol = width * length * height
+print('Volume:', vol)
+----
+
+*D-3*
+
+CSM Pizza wants to provide a differentiated service to customers. So they have decided to make pizzas in sizes that the customers want, instead of the standard small, regular, and large size. Make a program that gets the preferred radius from customers and tell them the area and the price of the pizza ($1.5 per 1 cm). Use 3.14 for the value of pi.
+
+.*Example Output*
+----
+Welcome to CSM Pizza!
+Preferred radius of your pizza (in cm): 10
+The area of your pizza is 314.0 cm^2
+It is 15.0 dollars.
+----
+
+*Answer*
+
+.*d_3_sample.py*
+[source,python]
+----
+PI = 3.14
+PRICE_PER_CM = 1.5
+
+print('Welcome to CSM Pizza!')
+radius = int(input('Preferred radius of your pizza (in cm): '))
+
+area = PI * radius * radius  # same as PI * radius ** 2
+price = PRICE_PER_CM * radius
+
+print('The area of your pizza is', area, 'cm^2')
+print('It is', price, 'dollars')
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

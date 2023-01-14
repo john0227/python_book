@@ -1,0 +1,671 @@
+= Python Book
+:toc:
+:toclevels: 3
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:sectnumlevels: 3
+:imagesDir: images
+:stylesDir: stylesheets
+:stylesheet: asciidoctor.css
+:xrefstyle: full
+:experimental:
+:table-stripes: none
+:table-grid: all
+
+<<<
+
+== Chapter 1
+
+== Chapter 2
+
+== Chapter 3
+
+== Chapter 4
+
+== Chapter 5
+
+== Chapter 6 - Functions
+
+To start, what is a function? The first thing you might think of is a mathematical function, and that is correct! A function, whether in mathematics or computer programming, is a mechanism that takes in an input and transforms it somehow to an output.
+
+The following is an example of a mathematical function.
+
+image::ch3_function_ex1.jpg[align="center",width="60%"]
+
+The above function, `f(x)`, will add 3 to the input. Here, 2 is the _input_ of `f(x)`, and 5 is the _output_ of `f(x)`.
+
+We can see that the purpose of `f(x)` is to increment its inputs by 3. Likewise, in computer programming, each function serves a specific purpose, or a _function_.
+
+=== Function Structure
+
+First, functions in Python have the following format.
+
+.*Structure of a Python Function*
+[source,python]
+----
+1    def <function_name>(<parameters>*):
+2        <code_block>
+3        return <output>*
+----
+
+There are 3 important things to note when defining a Python function. These are required and you must follow these at all times.
+
+. Every Python function should start with the Python keyword `def`
+. The name of the function should be followed with parentheses (`()`) and a colon (`:`)
+. The code block inside the function must be indented accordingly (4 spaces in most cases)
+
+The following are some standard coding conventions for Python:
+
+. `<function_name>`, like variable names, should all be lowercase with separate words linked together with a single underscore (`_`)
+. If the function takes in multiple inputs, or _parameters_, they should be separated with one comma and whitespace (e.g. `f(param1, param2, ...)`)
+. Keyword `def` and `<function_name>` should be separated with one whitespace
+. There should be no whitespace in between `<function_name>`, `(<parameters>*)`, and the colon
+
+*Additional Explanation:*
+
+. In computer programming, inputs are called *_parameters_* or *_arguments_*, and outputs are called *_return values_*
+. Anything inside the angle brackets (`<>`) are to be filled by you
+. The `*` symbol next to `<parameters>` indicates that you may have 0 or more parameters
+. Similarly, the `*` symbol next to `<output>` indicates that the return statement is optional. In other words, you do not need to include the line `return <output>` (line 3) in your Python function (i.e. it is optional)
+. `return` is a keyword reserved by Python, and it is used to _return_ the `<output>`.
+.. The Python interpreter will exit the function when it encounters the `return` keyword, so if `return` is placed before the end of the function, the function will be exited prematurely.
+.. If no `<output>` is specified after `return` or there is no `return` keyword inside the function, the function will not return a value. One such example is the `print()` function.
+
+Now that we have learned the structure of Python functions, let's look at some examples.
+
+.*Example Functions*
+[source,python]
+----
+ 1    def is_even(num):
+ 2        return num % 2 == 0
+ 3
+ 4    def is_same_str(str1, str2):
+ 5        return str1 == str2
+ 6
+ 7    def area_square(length):
+ 8        area = length * length
+ 9        return area
+10
+11    def message(name):
+12        print('Hi! My name is', str(name))
+----
+
+Now we have four functions, but how do we use them?
+
+=== Function Calls
+
+To use, or _call_, functions, we use the following form:
+
+[source,python]
+----
+<func_name>(<param>*)
+----
+
+We use the function name like a variable and follow it with parentheses, containing any necessary parameters. This is called a _function call_. Up until now, we have actually seen a lot of function calls. For example, `print()` is a function that takes any value as a parameter.
+
+[source,python]
+----
+print('Hello World')
+----
+
+This would be a call to the `print()` function, where `print` corresponds to `<func_name>`, and `'Hello World'` corresponds to `<param>*`. In such case, we say that the string `'Hello World'` was passed as a(n) parameter/argument_ to the `print()` function.
+
+Let's try calling the example functions defined earlier.
+
+.*Example Functions (Cont.)*
+[source,python]
+----
+ 1    def is_even(num):
+ 2        return num % 2 == 0
+ 3
+ 4    def is_same_str(str1, str2):
+ 5        return str1 == str2
+ 6
+ 7    def area_square(length):
+ 8        area = length * length
+ 9        return area
+10
+11    def message(name):
+12        print('Hi! My name is', str(name))
+13
+14    even4 = is_even(4)
+15    even5 = is_even(5)
+16    print('4 is even:', even4)
+17    print('5 is even:', even5)
+18
+19    check_str = is_same_str('hello', 'Hello')
+20    print('\'hello\' == \'Hello\':', check_str)
+21
+22    length = 10
+23    print('Area of square:', area_square(length))
+24
+25    message('Python Master')
+----
+
+.*Output*
+----
+4 is even: True
+5 is even: False
+'hello' == 'Hello': False
+Area of square: 100
+Hi! My name is Python Master
+----
+
+*Additional Explanation*
+
+.*Purpose of each functions*
+[horizontal]
+`is_even(num)`::
+Returns `True` if `num` is an even number and `False` otherwise
+
+`is_same_str(str1, str2)`::
+Returns `True` if `str1` and `str2` are the same strings and `False` otherwise
+
+`area_square(length)`::
+Calculates the area of a square with a side length of `length`
+
+`message(name)`::
+Prints a message with provided `name`
+
+Lines 14, 15, and 19 show that return values of functions can be assigned to a variable.
+
+Lines 14 and 15 show that raw values can be passed as function arguments, while line 23 show that variables can also be passed as function arguments.
+
+Unlike `is_even(num)`, `is_same_str(str1, str2)`, and `area_square(length)` functions, `message(name)` does not need a `print()` statement, firstly, because it is not returning any value, and secondly, because it already has a `print()` statement inside its function.
+
+.#*Exercise 6.1: Make your own functions*#
+----
+Q1. Make a function named foo. It will take one number as a parameter and return a value twice the input. For example,
+
+def foo(num):
+    ...
+
+Q2. Function name: compare
+    Parameter    : Two numbers
+    Return value : The greater number
+                   If equal, either is fine
+
+Q3. You are working at a zoo. The ticket price is $3 for children and $5 for adults. Make a Python function to calculate the total ticket price given the number of children and adults visiting. Names for the function, parameters, and any other necessary variables are up to you.
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex6_1.py*
+[source,python]
+----
+ 1    # Q1
+ 2    def foo(num):
+ 3        return num * 2
+ 4
+ 5    # Q2
+ 6    def compare(num1, num2):
+ 7        return num1 if num1 >= num2 else num2
+ 8
+ 9    # Q3
+10    def calc_total_price(num_child, num_adult):
+11        total_price = num_child * 3 + num_adult * 5
+12        return total_price
+----
+|====
+
+.#*Exercise 6.2: Function Calls*#
+----
+Call your functions with arbitrary values as parameters. Use the return value to print out meaningful information. The message to print out is entirely up to you but try to briefly explain the relationship between the function arguments and the return value.
+
+For example, if you were describing the built-in sum() function, you can do print('The sum of the numbers in the list is', sum(lst)).
+----
+
+[%header, stripes=none]
+|====
+| #Answer#
+a|
+.*ex6_2.py*
+[source,python]
+----
+13    # Continued from above answer
+14    # Q1
+15    num = 10
+16    print('10 * 2 =', foo(num))
+17
+18    # Q2
+19    num1, num2 = 3, 7
+20    print('Greater number between 3 and 7 is', compare(num1, num2))
+21
+22    # Q3
+23    print('Total price for 3 children and 5 adults is', calc_total_price(3, 5))
+----
+|====
+
+=== Placement of Functions
+
+In previous examples, functions were placed in the beginning of the code. This is a normal thing to do. Programmers will usually cluster necessary functions in the beginning of the program and access it whenever and wherever necessary.
+
+Remember that if we want to use a variable, you have to create one first and assign a value to it. It is the same with functions. To use a function, we must define it first. Once defined, it can be accessed from anywhere in the code. This also means that a function must be placed before the line where it is used because Python looks at your program from top to bottom.
+
+.*Invalid Function Placement*
+[source,python]
+----
+1    foo()
+2
+3    def foo():
+4        ...
+----
+
+.*Sample Output*
+----
+...
+NameError: name 'foo' is not defined
+----
+
+Running any Python program in such structure will cause the interpreter to raise an exception.
+
+.*Valid Function Placement*
+[source,python]
+----
+...
+  i    def bar():
+i+1        print('Hello World')
+...
+  j    bar()
+...
+  k    bar()
+----
+
+This placement is valid for any line numbers `i`, `j`, `k`, such that `i` (`i + 1` to be exact) is less than `j` and `k`. The interpreter will start reading your program from line 1 downwards, and when it reaches line `i`, it will create a function with the name `bar`. Only then can you call the `bar` function.
+
+For the sake of comparison, you can define the function `bar` on line 1 and access it all the way from line 500.
+
+[discrete]
+==== Extra Stuff
+
+Remember the exception Python raises if the function is not defined before use?
+
+----
+NameError: name 'foo' is not defined
+----
+
+Let's compare this to the error message shown (on Python shell) when variables are not defined before use.
+
+----
+>>> a + 3
+...
+NameError: name 'a' is not defined
+----
+
+We can see that the error message is pretty much identical. Why is that?
+
+It is because function names are also variables. They are variables that are holding a `_function_` object. We will cover objects in more detail later, but let's look at the following interaction in Python shell:
+
+----
+>>> a = 3
+>>> type(a)
+<class 'int'>
+>>> b = 'hello'
+>>> type(b)
+<class 'str'>
+>>> def c():
+...     print('')
+...
+>>> type(c)
+<class 'function'>
+----
+
+[NOTE]
+The ellipsis (`...`) indicates that you haven't finished your code yet. After finishing your function on shell, you can press kbd:[enter] to continue.
+
+We can see that `c` has a type, just like any other variables. A value of type `function` is assigned to the variable `c`.
+
+Why is this significant? Since function names are no different to regular variables, maybe we can use function names as we use variables. For example, maybe we can pass a function as an argument for another function? Try it out!
+
+=== Why Use Functions?
+
+Having the ability to define my own function is nice and all, but why do we need functions? There are a few reasons.
+
+. It reduces duplication of code.
++
+For example, let's say you need to calculate the total ticket price, like in the previous exercise. If you did not use functions, you would need to calculate it each time:
++
+[source, python]
+----
+1    num_child, num_adult = 3, 5
+2    total = 3 * num_child + 5 * num_adult
+3
+4    num_child, num_adult = 7, 4
+5    total = 3 * num_child + 5 * num_adult
+...
+----
++
+But if you defined a `calc_total()` function, you can do this:
++
+[source, python]
+----
+1    total = calc_total(3, 5)
+2
+3    total = calc_total(7, 4)
+...
+----
++
+. It increases readability and organizes your code into logical steps.
+. If you need to make a change, you only need to change the function instead of your whole program.
++
+Let's refer back to the ticket example. Let's say you wrote the following code:
++
+[source, python]
+----
+1    num_child, num_adult = 3, 5
+2    total = 3 * num_child + 5 * num_adult
+3
+4    num_child, num_adult = 7, 4
+5    total = 3 * num_child + 5 * num_adult
+...
+----
++
+But the pricing changed, and now it is $4 for children and $6 for adults. Then, you would need to go change `3` to `4` and `5` to `6` in lines 2, 5, and so on.
++
+But if you have defined a function, you only need to change the values in the function.
++
+. You can use functions in other programs as well, like how we use the `print()` function in our program even though we did not define it.
+
+=== Functions and Mutability
+
+If you recall, some data types, such as lists or dictionaries, are mutable, which means changes made to those values would directly change the object instead of creating a new one. Then what would happen if mutable values that are passed as parameters are changed inside the function?
+
+Let's look at the following examples:
+
+.*Immutable Value*
+[source,python]
+----
+1    def foo(s):
+2        s += '123'
+3
+4    a = 'Hi'
+5    print('Before:', a)
+6    foo(a)
+7    print('After:', a)
+----
+
+.*Output*
+----
+Before: Hi
+After: Hi
+----
+
+On line 6, the string `a` is passed as the parameter for the function `foo`, and inside the function, the string value is changed, from `'Hi'` to `'Hi123'`. However, after the function is exited, we can see that the value of `a` is not changed. This is because when `'123'` was added to `s` on line 6, a new string was created and stored in `s`. Ultimately, because `a` and `s` were pointing to different objects, the value of `a` did not change.
+
+How about for mutable values?
+
+.*Mutable Value*
+[source,python]
+----
+1    def foo(lst):
+2        lst += [10]
+3
+4    a = [1, 2, 3]
+5    print('Before:', a)
+6    foo(a)
+7    print('After:', a)
+----
+
+.*Output*
+----
+Before: [1, 2, 3]
+After: [1, 2, 3, 10]
+----
+
+Looking at the output, we can see that the change made to the list inside the function affected the list `a`. When `a` is passed as the parameter on line 6, it causes both `a` and `lst` to point to the same list, `[1, 2, 3]`. Since lists are mutable, when the element `10` was added to `lst`, the change was made directly to the object, and since both `a` and `lst` point to the same list, the change was reflected on `a` as well.
+
+The key point to remember is that if mutable values are passed as function parameters and are changed inside the function, the same change will be reflected outside the function as well.
+
+.#*Exercise 6.3: Evaluate the output*#
+[source,python]
+----
+ 1    def change(num, boole, lst, tup, dic):
+ 2        num *= 2
+ 3        boole = not boole
+ 4        lst.sort()
+ 5        tup += (4,)
+ 6        dic[3] = 'c'
+ 7        print('Inside:', num, boole, lst, tup, dic)
+ 8
+ 9    a, b c, d, e = 10, True, [3, 1, 2], (1, 2, 3), {1: 'a', 2: 'b'}
+10    print('Before:', a, b, c, d, e)
+11    change(a, b, c, d, e)
+12    print('After :', a, b, c, d, e)
+----
+
+.#*Answer*#
+----
+Before: 10 True [3, 1, 2] (1, 2, 3) {1: 'a', 2: 'b'}
+Inside: 20 False [1, 2, 3] (1, 2, 3, 4) {1: 'a', 2: 'b', 3: 'c'}
+After : 10 True [1, 2, 3] (1, 2, 3) {1: 'a', 2: 'b', 3: 'c'}
+----
+
+.#*Exercise 6.4: Write your function*#
+----
+Q1. Write a function that receives three parameters: a list and two integers, say, x and y. Return a new list with elements at indices x and y swapped. Assume that the parameters are always correct, and the integers are valid indices. Here is an example interaction:
+
+    lst1, x, y = [1, 2, 3, 4], 0, 3
+    lst2 = foo(lst1, x, y)
+    print(lst1)  # prints [1, 2, 3, 4]
+    print(lst2)  # prints [4, 2, 3, 1]
+
+Q2. Write a function that receives three parameters: a list and two integers, say, x and y. Swap the elements at indices x and y and reflect the changes directly onto the original list. Do not return anything. Assume that the parameters are always correct, and the integers are valid indices. Here is an example interaction:
+
+    lst1, x, y = [1, 2, 3, 4], 0, 3
+    lst2 = bar(lst1, x, y)
+    print(lst1)  # prints [4, 2, 3, 1]
+    print(lst2)  # prints None
+
+Assume for both questions that the elements of the list are immutable.
+----
+
+.#*Answer*#
+[source,python]
+----
+1    # Q1
+2    def swap1(lst, x, y):
+3        new_lst = lst[:]  # or lst.copy()
+4        new_lst[x], new_lst[y] = new_lst[y], new_lst[x]
+5        return new_lst
+6    # Q2
+7    def swap2(lst, x, y):
+8        lst[x], lst[y] = lst[y], lst[x]
+----
+
+<<<
+
+=== Practice Problems
+
+#*A. Evaluate the output*#
+
+*A-1*
+[source,python]
+----
+ 1    def foo(a):
+ 2        b, prev, res = sorted(a.copy()), None, []
+ 3        for el in b:
+ 4            if el != prev:
+ 5                res.append(el)
+ 6                prev = el
+ 7        return res
+ 8
+ 9    lst = [5, 3, 5, 7, 8, 8, 2, 3, 5, 7]
+10    print(foo(lst))
+----
+
+*Answer*
+----
+[2, 3, 5, 7, 8]
+----
+
+*A-2*
+[source,python]
+----
+1    def bar(x, y):
+2        if y == 0:
+3            return 1
+4        return x * bar(x, y - 1)
+5
+6    print(bar(2, 3))
+7    print(bar(3, 3))
+8    print(bar(2, 10))
+----
+
+*Answer*
+----
+8
+27
+1024
+# bar is returning x ** y
+# example of recursion
+----
+
+*A-3*
+[source,python]
+----
+1    def baz(x):
+2        return x + 5
+3
+4    holder = baz
+5    print(holder(10))
+----
+
+*Answer*
+----
+15
+----
+
+#*B. Find any errors in following Python programs*#
+
+*B-1*
+[source,python]
+----
+1    func add[x, y]:
+2        return x + y
+3
+4    print(add[3, 4])
+----
+
+*Answer*
+----
+Line 1: func -> def
+        add[x, y] -> add(x, y)
+Line 4: add[3, 4] -> add(3, 4)
+----
+
+*B-2*
+[source,python]
+----
+1    def abc(x):
+2        return x
+3
+4    def abc(x, y):
+5        return x + y
+6
+7    print(Abc(3))
+----
+
+*Answer*
+----
+Line 7: print(abc(3)): Function names are case-sensitive
+Line 1, 4: If two functions share the same name, the later one takes priority. Since the function at line 4 takes two parameters, line 7 will cause an exception.
+----
+
+#*C. Write your own program*#
+
+*C-1*
+
+----
+Write a function that takes in a single string as a parameter. Assume that the value passed in as parameter is always a string (and not other types). Capitalize the first character of the string without changing the rest and return the string.
+----
+
+*Answer*
+[source,python]
+----
+1    def my_capitalize(s):
+2        return s[0].upper() + s[1:]
+----
+
+*C-2*
+
+----
+Write a function that takes in a single list as a parameter. Assume that the value passed in as parameter is always a list containing only string values. Return True if all strings start with a capital letter, and False otherwise. You may use the function you wrote for C-1.
+----
+
+*Answer*
+[source,python]
+----
+1    def my_capitalize(s):
+2        return s[0].upper() + s[1:]
+3
+4    def is_all_capitalized(lst):
+5        for s in lst:
+6            if s != my_capitalize(s):
+7                return False
+8        return True
+----
+
+*C-3*
+
+----
+Write a function that takes in a single list as a parameter. Assume that the value passed in as parameter is always a list. Return a dictionary with the key being each unique element of the list and the value being the frequency of that element.
+
+    Ex) Input : ['abc', 'abc', 'A', 'cat', 'apple', 'cat', 'cat']
+        Output: {'abc': 2, 'A': 1, 'cat': 3, 'apple': 1}
+----
+
+*Answer*
+[source,python]
+----
+1    def el_freq(lst):
+2        res = {}
+3        for el in lst:
+4            freq = res.setdefault(el, 0)
+5            res[el] = freq + 1
+6        return res
+----
+
+*C-4*
+
+----
+Write a function that takes in three parameters. The first is a tuple of two numbers, second is a number, and the third is a list of tuples of two numbers. The first parameter will represent the center point of a circle on a Cartesian plane, and the second will represent the radius of that circle.
+
+Return True if all the tuples in the list are inside the circle, and False otherwise. A point is considered inside the circle if the distance from it to the center is less than or equal to the radius.
+
+You may write any helper functions if you need to. Also assume that the values passed as parameters are always valid.
+
+    Ex1) Input : (0, 0), 1, [(1, 1), (0, 0), (1, 0), (0.5, 0.5)]
+         Output: False
+    Ex2) Input : (0, 0), 1, [(0, 0), (1, 0), (0.5, 0.5)]
+         Output: True
+----
+
+*Answer*
+[source,python]
+----
+ 1    # p1, p2 are both tuples of two numbers
+ 2    def distance(p1, p2):
+ 3        # Can also use math.sqrt()
+ 4        return ((p2[0] - p1[0]) ** 2 + (p2[1] - p1[1]) ** 2) ** 0.5
+ 5
+ 6    def is_contained(center, r, points):
+ 7        for p in points:
+ 8            if distance(center, p) > r:
+ 9                return False
+10        return True
+----
+
+
+
+
+
+
+
+
+
+
+
+

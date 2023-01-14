@@ -1,0 +1,23 @@
+@startuml
+
+skinparam defaultTextAlignment center
+
+start
+
+if (<size:12>  Do you have  </size>\n<size:12>  homework?  </size>) then (yes)
+    if (<size:12> Is it urgent? </size>) then (yes)
+        :Do your\nhomework;
+    else (no)
+        :Relax for\na bit;
+    endif
+else (no)
+    if (<size:12> Do you like </size>\n<size:12> playing outdoors? </size>) then (yes)
+        :Go play sports;
+    else (no)
+        :Play video games;
+    endif
+endif
+
+stop
+
+@enduml

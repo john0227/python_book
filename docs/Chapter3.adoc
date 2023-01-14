@@ -1,0 +1,2862 @@
+= Python Book
+:toc:
+:toclevels: 3
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:sectnumlevels: 3
+:imagesDir: images
+:stylesDir: stylesheets
+:stylesheet: asciidoctor.css
+:xrefstyle: full
+:experimental:
+:table-stripes: none
+:table-grid: all
+
+<<<
+
+== Chapter 1
+
+== Chapter 2
+
+== Chapter 3 - Lists, Strings, and More
+
+[[lists]]
+=== Lists
+
+==== What is a List?
+
+Suppose there is a school with a class size of 26 students. As a member of the IT department, it is your responsibility to organize and manage student data. So if you want to store all the students' names of each class, how would you do it? Should you make 26 `name` variables and store each student's name, like the following?
+
+image::ch4_list_ex1.jpg[]
+
+The answer is we can use a _list_. A list is a collection, or a sequence, of elements. For the above example, instead of creating 26 separate variables for each student, we can create one _list_ object that can hold 26 different values, whether it be names, ages, or genders.
+
+image::ch4_list_ex2.jpg[]
+
+==== Initialization
+
+A list is a data type supported by Python, like numbers, strings, and booleans. To create lists in Python, we use square brackets (`[]`).
+
+.*List Examples*
+[source,python]
+----
+1    [1, 2, 3, 4]  # list of 4 integers
+2    ['Alice', 'Bill', 'Charlie', 'Zoe']  # list of 4 strings
+3    [1, 'Alice', 2, 'Bill']  # a list can contain values/variables of different types
+----
+
+All three lines are examples of a list in Python. As it shows, each element is separated with a comma (`,`), and the elements of a list can be of different types. We can also assign a list to a variable.
+
+.*List Assignment*
+[source,python]
+----
+1    numbers = [1, 2, 3, 4]
+2    names = ['Alice', 'Bill', 'Charlie', 'Zoe']
+3    empty_list = []
+----
+
+Assigning is the same as you would do for other data types, such as numbers, strings, and booleans. If you look carefully at the variable names, you can see that they are plural (except for line 3). Generally, for names of list variables, you should use the plural form of the kind of data you are storing in that list.
+
+.*List Naming Convention*
+[source,python]
+----
+1    # only storing one 'name'
+2    name = 'Alice'
+3    # storing multiple 'names'
+4    names = ['Alice', 'Bill', 'Charlie', 'Zoe']
+----
+
+Python also allows you to print lists using the `print()` statement.
+
+.*Printing Lists*
+[source,python]
+----
+1    numbers = [1, 2, 3, 4]
+2    names = ['Alice', 'Bill', 'Charlie', 'Zoe']
+3    print(numbers)
+4    print(names)
+----
+
+.*Output*
+----
+[1, 2, 3, 4]
+['Alice', 'Bill', 'Charlie', 'Zoe']
+----
+
+.#*Exercise 3.1: Create your own list*#
+----
+Q1. Create an empty list.
+Q2. Create a list with only even numbers from 1 to 10 (inclusive).
+Q3. Create a list with 5 arbitrary string values.
+Q4. Create a list with 5 random values (of any variable types).
+----
+
+.#*Answer*#
+[source,python]
+----
+1    # Q1
+2    empty_list = []
+3    # Q2
+4    even_nums = [2, 4, 6, 8, 10]
+5    # Q3
+6    lst_strings = ['a', 'b', 'c', 'd', 'e']  # any strings
+7    # Q4
+8    rand_lst = [1, 'abc', True, [2, 3], 10]  # any values
+----
+
+[discrete]
+===== Nested Lists
+
+Since a list can contain elements of any type, can a list contain a list? The answer is yes, and we call those _nested lists_.
+
+.*Nested List Example*
+[source,python]
+----
+1    nested_list = [[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+----
+
+The important thing to note is that `nested_list` is a list with 3 elements (not 9), where each element is another list containing 3 elements.
+
+image::ch4_nested_list_ex1.jpg[width="70%",align="center"]
+
+We also call lists with similar structures as `nested_list` _2D lists_ because they can be used to describe a 2 dimensional board. For example, we can use a 2D list to describe a tic-tac-toe board.
+
+[cols=2,stripes="none",grid="none",border="none"]
+|====
+a|
+.*2D List Example*
+[source,python]
+----
+1    board = [['O', 'X', 'O'],
+2             ['O', 'X', 'X'],
+3             ['X', 'O', 'O']]
+----
+.^a|
+image::ch4_nested_list_ex2.jpg[width="60%",align="center"]
+|====
+
+Similarly, we can have 3D, 4D, and other higher dimensional lists, but as of now, you only need to know 1D and 2D lists.
+
+==== Accessing List Elements
+
+Now we know how to create lists, but how do we access the information inside the list? Just like how we created the list, we can use the square bracket operator (`[]`) to access the list elements. We also call this the _index operator_. But first, we have to become comfortable with how list _indices_ work in Python (and other languages as well).
+
+Let's look at the example list we covered before:
+
+image::ch4_list_ex2.jpg[]
+
+In the non-programming world, if we were to give indices to the elements in `name_list`, we would do it as follows:
+
+image::ch4_list_index_ex1.jpg[]
+
+`'Alice'` would be at index `1`, `'Bill'` would be at index `2`, and so on.
+
+However, Python (and most other languages) uses a zero-based indexing system, which means the start index is 0, like the following:
+
+image::ch4_list_index_ex2.jpg[]
+
+Notice that for 26 elements, the index starts from `0` and ends at `25`. As such, for any list with `n` elements, the index will go from `0` to `n - 1`.
+
+[NOTE]
+[small]#`n` is the _length_ of the list#
+
+So if we want to access the elements in `name_list`, we can do the following:
+
+[source,python]
+----
+# Suppose name_list is already initialized and filled with values
+name_list[0]   # -> 'Alice'
+name_list[1]   # -> 'Bill'
+name_list[25]  # -> 'Zoe'
+----
+
+===== Out of Range Indices
+
+Now we know that the index system of a list with `n` elements will go from `0` to `n - 1`. What would happen if we tried to access an index that is less than `0` or greater than `n - 1`? Let's try it out in Python shell.
+
+.*Out of Range Index (Python Shell)*
+----
+>>> numbers = [1, 2, 3, 4, 5]  # index: 0 ~ 4
+>>> numbers[-1]
+5
+>>> numbers[-5]
+1
+>>> numbers[-6]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+>>> numbers[5]
+Traceback (most recent call last):
+  File "<stdin>", line 1, in <module>
+IndexError: list index out of range
+----
+
+The description and name of the exception do not matter, but the results seem strange, doesn't it? Why do some negative numbers work while others cause errors? If negative numbers work, why don't numbers greater than `4` work?
+
+Python is unique in that it allows some range of negative index numbers to allow accessing of elements in reverse order. In fact, for a list with `n` elements, the index does not start from `0`, but from `-n` to `n - 1`. Therefore, the list `numbers` has the following indexing system:
+
+image::ch4_list_index_ex3.jpg[]
+
+You can also think of negative indices as the following:
+
+[source,python]
+----
+1    # a has 5 elements
+2    a = [1, 2, 3, 4, 5]
+3    n = 5  # length of a
+4
+5    # Negative index can be offset by the list's length
+6    a[-5]  # equivalent to a[-5 + n] = a[0]
+7    a[-1]  # equivalent to a[-1 + n] = a[4]
+----
+
+Now, try comparing this figure with the shell output above. The reason why `numbers[-6]` and `numbers[5]` caused errors is because they were out of the valid index range (`-5` to `4`). For any list with `n` elements, if you try to access an index that is out of range (from `-n` to `n - 1`), Python will raise an exception.
+
+.#*Exercise 3.2: Guess the output (Python Shell)*#
+----
+>>> a = ['a', 'b', 'c', 1, 2, 3, True, False]
+>>> a[1]
+...?
+>>> a[8]
+...?
+>>> a[-1]
+...?
+>>> a[-5]
+...?
+>>> a[3]
+...?
+>>> a[6]
+...?
+>>> a[-3]
+...?
+----
+
+.#*Answer*#
+----
+'b'
+...IndexError...
+False
+1
+1
+True
+3
+----
+
+==== List Operations, Functions, and Methods
+
+To use lists more effectively, we need to know the different operators, functions, and methods we can use with lists.
+
+===== A. List Operators
+
+[%header,cols="^.^10%,^.^20%,^.^20%,50%",stripes=none]
+|====
+| Operator | Name | Example | Description
+| `[]` | Index Operator | `lst[x]` | Accesses element at specified index.
+| `+` | `+` Operator | `lst_a + lst_b` | Concatenates the second list to the end of the first list.
+| `*` | `*` Operator | `lst * n` | Repeats the list by the specified number of times.
+| `==` | Equivalence Operator | `lst_a == lst_b` | Checks if the two lists are equal.
+| `in` | Membership Operator | `el in lst` | Checks if the list contains the specified element.
+| `:` | Slice Operator | `lst[x:y]` | _Slices_ the list from index `x` (inclusive) to index `y` (exclusive).
+| `del` | `del` Operator | `del el` | Deletes specified element(s) from the list.
+|====
+
+[NOTE]
+`del` operator will be covered more in depth <<B. Deleting Elements, later>>.
+
+.*`+` Operator Further Example*
+[source,python]
+----
+1    a = [1, 2, 3]
+2    b = [4, 5, 6]
+3    c = a + b
+4    print(c)
+5
+6    d = ['a', 'b', 'c']
+7    e = a + d
+8    print(e)
+----
+
+.*Output*
+----
+[1, 2, 3, 4, 5, 6]
+[1, 2, 3, 'a', 'b', 'c']
+----
+
+For any expression in the form `a + b`, where `a` and `b` are lists, `b` will be concatenated to the end of `a`.
+
+In line 3, since `b` (= `[4, 5, 6]`) is concatenated to the end of `a` (= `[1, 2, 3]`), the list `[1, 2, 3, 4, 5, 6]` is assigned to the variable `c`.
+
+In line 7, `d` (= `['a', 'b', 'c']`) is concatenated to the end of `a` (= `[1, 2, 3]`), so the list `[1, 2, 3, 'a', 'b', 'c']` is assigned to the variable `e`.
+
+.#*Exercise 3.3: Guess the output*#
+[source,python]
+----
+1    print([] + ['a', 'b', 'c'])
+2    print([1, 2] + ['Hello' + 'World'])
+3    print([10] + [20] + [30])
+----
+
+.#*Answer*#
+----
+['a', 'b', 'c']
+[1, 2, 'HelloWorld']
+[10, 20, 30]
+----
+
+.*`pass:q[*]` Operator Further Example*
+[source,python]
+----
+1    a = [1, 2, 3]
+2    b = a * 3
+3    print(b)
+----
+
+.*Output*
+----
+[1, 2, 3, 1, 2, 3, 1, 2, 3]
+----
+
+For any expression in the form `a * b`, where `a` is a list and `b` is an integer, `a` will be repeated `b` times.
+
+In line 7, since `a` (= `[1, 2, 3]`) is repeated `b` (= `3`) times, the list `[1, 2, 3, 1, 2, 3, 1, 2, 3]` is assigned to the variable `b`.
+
+We can see that `a * b` is the same as adding `a` to each other `b` times. For example, in line 2, `b = a * 3` would be equivalent to writing `b = a + a + a`.
+
+.#*Exercise 3.4: Guess the output*#
+[source,python]
+----
+1    print([] * 3)
+2    print(2 * [10, 'a', 'csm'])
+3    print([0] * 10)
+----
+
+.#*Answer*#
+----
+[]
+[10, 'a', 'csm', 10, 'a', 'csm']
+[0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+----
+
+.#*Additional Remarks (Teacher's Ed.)*#
+----
+Like in line 3, "lst = [0] * 10" is the Python "equivalent" to Java's "int[] lst = new int[10]". In Python, the * operator can be used to intialize a list (of immutable data types, like int, float, string, and boolean) of a fixed length.
+
+    [0] * 10     <==> int[] lst = new int[10]
+    [0.0] * 10   <==> double[] lst = new double[10]
+    [''] * 10    <==> char[] lst = new char[10]
+    [None] * 10  <==> String[] lst = new String[10]
+    [False] * 10 <==> boolean[] lst = new boolean[10]
+----
+
+.*Equivalence Operator Further Example*
+[source,python]
+----
+1    a = [1, 2, 3]
+2    b = [1, 2, 3]
+3    c = [1, 2, 3, 4]
+4
+5    print(a == b)
+6    print(a == c)
+----
+
+.*Output*
+----
+True
+False
+----
+
+For any expression in the form `a == b`, where `a` and `b` are lists, it will evaluate to `True` if for all index `i`, `a[i] == b[i]` is `True`. In other words, the elements of `a` and `b` must be equal and in the same order.
+
+In line 5, we check if the contents of `a` (= `[1, 2, 3]`) and `b` (= `[1, 2, 3]`) are equal and in the same order. Since they are, `True` is printed.
+
+In line 6, we check if the contents of `a` (= `[1, 2, 3]`) and `c` (= `[1, 2, 3, 4]`) are equal and in the same order. Since they are not, `False` is printed (`a[3]` is invalid while `c[3]` is `4`, so `a[i] == c[i]` is `False` when `i` is `3`).
+
+Similarly, we can use `!=` to check if the two lists are _not equal_.
+
+.#*Exercise 3.5: Guess the output*#
+[source,python]
+----
+1    a = ['a', 'b', 'c']
+2    b = ['b', 'b', 'b']
+3    a += b
+4    b = a + b
+5    print(a == b)
+6    print(a != b)
+----
+
+.#*Answer*#
+----
+False
+True
+# a -> ['a', 'b', 'c', 'b', 'b', 'b']
+# b -> ['a', 'b', 'c', 'b', 'b', 'b', 'b', 'b', 'b']
+----
+
+.*Membership Operator Further Example*
+[source,python]
+----
+1    a = [1, 2, 3]
+2    b = 1 in a
+3    print(b)
+4
+5    c, d = ['a', 'b', 'c'], 'd'
+6    e = d in c
+7    f = d not in c
+8    print(e, f)
+----
+
+.*Output*
+----
+True
+False True
+----
+
+For any expression in the form `a in b`, where `a` is any value and `b` is a list, it will return the boolean value `True` if `a` is present in `b`, and `False` if otherwise.
+
+In line 2, since it is checking if the integer value `1` is present in `a` (= `[1, 2, 3]`), the boolean value `True` is assigned to the variable `b`.
+
+In line 6, since it is checking if `d` (= `'d'`) is present in `c` (= `['a', 'b', 'c']`), the boolean value `False` is assigned to the variable `e`. Line 6 shows that we can use variables with membership operators.
+
+In line 7, it shows that we can use the `not` operator with `in` to check if the element is not present in the list. Since `d` (= `'d'`) is not present in `c` (= `['a', 'b', 'c']`), the boolean value `True` is assigned to the variable `f`.
+
+.#*Exercise 3.6: Guess the output*#
+[source,python]
+----
+1    a = ['1', '2', '3', 'a', 'b']
+2    print(1 in a)
+3    print(['a', 'b'] in a)
+4    print('a' in a)
+----
+
+.#*Answer*#
+----
+False
+False
+True
+----
+
+.*Slice Operator Further Example*
+[source,python]
+----
+ 1    a = [1, 2, 3, 4, 5, 6]  # a has length of 6
+ 2    print(a[2:5])
+ 3    print(a[0:6])
+ 4    print(a[:])
+ 5
+ 6    # Can also use negative indices
+ 7    print(a[-1:1])
+ 8    print(a[-6:6])
+ 9
+10    # Index can also be out of valid range
+11    print(a[4:100])
+----
+
+.*Output*
+----
+[3, 4, 5]
+[1, 2, 3, 4, 5, 6]
+[1, 2, 3, 4, 5, 6]
+[]
+[1, 2, 3, 4, 5, 6]
+[5, 6]
+----
+
+For any expression in the form `a[x:y]`, where `a` is a list and `x`, `y` are integers, it will return a list containing elements of `a` from index `x` (inclusive) to index `y` (exclusive). This means element at index `y` will not be included.
+
+In line 2, the list `a` (= `[1, 2, 3, 4, 5, 6]`) is sliced from index `2` to index `5`. Element at index `2` is `3`, and element at index `5` is `6`. So the resulting sliced list is `[3, 4, 5]`, excluding `6`.
+
+In line 3, the list `a` is sliced from index `0` to index `6`. If you recall, when accessing elements, the valid index range for a list with `6` elements is `-6` to `5`. However, since the element at second index is excluded when slicing, we can use the index `6` to include the last element of the list `a`. Therefore, for any list, say `lst`, with `n` elements, `lst[0:n]` is equal to `lst` (i.e. `lst[0:n] == lst` evaluates to `True`).
+
+In line 4, no indices are specified. If the first index is not specified, it is defaulted to `0`, and if the second index is not specified, it is defaulted to `n` (length of list). In the case of line 4, since both indices are not specified, `a[:]` is defaulted to `a[0:6]`, thus printing the whole list. Similarly, `a[:4]` would be equivalent to `a[0:4]`, and `a[4:]` would be equivalent to `a[4:6]`.
+
+Lines 7 and 8 show that we can use negative indices when slicing. Line 7 is equivalent to writing `print(a[5:1])`. Since the start index is greater than the end index, it returns an empty list (`[]`). Line 8 is equivalent to writing `print(a[0:6])`, which is the same as line 3.
+
+Line 11 shows that we can use any integer when slicing. The indices do not have to be in the valid range. Suppose a list has a length of `n`. If the number provided is greater than `n`, it will default to `n`. If the number provided is less than `-n`, it will default to `-n` (or `0`). Therefore, line 11 is equivalent to writing `print(a[4:6])`.
+
+.#*Exercise 3.7: Guess the output*#
+[source,python]
+----
+1    lst = ['c', 's', 'm', 'csm', 'p', 'y', 'py']  # n = 7
+2    print(lst[3:6])
+3    print(lst[-5:4])
+4    print(lst[:-1])
+5    print(lst[5:10])
+6    print(lst[-8:-4])
+----
+
+.#*Answer*#
+----
+['csm', 'p', 'y']
+['m', 'csm']
+['c', 's', 'm', 'csm', 'p', 'y']
+['y', 'py']
+['c', 's', 'm']
+----
+
+===== B. Lists and Functions
+
+These are some functions that can take lists as a parameter:
+
+[%header,cols="^.^15%,^.^25%,60%",stripes=none]
+|====
+| Function | Example | Description
+| `len()` | `len(a)` | Returns the length of list `a`
+| `max()` | `max(a)` | Returns the maximum element of list `a`
+| `min()` | `min(a)` | Returns the minimum element of list `a`
+| `sorted()` | `sorted(a)` | Returns the sorted list of list `a`
+| `sum()` | `sum(a)` | Returns the sum of all elements of list `a`
+|====
+
+.*Examples of Lists and Functions*
+[source,python]
+----
+ 1    a = [4, 2, 5, 1, 3, 6]
+ 2    b = ['c', 'a', 'A', 'C', 'b', 'B']
+ 3
+ 4    print('len(a) =', len(a))
+ 5    print('len(b) =', len(b), '\n')
+ 6
+ 7    print('max(a) =', max(a))
+ 8    print('max(b) =', max(b), '\n')
+ 9
+10    print('min(a) =', min(a))
+11    print('min(b) =', min(b), '\n')
+12
+13    print('sorted(a) =', sorted(a))
+14    print('sorted(b) =', sorted(b), '\n')
+15
+16    print('sum(a) =', sum(a))
+----
+
+.*Output*
+----
+len(a) = 6
+len(b) = 6
+
+max(a) = 6
+max(b) = c
+
+min(a) = 1
+min(b) = A
+
+sorted(a) = [1, 2, 3, 4, 5, 6]
+sorted(b) = ['A', 'B', 'C', 'a', 'b', 'c']
+
+sum(a) = 21
+----
+
+[%noheader]
+|====
+a| `len(a)`, where `a` is a list, will return the length of `a` (i.e. the number of elements in `a`). Since both `a` and `b` have 6 elements, lines 4 and 5 print `6`.
+
+The following was not covered yet, but to check if a given list, `a`, is empty, you can write:
+[source,python]
+if len(a) == 0:
+    ...
+
+However, in Python, writing the following is more accepted:
+[source,python]
+if not a:
+    ...
+
+a| `max(a)`, where `a` is a list, will return the maximum element of `a`. The formal definition of a maximum element `M` is as follows:
+====
+for all index `i` of list `a`, if `M >= a[i]` is `True`, then `M` is the maximum element of `a`
+====
+Basically, the maximum element will always be greater than or equal to (`>=`) all the other elements of the list. This may seem obvious for numbers, but it can be helpful when thinking of strings or other objects in the future. In line 8, since the ASCII value for lowercase letters is greater than that of uppercase letters, `'c'` is the maximum element of list `b`.
+
+a| `min(a)`, where `a` is a list, will return the minimum element of `a`. Similarly, the formal definition of a minimum element `m` is as follows:
+====
+for all index `i` of list `a`, if `m \<= a[i]` is `True`, then `m` is the minimum element of `a`
+====
+In line 11, since the ASCII value for uppercase letters is less than that of lowercase letters, `'A'` is the minimum element of list `b`.
+
+a| `sorted(a)`, where `a` is a list, will return `a` sorted in increasing order. In other words, if index `x` is less than `y`, `a[x]` will be less than or equal to `a[y]` (i.e. `a[x] \<= a[y]` is `True`). +
+In line 14, since uppercase letters have lower ASCII values than lowercase letters, `sorted(b)` is `['A', 'B', 'C', 'a', 'b', 'c']`.
+
+| Notice that there is no example of `sum()` for list `b`. This is because `sum()` only works if the list contains only integers.
+|====
+
+.#*Exercise 3.8: Guess the output #1 (Python Shell)*#
+----
+>>> a = [1, 2, 3, True]
+>>> len(a)
+...?
+>>> max(a)
+...?
+>>> min(a)
+...?
+>>> sorted(a)
+...?
+>>> sum(a)
+...?
+----
+
+.#*Answer*#
+----
+4
+3
+1
+[1, True, 2, 3]
+7
+----
+
+.#*Additional Remarks (Teacher's Ed.)*#
+----
+The boolean value True is equivalent to the integer value 1. So when min(a) is executed, both 1 and True can be thought of as the minimum element. In this case, since 1 is located before True, min(a) evaluates to 1. Likewise, for sorted(a), 1 is placed before True. If a = [True, 1, 2, 3], min(a) would evaluate to True and sorted(a) would evaluate to [True, 1, 2, 3].
+So if there are multiple possible minimum (or maximum) elements, the one with the lowest index is chosen.
+----
+
+.#*Exercise 3.9: Guess the output #2 (Python Shell)*#
+----
+>>> a = [1, 2, 3, 'a', 'b', 'c']
+>>> len(a)
+...?
+>>> max(a)
+...?
+>>> min(a)
+...?
+>>> sorted(a)
+...?
+----
+
+.#*Answer*#
+----
+6
+...TypeError: '>' not supported between instances of 'str' and 'int'
+...TypeError: '<' not supported between instances of 'str' and 'int'
+...TypeError: '<' not supported between instances of 'str' and 'int'
+----
+
+.#*Additional Remarks (Teacher's Ed.)*#
+----
+When defining max(), min(), and sorted(), it was stated that the condition M >= a[i] or m <= a[i] must be True. This means that each element of the list must be comparable to one another. In this case, the list a contains integers and strings, which cannot be compared, so using the functions max(), min(), and sorted() cause the interpreter to raise a TypeError.
+----
+
+===== C. List Methods
+
+What is a method? A method is a function that is associated with an object. So what is the difference between a function and a method?
+
+Suppose we have a list `lst`, a function `f()`, and a method `m()`.
+
+To use the function `f()`, we would write `f(lst)`. The function takes `lst` as a parameter, or input. On the other hand, to use the method `m()`, we would write `lst.m()` because the method `m()` is associated with the list `lst` object. The method `m()` does not take `lst` as a parameter.
+
+We will cover this in more depth later. For now, you can think of it as something similar to a function.
+
+These are some of Python's built-in list methods:
+
+[%header,cols="^.^15%,^.^25%,60%",stripes=none]
+|====
+| Method | Example | Description
+| `append()` | `a.append(el)` | Adds the element `el` to the end of list `a`
+| `extend()` | `a.extend(it)` | Extends the list `a` by adding all elements of the iterable<<iterable-def,^[1]^>> `it`
+| `insert()` | `a.insert(i, el)` | Adds the element `el` at index `i` of list `a`
+| `index()` | `a.index(el)` | Returns the index of element `el` if it exists +
+If not, the interpreter raises a `ValueError`
+| `count()` | `a.count(el)` | Returns the number of elements `el` in list `a`
+| `sort()` | `a.sort()` | Sorts `a` in increasing order
+| `reverse()` | `a.reverse()` | Reverses the order of elements in `a`
+| `clear()` | `a.clear()` | Removes all elements of list `a`
+| `remove()` | `a.remove(el)` | Removes `el` if it exists +
+If not, the interpreter raises a `ValueError`
+| `pop()` | `a.pop(i)` +
+`a.pop()` | If index `i` is provided, removes and returns the element at index `i` +
+If not, removes and returns the last element of `a`
+|====
+
+[horizontal]
+[[iterable-def]][blue small]#[1]#::
+[small]#Iterables are basically objects that can be iterated, like strings, lists, tuples, and dictionaries. You can think of them as sequences of elements.#
+
+[NOTE]
+`clear()`, `remove()`, and `pop()` methods will be covered more in depth <<B. Deleting Elements, later>>.
+
+.*`append()`, `extend()`, and `insert()` Examples*
+[source,python]
+----
+ 1    a = [1, 2, 4]
+ 2    a.append(5)
+ 3    a.insert(2, 3)
+ 4    print(a)
+ 5
+ 6    # Difference between append() and extend()
+ 7    lst1 = ['a', 'b', 'c']
+ 8    lst2 = ['a', 'b', 'c']
+ 9    it = [1, 2, 3]
+10
+11    lst1.append(it)
+12    print(lst1)
+13    lst2.extend(it)
+14    print(lst2)
+----
+
+.*Output*
+----
+[1, 2, 3, 4, 5]
+['a', 'b', 'c', [1, 2, 3]]
+['a', 'b', 'c', 1, 2, 3]
+----
+
+At first glance, the methods `append()` and `extend()` seems identical. However, lines 6-14 show the difference between the two. `a.append(el)` treats `el` as *one* element. This is why at line 12, the list `[1, 2, 3]` is the fourth _element_ of `lst1`. `len(lst1)` would evaluate to 4 instead of 6. `extend(it)` will add each element of `it` as its own _separate_ element, which is why `len(lst2)` would evaluate to 6. If you want to add the elements of one list to the end of another, you should use the `extend()` method.
+
+====
+Since strings are also iterables, appending and extending a string will have different effects.
+
+Suppose the two methods are executed independently of each other:
+
+[fira-code]#a = [1, 2, 3]# +
+[fira-code]#a.append('py')  # a -> [1, 2, 3, 'py']# +
+[fira-code]#a.extend('py')  # a -> [1, 2, 3, 'p', 'y']#
+====
+
+After executing `a.insert(i, el)`, the element originally at index `i` would be pushed back one slot. This is why after line 3, the element `4`, which was at index `2`, is pushed back to index `3`. Since `el` is placed at index `i`, to add `el` to the front, you should write `a.insert(0, el)`, and to add `el` to the end, you should write `a.insert(len(a), el)` (which is equivalent to `a.append(el)`).
+
+For all three methods, the return value is `None`. If you do something like `a = [1, 2, 3].append(4)`, `None` will be stored in `a` instead of `[1, 2, 3, 4]`.
+
+.#*Exercise 3.10: Guess the output (Python Shell)*#
+----
+>>> a, b, c = [1, 2, 3], [4, 5, 6], ['csm', 'python']
+>>> a.extend([4, 5, 6])
+>>> a
+...?
+>>> b.insert(0, [1, 2, 3])
+>>> b
+...?
+>>> c.append([])
+>>> c
+...?
+----
+
+.#*Answer*#
+----
+[1, 2, 3, 4, 5, 6]
+[[1, 2, 3], 4, 5, 6]
+['csm', 'python', []]
+----
+
+.*`index()` and `count()` Examples*
+[source,python]
+----
+1    a = [1, 2, 3, 1, 4, 1, 5]
+2
+3    print('Number of 1s:', a.count(1))
+4    print("Number of 'str's:", a.count('str'))
+5
+6    print('Index of 1:', a.index(1))
+7    print('Index of 1 from index 2:', a.index(1, 2))
+8    print('Index of 1 from index 1 to index 3', a.index(1, 1, 3))
+----
+
+.*Output*
+----
+Number of 1s: 3
+Number of 'str's: 0
+Index of 1: 0
+Index of 1 from index 2: 3
+...ValueError: 1 is not in list
+----
+
+From line 4, we can see that the parameter `el` to be specified in the `count()` method does not have to be present in the list. In contrast, the parameter `el` to be specified in `index()` should be present in the list. To ensure that the element is in the list, line 6 should be written as such:
+
+[source,python]
+----
+if 1 in a:
+    print(a.index(1))
+# else:
+#    print('1 not present in a')
+----
+
+Lines 7-8 introduce other parameters the `index()` method can take. The full parameters of the method is `a.index(el[, start[, end]])`. The square brackets, `[]`, signifies that the parameter(s) inside is/are optional. If all three parameters are provided, `el` is searched within the range from `start` to `end` (exclusive).
+
+Also, since `[, end]` is nested inside the outer list, `start` (located in the outer list) takes priority over `end`. This means that if two parameters are provided for the `index()` method, it would be assigned to `el` and `start`, instead of `el` and `end` (this notation is used in official Python documentation, so it would be good to get used to it).
+
+For example, in line 7, two parameters are provided. Therefore, the element to search is `1` and the start index is `2`. This is why `1` at index `0` is skipped. In line 8, the interpreter tries to search for `1` from index `1` to `3` of `a`, which is `[2, 3]`, because end index is excluded. Since there is no `1`, `ValueError` is raised by the interpreter.
+
+.#*Exercise 3.11: Guess the output (Python Shell)*#
+----
+>>> a = [4, 6, 1, 3, 1, 5, 4, 1, 1]
+>>> a.index(1)
+...?
+>>> a.index(1, 2)
+...?
+>>> a.index(4, 1, 5)
+...?
+>>> a.count(1)
+...?
+----
+
+.#*Answer*#
+----
+2
+2
+...ValueError: 4 is not in list
+4
+----
+
+.*`sort()` and `reverse()` Examples*
+[source,python]
+----
+1    a = [4, 2, 5, 1, 3, 6]
+2    b = [4, 2, 5, 1, 3, 6]
+3
+4    a.sort()
+5    print('Sort a:', a)
+6    a.reverse()
+7    print('Then reverse a:', a)
+8    b.sort(reverse=True)
+9    print('Sort b in reverse:', b)
+----
+
+.*Output*
+----
+Sort a: [1, 2, 3, 4, 5, 6]
+Then reverse a: [6, 5, 4, 3, 2, 1]
+Sort b in reverse: [6, 5, 4, 3, 2, 1]
+----
+
+These two methods are pretty self-explanatory, but the `sort()` method has an optional `reverse` parameter. This parameter takes in a boolean value. When passing a boolean value, you must put `reverse=` and specify the parameter name, like it was done in line 8. If it is set to `True` (like in line 8), the list would be sorted in reverse, or descending, order. Therefore, lines 7 and 9 print the same resulting list.
+
+One question you may have now is what is the difference between the `sort()` method and the `sorted()` function? `a.sort()` sorts and changes `a` directly and returns nothing, or `None`. On the contrary, `sorted(a)` returns the _sorted list_ of `a` without changing `a`.
+
+.*Difference between `sort()` and `sorted()`*
+[source,python]
+----
+ 1    a = [4, 2, 5, 1, 3, 6]
+ 2    print('a.sort() results')
+ 3    c = a.sort()
+ 4    print('a:', a)
+ 5    print('c:', c)
+ 6
+ 7    print('\nsorted(a) results')
+ 8    a = [4, 2, 5, 1, 3, 6]
+ 9    c = sorted(a)
+10    print('a:', a)
+11    print('c:', c)
+----
+
+.*Output*
+----
+a.sort() results
+a: [1, 2, 3, 4, 5, 6]
+c: None
+
+sorted(a) results
+a: [4, 2, 5, 1, 3, 6]
+c: [1, 2, 3, 4, 5, 6]
+----
+
+You can see that for `a.sort()`, the list `a` is sorted while nothing is stored in `c`, whereas for `sorted(a)`, `a` remains unchanged while `c` holds the sorted version of `a`.
+
+.#*Exercise 3.12: Guess the output (Python Shell)*#
+----
+>>> a = ['dog', 'cat', 'Bird', 'rat', 'Raccoon']
+>>> a.sort()
+>>> a
+...?
+>>> b = [4, 5, 2, 9, 1, 3]
+>>> b.sort(True)
+...?
+----
+
+.#*Answer*#
+----
+['Bird', 'Raccoon', 'cat', 'dog', 'rat']
+...TypeError: sort() takes no positional arguments
+# Must specify parameter name: b.sort(reverse=True)
+----
+
+==== Editing List Elements
+
+===== A. Updating Elements
+
+To update list elements, we use a combination of assignment and index operators.
+
+.*Update Example*
+[source,python]
+----
+1    lst = [1, 2, 6, 4, 5]
+2    lst[2] = 3
+3    print(lst)
+----
+
+.*Output*
+----
+[1, 2, 3, 4, 5]
+----
+
+In the above example, line 2 is where the update is happening. If we look at the line closely, we can see that we are assigning the integer value `3` to the 2^nd^ index of the list `lst`. Since indexing in Python is zero-based, the third element `6` is changed to `3`.
+
+It is also possible to use expressions as list indices.
+
+.*Expressions as Indices*
+[source,python]
+----
+1    i = 2
+2    lst = [1, 2, 6, 4, 5]
+3    lst[i] = 3
+4    lst[i + 1] = 10
+5    lst[1 + 3] = 1
+6    print(lst)
+----
+
+.*Output*
+----
+[1, 2, 3, 10, 1]
+----
+
+We can also use the slice operator to update a range of elements.
+
+.*Bulk Update Example*
+[source,python]
+----
+ 1    a = [1, 2, 3, 4, 5, 6]
+ 2    a[2:4] = [10, 11]
+ 3    print(a)
+ 4
+ 5    a = [1, 2, 3, 4, 5, 6]
+ 6    a[2:4] = [10, 11, 12]
+ 7    print(a)
+ 8
+ 9    a = [1, 2, 3, 4, 5, 6]
+10    a[2:4] = [10]
+11    print(a)
+----
+
+.*Output*
+----
+[1, 2, 10, 11, 5, 6]
+[1, 2, 10, 11, 12, 5, 6]
+[1, 2, 10, 5, 6]
+----
+
+In lines 2, 6, and 10, we are updating a range of elements of list `a`, specifically from index `2` to index `4` (exclusive). In other words, we are updating `[3, 4]` of `a` (= `[1, 2, 3, 4, 5, 6]`).
+
+In line 2, we are updating `[3, 4]` with `[10, 11]`. Hence, `a` is changed from `[1, 2, *3, 4*, 5, 6]` to `[1, 2, *10, 11*, 5, 6]`.
+
+Lines 6 and 10 show that the numbers of elements to update can be different. For example, `a[2:4]` corresponds to 2 elements, but in line 6, we are assigning a list of 3 elements. As a result, `[3, 4]` of `a` is changed to `[10, 11, 12]`, ultimately updating `a` from `[1, 2, *3, 4*, 5, 6]` to `[1, 2, *10, 11, 12*, 5, 6]`.
+
+Similarly, in line 10, `a` is changed from `[1, 2, *3, 4*, 5, 6]` to `[1, 2, *10*, 5, 6]`.
+
+.#*Exercise 3.13: Write your own program*#
+----
+Look at the before and after of each list and write a program to reflect the changes.
+
+Name |        Before        |        After
+  a  | ['a', 'x', 'c', 'd'] | ['a', 'b', 'c', 'd']
+  b  | [2, 4, 5, 7, 8]      | [2, 4, 6, 8]
+  c  | [1, 2, 3, 4]         | [1, 2, []]
+----
+
+.#*Answer*#
+[source,python]
+----
+1    a = ['a', 'x', 'c', 'd']  # Before
+2    a[1] = 'b'                # After
+3
+4    b = [2, 4, 5, 7, 8]  # Before
+5    b[2:4] = [6]         # After
+6
+7    c = [1, 2, 3, 4]  # Before
+8    c[2:] = [[]]      # After
+9    print(a, b, c, sep='\n')
+----
+
+===== B. Deleting Elements
+
+There are multiple ways to delete list elements. The first is to use the `del` operator.
+
+.*`del` Operator Example*
+[source,python]
+----
+1    a = [1, 2, 3, 4, 5, 6]
+2    del a[1]
+3    print(a)
+4
+5    # Can also use splice operator to delete a range of elements
+6    a = [1, 2, 3, 4, 5, 6]
+7    del a[2:5]
+8    print(a)
+----
+
+.*Output*
+----
+[1, 3, 4, 5, 6]
+[1, 2, 6]
+----
+
+The `del` operator is a reserved Python keyword, shown in a chart earlier in <<Chapter2.adoc#naming-conventions, Chapter 2>>. It deletes the specified element(s).
+
+In line 2, we are telling Python to delete the element at index `1` of the list `a`. As a result, `a` is changed from `[1, *2*, 3, 4, 5, 6]` to `[1, 3, 4, 5, 6]`.
+
+In line 7, we are telling Python to delete the elements in the range of index `2` to index `5` (exclusive). As a result, `a` is changed from `[1, 2, *3, 4, 5*, 6]` to `[1, 2, 6]`.
+
+There are 3 additional methods we can use besides the `del` operator. The first is the `clear()` method.
+
+.*`clear()` Example*
+[source,python]
+----
+1    a = [1, 2, 3, 4]
+2    a.clear()  # equivalent to del a[:]
+3    print(a)
+----
+
+.*Output*
+----
+[]
+----
+
+As shown, the `clear()` method removes _all_ elements of the list. Line 2 shows that using `del a[:]` has the same effect as writing `a.clear()` since `a[:]` corresponds to the whole list. This is different from writing `del a` because this will delete the list object `a`.
+
+.*Difference between `del a[:]` and `del a`*
+----
+>>> a = [1, 2, 3]
+>>> del a[:]
+>>> a
+[]
+>>> del a
+>>> a
+Traceback (most recent call last):
+  ...
+NameError: name 'a' is not defined
+----
+
+The second way is to use the `pop()` method.
+
+.*`pop()` Example (Python Shell)*
+----
+>>> a = [1, 2, 3, 4]
+>>> a.pop()
+4
+>>> a
+[1, 2, 3]
+>>> a.pop(1)
+2
+>>> a
+[1, 3]
+----
+
+`a.pop()` removes the last element of list `a` and returns it, whereas `a.pop(i)` removes the element at the `i`-th index and returns it. In this example, at the start, since `4` was the last element of `a`, `a.pop()` removed and returned `4`. Then, since the element `2` was at index `1`, `a.pop(1)` removed and returned `2`.
+
+The last way is to use the `remove()` method.
+
+.*`remove()` Example (Python Shell)*
+----
+>>> a = [1, 2, 3, 4, 2]
+>>> a.remove(4)
+>>> a
+[1, 2, 3, 2]
+>>> a.remove(2)
+>>> a
+[1, 3, 2]
+>>> a.remove(5)
+Traceback (most recent call last):
+  ...
+ValueError: list.remove(x): x not in list
+----
+
+`a.remove(el)` removes the element `el` from the list `a`. Therefore, `a.remove(4)` and `a.remove(2)` each removed the elements `4` and `2`, respectively, from the list `a`. If there are duplicate elements in list, the element with the lowest index will be removed. This is why `a.remove(2)` resulted in `[1, 3, 2]`, instead of `[1, 2, 3]`. However, if the element `el` is not in the list, the interpreter raises a `ValueError` as shown in the last line. Hence, it is a safe practice to check if the element is in the list before trying to remove it.
+
+[source,python]
+----
+1    a = [...]  # arbitrary values
+2    if el in a:
+3        a.remove(a)
+----
+
+The obvious difference between `pop()` and `remove()` is that `pop()` uses index to determine the element to remove, and `remove()` uses the value of the element. The second is that `pop()` will _return_ the removed element while `remove()` will not. `remove()` does not need to return the element because the user will know which element is getting removed anyway.
+
+.#*Exercise 3.14: Which to use?*#
+----
+Look at each situation and decide which of del, pop(), or reverse() is the best to use. Explain the reason for your choice.
+
+Q1. You are making a card game program. Each player has a deck of cards (implemented as a list). When the opponent chooses an index, you have to remove that card from your deck and give it to your opponent. Which should you use?
+
+Q2. You are creating a music player program. You want the user to be able to search for the name of a song and remove it from the current playlist. Which should you use?
+    (Assume the user will always search for a song that exists in the playlist)
+
+Q3. In a luck-based game, you have to roll a dice (suppose the number is n) and throw away first n items from your bag. Which should you use?
+----
+
+.#*Answer*#
+----
+Q1. Answer: pop()
+    Reason: reverse() is not the best choice because the opponent chooses the index of the card. del is not optimal because you need to give the card to your opponent. Using del would delete the card altogether. Using pop() will allow you to get the removed card (as the return value).
+
+Q2. Answer: remove()
+    Reason: You do not know the index of the song, so you cannot use pop() and del.
+
+Q3. Answer: del or pop()
+    Reason: remove() is not the best choice as you are throwing the first n items (i.e. index 0 to n - 1). You do not know the value of items that are being discarded. del may be a slightly simpler solution as you can use the slice operator to delete multiple items at once. If you use pop(), you would need to use a loop.
+----
+
+==== *Challenge:* Mutability of Lists
+
+In Python, a list is _mutable_, but what does that mean? Let's look deeper and find out what implications this has on the use of lists in Python.
+
+===== A. What is Mutability?
+// refer to https://medium.com/@meghamohan/mutable-and-immutable-side-of-python-c2145cf72747
+
+In Python, everything is an object, which means the variables _refer_ to its values instead of directly holding it. For example, when the interpreter executes the statement `a = 5`, a space in the computer's memory is created in order to store the value `5` first. Then, the variable `a` will point to the location, or memory address, of the value `5` in the computer's memory. Each object is given a unique ID that can be checked with the built-in function `id()`. This ID can be thought of as something similar to the object's memory address.
+
+.*`id()` Example (Python Shell)*
+----
+>>> a = 5
+>>> b = 'Hello World'
+>>> id(a)
+140704463574176
+>>> id(b)
+2104611965104
+----
+
+The numbers may be different for you, but the point is that `id()` can be used to check the unique ID of the object a variable is pointing to.
+
+Going back to mutability, if an object is said to be _mutable_, it means the object's value can be changed. In contrast, if an object is _immutable_, it means the object's value cannot be changed. Examples of immutable values are integers, floats, strings, and booleans. Let's look at the following example:
+
+.*Immutability of Integers*
+----
+>>> a = 5
+>>> b = a
+>>> a, b
+(5, 5)
+>>> id(a), id(b)
+(140704463574176, 140704463574176)
+>>> id(a) == id(b)
+True
+>>> a = a + 1
+>>> a, b
+(6, 5)
+>>> id(a), id(b)
+(140704463574208, 140704463574176)
+>>> id(a) == id(b)
+False
+----
+
+Now because the value of `a` changed, you can question why and how integers are immutable. And indeed the value, or object, that `a` was referring to has changed, but the integer object `5` did not. We can see that the ID of `a` has changed, indicating that the object `a` is referring to has changed, but that the ID of `b` has not, indicating that the object `5` was not altered. The following picture may better explain what happened:
+
+image::ch4_immutable_integers.jpg[]
+
+As the image shows, the object `5` is never changed. Instead, a new object `6` is created, which is then referred by `a`. If integers were mutable, at step 3, instead of creating a new object `6` and having `a` point to it, `5` would be changed to the object `6`  (at the memory address `…176`), pointed to by both `a` and `b`.
+
+Since lists are mutable, how would they behave?
+
+.*Mutability of Lists*
+----
+>>> a = [1, 2, 3]
+>>> b = a
+>>> a, b
+([1, 2, 3], [1, 2, 3])
+>>> id(a), id(b)
+(2104611963656, 2104611963656)
+>>> id(a) == id(b)
+True
+>>> a[1] = 10
+>>> a, b
+([1, 10, 3], [1, 10, 3])
+>>> id(a), id(b)
+(2104611963656, 2104611963656)
+>>> id(a) == id(b)
+True
+----
+
+We can see that the ID of `a` did not change even though the content of the list `a` has, which indicates that the list object (`[1, 2, 3]`) created in the first line was changed, or _mutated_. The following picture shows what happened:
+
+image::ch4_mutable_lists.jpg[]
+
+Since lists are mutable, the object is directly mutated instead of creating a new list. Also, since both the variables `a` and `b` were pointing to the same mutable object (with the same ID), when we imposed a change on the variable `a`, it was reflected onto the variable `b` as well. This is one of the side-effects mutable objects cause, and we are going to look at some more in the following sections.
+
+===== B. Alias and Clone
+
+Let's look at the following example:
+
+.*Mutability and Aliasing*
+[source,python]
+----
+1    s1 = 'Hello World'
+2    s2 = s1
+3    s1 += '!!'
+4    print(s1, s2)
+5
+6    lst1 = [1, 2, 3]
+7    lst2 = lst1
+8    lst1 += [4]
+9    print(lst1, lst2)
+----
+
+We can see that on line 2, the string `s1` is assigned to `s2`, and on line 7, the list `lst1` is assigned to `lst2`. What do you think the output will be? Since we changed `s1`, would it be reflected on `s2`? How about for `lst1` and `lst2`?
+
+.*Output*
+----
+Hello World!! Hello World
+[1, 2, 3, 4] [1, 2, 3, 4]
+----
+
+We can see that changes on `s1` did not affect `s2`, but changes on `lst1` had effect on `lst2`. Why is it so? This also comes down to the mutability of these data types. Since strings are immutable, when `'!!'` was added to `s1` on line 3, a new string was created and assigned to `s1`. The original string `'Hello World'` was not changed, and therefore, no change happened to `s2`. However, since lists are mutable, on line 8, the element `4` was added to the _same_ list `lst1` was pointing to originally. And since `lst2` was also pointing to the same list, the change was reflected onto `lst2` as well.
+
+As such, the act of assigning an already referenced object (such as lists) to another variable is called _aliasing_. For example, line 7 is an example of aliasing because two variables (`lst1` and `lst2`) are referencing the same object. This may be useful in some cases where you want a change in one object to be reflected on the other. But generally, this behavior would not be desirable. If you want multiple copies of a same list, you should consider _cloning_ it.
+
+There are several ways to clone, or copy, lists to other variables.
+
+.*Method 1: Use the `copy()` Method*
+[source,python]
+----
+1    a = [1, 2, 3]
+2    b = a.copy()
+3    print(a, b)
+4
+5    a[1] = 10
+6    print(a, b)
+----
+
+.*Output*
+----
+[1, 2, 3] [1, 2, 3]
+[1, 10, 3] [1, 2, 3]
+----
+
+.*Method 2: Use Slicing*
+[source,python]
+----
+1    a = [1, 2, 3]
+2    b = a[:]
+3    print(a, b)
+4
+5    a[1] = 10
+6    print(a, b)
+----
+
+.*Output*
+----
+[1, 2, 3] [1, 2, 3]
+[1, 10, 3] [1, 2, 3]
+----
+
+.*Method 3: Use the `list()` Function*
+[source,python]
+----
+1    a = [1, 2, 3]
+2    b = list(a)
+3    print(a, b)
+4
+5    a[1] = 10
+6    print(a, b)
+----
+
+.*Output*
+----
+[1, 2, 3] [1, 2, 3]
+[1, 10, 3] [1, 2, 3]
+----
+
+All three methods can be used to copy over lists to other variables. However, let's look at the following example:
+
+.*List Cloning*
+[source,python]
+----
+1    a = [[1, 2], 3, 4]
+2    b = a.copy()
+3    a[0][0] = 0
+4    print(a, b)
+----
+
+.*Output*
+----
+[[0, 2], 3, 4] [[0, 2], 3, 4]
+----
+
+In this case, the change is reflected across all instances of the list. This is because all three aforementioned methods are creating _shallow copies_ of the original list. This means that the list itself is a different object (with different IDs), but its elements may not be different. Let's look in more detail:
+
+.*Shallow Copy (Python Shell)*
+----
+>>> inner = ['a', 'b']
+>>> a = [inner, 'c']
+>>> b = a.copy()
+>>> print(a, b)
+[['a', 'b'], 'c'] [['a', 'b'], 'c']
+>>>
+>>> id(a)
+1827986301576
+>>> id(b)
+1827986800072
+>>> id(a[0])
+1827986301512
+>>> id(b[0])
+1827986301512
+----
+
+We can see that the IDs of the lists `a` and `b` are different, but the IDs of their first element are equal. This means that if the list contains mutable elements, changes to those elements will be reflected on other shallow copied instances of that list. Because lists are mutable, change to the list `a` under the List Cloning example also resulted in a change to the list `b`.
+
+The cloning method that creates a different object for each element is called _deep copying_, which will not be covered right now.
+
+.#*Exercise 3.15: Guess the Output (Python Shell)*#
+----
+>>> a = ['a', 'b', 'c']
+>>> b = a
+>>> a += ['d']
+>>> print(a, b)
+...?
+>>> a = ['string', True, 1, 1.1]
+>>> b = a[:]
+>>> a[0] = 'STRING'
+>>> print(a, b)
+...?
+>>> a = [[1, 2, 3], 4]
+>>> b = list(a)
+>>> a[1] = 5
+>>> print(a, b)
+...?
+>>> a = [[1, 2, 3], 4]
+>>> b = list(a)
+>>> a[0] = 5
+>>> print(a, b)
+...?
+----
+
+.#*Answer*#
+----
+['a', 'b', 'c', 'd'] ['a', 'b', 'c', 'd']
+['STRING', True, 1, 1.1] ['string', True, 1, 1.1]
+[[1, 2, 3], 5] [[1, 2, 3], 4]
+[5, 4] [[1, 2, 3], 4]
+
+For the last example, list b was not changed because the nested list itself was not changed. The number 5 was simply assigned to the first index of list a.
+----
+
+<<<
+
+=== Strings
+
+We covered strings before but only the surface. Python has various tools to manipulate strings, so let's look at the different ways on how to do just that.
+
+As mentioned before, strings are also iterables, which means they can be iterated through. Thus, strings share lots of similarities to lists. Strings are basically lists with each character as elements. You can actually use the `list()` function to transform strings to a character array:
+
+----
+>>> list('Hello')
+['H', 'e', 'l', 'l', 'o']
+----
+
+In the next section, we will cover operators, functions, and methods that can be used with strings, and you may notice that they function similarly with strings as they do with lists.
+
+==== String Operations, Functions, and Methods
+
+===== A. String Operators
+
+The following are operators that can be used with strings in Python.
+
+[%header,cols="^.^10%,^.^20%,^.^20%,50%",stripes=none]
+|====
+| Operator | Name | Example | Description
+| `[]` | Index Operator | `str[x]` | Accesses the character at specified index
+| `+` | `+` Operator | `str_a + str_b` | Concatenates the second string to the end of the first string
+| `*` | `*` Operator | `str * n` | Repeats the string by the specified number of times
+| `==` | Equivalence Operator | `str_a == str_b` | Checks if the two strings are equal
+| `in` | Membership Operator | `char in str` | Checks if the string contains the specified character(s)
+| `:` | Slice Operator | `str[x:y]` | _Slices_ the string from index `x` (inclusive) to index `y` (exclusive)
+|====
+
+You can see that the operators and their functions are almost identical for both strings and lists. Since the `+`, `*`, and `==` operators were covered in <<Chapter2.adoc#operators, Chapter 2>>, they will not be covered here. Let's look at the others one by one.
+
+.*Index Operator Further Example*
+[source,python]
+----
+1    s = 'abcdef'
+2    print(s[0], s[1], s[2], s[3], s[4], s[5], sep=', ')
+3    print(s[-1], s[-2], s[-3], s[-4], s[-5], s[-6], sep=', ')
+----
+
+.*Output*
+----
+a, b, c, d, e, f
+f, e, d, c, b, a
+----
+
+As you can see, by using the index operator, we can access a specific character at given index. The indexing system of strings are the same as lists (i.e. zero-based index) and also allows for negative indices. Therefore, since `s` is a 6-character string, the valid index range is `-6` to `5` (both inclusive).
+
+.#*Exercise 3.16: Guess the Output*#
+[source,python]
+----
+1    s = 'Hello World'
+2    new_s = s[8] + s[1] + s[10] + s[5]
+3    new_s += s[-1] + s[-7] + s[-9] + s[-2]
+4    print(new_s)
+----
+
+.#*Answer*#
+----
+red doll
+----
+
+.*Membership Operator Further Example (Python Shell)*
+----
+>>> s = 'Hello World'
+>>> 'd' in s
+True
+>>> 'ello' in s
+True
+>>> 'world' in s
+False
+>>> 1 in s
+...
+TypeError: 'in <string>' requires string as left operand, not int
+----
+
+The `in` operator is used to check if a string contains a character or a sequence of characters. If you look at the fourth example, you can see that the case of the characters matter. Also, the last example shows that the left operand must be of type string. Although obvious, you cannot check if an integer (or any other types) is present in a string.
+
+.#*Exercise 3.17: Guess the Output (Python Shell)*#
+----
+>>> s = 'Python'
+>>> 'yt' in s
+...?
+>>> 'py' in s
+...?
+>>> s[6] in s
+...?
+----
+
+.#*Answer*#
+----
+True
+False
+IndexError: string index out of range
+----
+
+.*Slice Operator Further Example (Python Shell)*
+----
+>>> s = 'slice operator :'
+>>> s[:]
+'slice operator :'
+>>> s[2:7]
+'ice o'
+>>> s[10:]
+'ator :'
+>>> s[-8:-2]
+'erator'
+>>> s[11:100]
+'tor :'
+----
+
+The slice operator also functions identically for strings as they do for lists. They allow the use of negative, empty, and out of range indices. If an index is left empty or is out of range, it is defaulted to either the first or last character. You can use this operator to select a meaningful portion of the original string and assign it to a new variable.
+
+.#*Exercise 3.18: Guess the Output*#
+[source,python]
+----
+1    s = 'Python is Fun'  # 13
+2    print(s[:4])
+3    print(s[-11:-8])
+4    print(s[-6:10])
+5    print(s[-14:15])
+----
+
+.#*Answer*#
+----
+Pyth
+tho
+is
+Python is Fun
+----
+
+===== B. Strings and Functions
+
+There are not many functions that are well-used with strings, but one important function is the `len` function.
+
+.*`len()` Examples (Python Shell)*
+----
+>>> len('Hello World')
+11
+>>> len('string')
+6
+>>> len('   ')
+3
+----
+
+The `len` function returns the length of the string passed as the parameter. There are no exceptions or special cases to remember, just that each character adds 1 to a string's length count.
+
+There are also the `float()`, `int()`, and `list()` functions that we covered earlier, which can be used to transform strings into floating point numbers, integers, and lists, respectively. The other functions mentioned under <<B. Lists and Functions, Section B. Lists and Functions>> can also be used with strings, with the exception of `sum()`. They would function identically to lists but would serve less importance for strings.
+
+.#*Exercise 3.19: Guess the Output (Python Shell)*#
+----
+>>> len('python')
+...?
+>>> len('python'[1:3])
+...?
+>>> list('abcd')
+...?
+>>> int('1' + '2')
+...?
+----
+
+.#*Answer*#
+----
+6
+2
+['a', 'b', 'c', 'd']
+12
+----
+
+===== C. String Methods
+
+There are a lot of useful methods for strings in Python that we are not going to cover all of them, but you can always go to Google to find out more. Still, there's a lot to cover, and with enough practice and use, they should come naturally to you with time. Here are some useful string methods:
+
+[%header,cols="^.^15%,^.^25%,.^60%",stripes=none]
+|====
+| Method | Example | Description
+| `upper()` | `s.upper()` | Converts `s` into uppercase
+| `lower()` | `s.lower()` | Converts `s` into lowercase
+| `startswith()` | `s.startswith(pre[, start[, end]])` | Returns `True` if `s` starts with `pre`. The range of search is narrowed from `start` to `end` (exclusive), if provided.
+| `endswith()` | `s.endswith(suf[, start[, end]])` | Returns `True` if `s` ends with `suf`. The range of search is narrowed from `start` to `end` (exclusive), if provided.
+| `find()` | `s.find(val[, start[, end]])` | Returns the lowest index where `val` is found in `s` within the range `start` to `end` (exclusive), if provided. If not found, returns `-1`.
+| `index()` | `s.index(val[, start[, end]])` | Same as `find` but raises `ValueError` if `val` is not found.
+| `split()` | `s.split([sep])` | Splits `s` using `sep` as the delimiter. If not specified, one whitespace is used as the delimiter.
+| `join()` | `s.join(it)` | Joins the string(s) in the iterable `it` together with `s`
+| `strip()` | `s.strip()` | Removes the leading and trailing whitespaces and newline characters of `s`
+| `isalnum()` | `s.isalnum()` | Returns `True` if all characters of `s` is either a number or an alphabet and `s` contains at least one character; `False` otherwise
+| `isalpha()` | `s.isalpha()` | Returns `True` if all characters of `s` is an alphabet and `s` contains at least one character; `False` otherwise
+| `isnumeric()` | `s.isnumeric()` | Returns `True` if all characters of `s` is a number and `s` contains at least one character; `False` otherwise
+| `replace()` | `s.replace(old, new[, count])` | Replaces all occurrences of `old` in `s` with `new`. If the optional parameter `count` is provided, only the first `count` occurrences are replaced.
+| `count()` | `s.count(el[, start[, end]])` | Returns the number of occurrences of `el` in `s` within the range `start` to `end` (exclusive), if provided
+| `format()` | `s.format(val...)` | Formats `s` (will be covered in more detail later)
+|====
+
+[NOTE]
+All string methods returns new string values and do not change the original string (because strings are immutable)
+
+.*`upper()` and `lower()` Examples (Python Shell)*
+----
+>>> 'hello world'.upper()
+HELLO WORLD
+>>> 'CAPS LOCK'.lower()
+caps lock
+>>> 'Python123'.lower()
+python123
+----
+
+Both methods are pretty self-explanatory, but their use may not be. One common usage of these methods is to compare two strings, ignoring case. Let's say, for example, you want to let the user quit your program by inputting the command word `quit` in any form. In other words, `quit`, `Quit`, `qUiT`, and so on must all allow the user to quit the program. Then you can write the following in your code:
+
+[source,python]
+----
+user_command = input('Command: ')
+if user_command.lower() == 'quit':
+    # quit the program
+# or if user_command.upper() == 'QUIT':
+----
+
+Then regardless of what the user inputs, as long as it is the word `quit` (in any case), the program will quit.
+
+Other similar methods include `capitalize()` and `title()`. `capitalize()` will convert the first character of the string into uppercase, whereas `title()` will convert the first characters of each word of the string into uppercase. Their use is situational, which is why these are not covered in detail.
+
+.#*Exercise 3.20: Guess the Output (Python Shell)*#
+----
+>>> 'CUpcAkEs'.lower()
+...?
+>>> 'csm PythON'.upper()
+...?
+----
+
+.#*Amswer*#
+----
+cupcakes
+CSM PYTHON
+----
+
+.*`startswith()` and `endswith()` Examples (Python Shell)*
+----
+>>> 'Learning Python'.startswith('Lear')
+True
+>>> 'Learning Python'.startswith('learn')
+False
+>>> 'Learning Python'.startswith('Py', 9)
+True
+>>> 'Learning Python'.endswith('hon')
+True
+>>> 'Learning Python'.endswith('ing', 0, 8)
+True
+----
+
+Both methods check if a string either starts with or ends with a certain sequence of characters. The optional parameter `start` is inclusive whereas the optional parameter `end` is exclusive. Let's look at the last example. If the string [fira-code]#'Learning Python'# is sliced from index `0` to `8`, the resulting string is [fira-code]#'Learning'#. Since it ends with [fira-code]#'ing'#, the method returns `True`. The second example also shows that the method is case-sensitive.
+
+.#*Exercise 3.21: Guess the Output (Python Shell)*#
+----
+>>> s = 'I like donuts'
+>>> s.startswith('I')
+...?
+>>> s.startswith('like', 1)
+...?
+>>> s.startswith('don', 7, 9)
+...?
+>>> s.endswith('nuts')
+...?
+>>> s.endswith('ts', 4)
+...?
+>>> s.endswith('e', 1, 7)
+...?
+----
+
+.#*Answer*#
+----
+True
+False
+False
+True
+True
+False
+----
+
+.*`find()` and `index()` Examples (Python Shell)*
+----
+>>> 'blue glue'.find('blue')
+0
+>>> 'blue glue'.index('blue')
+0
+>>> 'blue glue'.find('B')
+-1
+>>> 'blue glue'.index('B')
+...
+ValueError: substring not found
+>>> 'blue glue'.find('ue')
+2
+>>> 'blue glue'.find('ue', 3)
+7
+>>> 'blue glue'.find('ue', 3, 8')
+-1
+----
+
+The performance of the two methods are completely identical until the substring is not found in the string. Then, as the third and fourth examples show, `find()` returns `-1` whereas `index()` raises a `ValueError`.
+
+The last three examples show how the slice ranges can affect the search. For the third to last, since the _first_ appearance of `'ue'` in the string is in the word `'blue'`, the index `2` is returned. In the second to last example, the string is sliced from index `3` to the end, resulting in `'e glue'`. As a result, the first occurrence of the string `'ue'` is at index `7`. In the last example, since the string is sliced from index `3` to `8` (exclusive), the result is `e glu`. Therefore, there is no occurrence of the string `'ue'`, and `-1` is returned.
+
+Also, both methods have a second form, `rfind()` and `rindex()`. These two methods take in the same parameters as their original counterparts but tries to find the _last_ occurrence of the substring inside the string (instead of the first). Look at the following example to get a better understanding:
+
+----
+>>> 'blue glue'.find('ue')
+2
+>>> 'blue glue'.rfind('ue')
+7
+----
+
+Using `index()` and `rindex()` will have the same outcome in this case (may be different in other cases).
+
+.#*Exercise 3.22: Guess the Output (Python Shell)*#
+----
+>>> order = 'Burger3Coffee5Muffin1'
+>>> b, c, m = order.find('Burger'), order.find('Coffee'), order.find('Muffin')
+>>> print(b, c, m, sep=',')
+...?
+>>> int(order[b + len('Burger') : b + len('Burger') + 1])
+...?
+>>> int(order[c + len('Coffee') : c + len('Coffee') + 1])
+...?
+>>> order.find('e')
+...?
+>>> order.rindex('e')
+...?
+>>> order.find('u', 3)
+...?
+>>> order.index('ff', 0, 6)
+...?
+>>> order.find('n', 4, 9)
+...?
+----
+
+.#*Answer*#
+----
+0, 7, 14
+3
+5
+4
+12
+15
+...ValueError
+-1
+----
+
+.*`split()`, `join()`, and `strip()` Examples (Python Shell)*
+----
+>>> 'many different words'.split()
+['many', 'different', 'words']
+>>> 'three   spaces'.split()
+['three', 'spaces']
+>>> 'apples, oranges, pears'.split(', ')
+['apples', 'oranges', 'pears']
+>>> 'apples, oranges, pears'.split(',')
+['apples', ' oranges', ' pears']
+>>> ', '.join(['apples', 'oranges', 'pears'])
+'apples, oranges, pears'
+>>> ' + '.join('letters')
+'l + e + t + t + e + r + s'
+>>> '   padded    '.strip()
+'padded'
+>>> '\nNewline\n\n'.strip()
+'Newline'
+----
+
+First, let's look at `split()`. In the first and second examples, since no parameter was provided, the method split the string by one whitespace. Consecutive whitespaces are counted as one by Python, which is why `'three{nbsp}{nbsp}{nbsp}spaces'` was split into `['three', 'spaces']` instead of `['three', '', '', 'spaces']`. The next examples split the string using the parameter provided as the delimiter string.
+
+The `join()` method joins each element in the iterable provided together with the string associated with the method. Since a string is also an iterable (consisting of each character as each element), the second to last example joined each letter of the string with the delimiter string `' + '`.
+
+The `strip()` method will remove leading and trailing whitespaces and newline characters from the string. Like `find()` and `index()`, this method also has alternative forms in `lstrip()` and `rstrip()`. `lstrip()` (left strip) and `rstrip()` (right strip) will remove leading and trailing whitespaces and newline characters, respectively.
+
+----
+>>> '   padded    '.strip()
+'padded'
+>>> '   padded    '.lstrip()
+'padded    '
+>>> '   padded    '.rstrip()
+'   padded'
+----
+
+.#*Exercise 3.23: Guess the Output (Python Shell)*#
+----
+>>> '1 2 3 4 5'.split()
+...?
+>>> 'csmpython@gmail.com'.split('@')
+...?
+>>> 'aaaaa'.split('aa')
+...?
+>>> ', '.join([3, 2, 1]) + ' Blast off!'
+...?
+>>> 'I like ' + ' and '.join(['cats', 'dogs'])
+...?
+>>> '  wrong    input '.strip()
+...?
+----
+
+.#*Answer*#
+----
+['1', '2', '3', '4', '5']
+['csmpython', 'gmail.com']
+['', '', 'a']
+TypeError: sequence item 0: expected str instance, int found
+'I like cats and dogs'
+'wrong    input'
+----
+
+.#*Exercise 3.24: Write your own program*#
+----
+Write a program to answer the following questions:
+
+Q1. Split the following URLs into www, domain, and top-level domain:
+        www.google.com
+        www.youtube.com
+        www.facebook.com
+
+Q2. Write the equivalent of the following print statements with join():
+        print(1, 2, 3, 4, sep='+')
+        print('hello', 'world')
+        print('255', '255', '255', '0', sep='.')
+----
+
+.#*Answer*#
+[source,python]
+----
+1    # Q1
+2    a, b, c = 'www.google.com', 'www.youtube.com', 'www.facebook.com'
+3    a, b, c = a.split('.'), b.split('.'), c.split('.')
+4    print(a, b, c, sep='\n')  # for aesthetics
+5
+6    # Q2
+7    print('+'.join(['1', '2', '3', '4']))
+8    print(' '.join(['hello', 'world']))
+9    print('.'.join(['255', '255', '255', '0']))
+----
+
+.*`isalnum()`, `isalpha()`, and `isnumeric()` Examples (Python Shell)*
+----
+>>> ''.isalnum()
+False
+>>> 'Hello123'.isalnum()
+True
+>>> 'Hello 123'.isalnum()  # False bc of whitespace
+False
+>>> ''.isalpha()
+False
+>>> 'python'.isalpha()
+True
+>>> 'python!!'.isalpha()
+False
+>>> ''.isnumeric()
+False
+>>> '123'.isnumeric()
+True
+----
+
+These three methods are also self-explanatory. Remember that for all three methods, empty strings and any string with whitespaces will cause the methods to return `False`.
+
+In addition, Python provides two more methods to check if a string contains only numbers: `isdecimal()` and `isdigit()`. These two and `isnumeric()` have slight differences when managing specific Unicode characters, but for us, all three can be used interchangeably more or less.
+
+.#*Exercise 3.25: Guess the Output (Python Shell)*#
+----
+>>> 'cake'.isalpha()
+...?
+>>> 'cake'.isalnum()
+...?
+>>> 'password1'.isalpha()
+...?
+>>> ('12' * 3).isnumeric()
+...?
+>>> '12 * 3'.isnumeric()
+...?
+----
+
+.#*Answer*#
+----
+True
+True
+False
+True
+False
+----
+
+.*`replace()` and `count()` Examples (Python Shell)*
+----
+>>> s = 'aaaaa'
+>>> s.replace('a', 'c')
+'ccccc'
+>>> s.replace('aa', 'c')
+'cca'
+>>> s.replace('a', 'c', 2)
+'ccaaa'
+>>> s = 'aaabbaaa'
+>>> s.count('a')
+6
+>>> s.count('a', 4)
+3
+>>> s.count('a', 2, 6)
+2
+----
+
+The `replace()` method will replace _all_ occurrences of given string with the new string. In the first `replace` example, we are telling the interpreter to replace all occurrences of the string `'a'` with `'c'`, so the resulting string is `'ccccc'`. In the second example, we want to replace `'aa'` with `'c'`. Since the interpreter replaces from lowest index to highest, `s` is replaced in the following steps: `'aaaaa'` -> `'caaa'` -> `'cca'`. The third example wants the interpreter to replace the _first_ two appearances of `'a'` with `'c'`, which is why the resulting string is `'ccaaa'`.
+
+The `count()` method will return the number of appearances of the string passed as parameter in the original string. You can also pass optional `start` and `end` parameters to define the range of search. In the second `count` example, the parameter `4` is assigned to `start`, which ultimately slices the string from index `4` to the end. This results in `s` being sliced to `baaa`, which contains 3 ``'a'``s. In the last `count` example, `s` is sliced from index `2` to `6` (exclusive), resulting in `'abba'`, and there are 2 ``'a'``s.
+
+.#*Exercise 3.26: Guess the Output (Python Shell)*#
+----
+>>> 'I read books'.replace('I', 'You')
+...?
+>>> 'aaaa'.replace('b', 'c')
+...?
+>>> 'yyy.youtube.com'.replace('y', 'w', 3)
+...?
+>>> 'banana'.count('a')
+...?
+>>> 'llama'.count('ll', 1)
+...?
+>>> 'abracadabra'.count('a', 3, 8)
+...?
+----
+
+.#*Answer*#
+----
+'You read books'
+'aaaa'
+'www.youtube.com'
+3
+0
+3
+----
+
+[discrete]
+====== String Formatting
+
+String formatting is a simple method of combining different values with strings. Remember when we wanted to combine integers and strings, we had to use the `str()` function to convert the integer into a string first, like the following example:
+
+.*Example 1: With `str` Function*
+[source,python]
+----
+1    age = 15
+2    print('I am ' + str(age) + ' years old')
+3    # prints 'I am 15 years old'
+----
+
+However, with string formatting, we can do this in an easier and more elegant way. To do this, we make use of the `format()` method.
+
+*Basic Formatting*
+
+The idea of string formatting is that we provide a placeholder in a string where we want to insert a certain value. Let's see how we would achieve the previous example with string formatting:
+
+.*Example 1: With String Formatting*
+[source,python]
+----
+1    age = 15
+2    print('I am {} years old'.format(age))
+3    # prints 'I am 15 years old'
+----
+
+In this example, the curly braces `{}` serve as the placeholder for the variable `age`. Ultimately, the value `15` is inserted into where the curly braces `{}` are. Let's look at more examples to get a better understanding:
+
+.*More String Formatting Examples (Python Shell)*
+----
+>>> '{} + {} = {}'.format('abc', 'def', 'abcdef')
+'abc + def = abcdef'
+>>> '{} + {} = {}'.format(1, 2, 3)
+'1 + 2 = 3'
+>>> 'I am {}, and my brother is {}'.format(15, 13)
+'I am 15, and my brother is 13'
+>>> print('First Name: {}\nLast Name: {}'.format('Jane', 'Doe'))
+First Name: Jane
+Last Name: Doe
+----
+
+You can also use indices to determine the placement of each parameter.
+
+.*More String Formatting Examples (Python Shell) (Cont.)*
+----
+>>> '{1} {0}'.format(2, 3)
+3 2
+>>> '{2}, {1}, {0}'.format('Calvin', 'Bob', 'Alice')
+'Alice, Bob, Calvin'
+>>> '{0} {1} {1} {1}'.format('one', 'two')
+'one two two two'
+----
+
+Remember that indices start from `0`. This method can be useful if you want to repeat a certain value multiple times, like the last example did.
+
+*Named Placeholders*
+
+This is similar to using indices except we give each parameter its own unique name.
+
+.*Named Placeholder Examples (Python Shell)*
+----
+>>> '{one} {two}'.format(one='Hello', two='World')
+'Hello World'
+>>> 'I read {title}'.format(title='Harry Potter')
+'I read Harry Potter'
+>>> print('Name: {name}\nAge: {age}'.format(name='John Doe', age=15))
+Name: John Doe
+Age: 15
+----
+
+You specify a _name_, or a _specifier_, you want to use inside the curly braces `{}`. Then, you use a variable with the same name inside the parentheses of the `format()` function to pass along with the parameter value. In the first example, we use two specifiers: `one` and `two`. Inside the parentheses, we assign `'Hello'` to the variable `one` and `'World'` to the variable `two`. Then, the value of the variable with matching name is inserted into the corresponding named placeholder, resulting in the string `'Hello World'`.
+
+This method is useful because it is clear what the value stands for. In the second example, by looking at the specifier, we can tell that a title of a book (or a magazine, etc.) is going to be formatted into the string.
+
+This is probably all you have to know for now. There are lots of more ways to manipulate strings and numbers, such as padding, truncating, and aligning, which you can learn more about online.
+
+.#*Exercise 3.27: Guess the Output*#
+[source,python]
+----
+1    c1, c2, c3 = 'pi', 'e', 'golden ratio'
+2    v1, v2, v3 = 3.14, 2.718, 1.618
+3    s = '{const} is approximately {val}'
+4
+5    print(s.format(const=c1, val=v1))
+6    print(s.format(const=c2, val=v2))
+7    print(s.format(const=c3, val=v3))
+----
+
+.#*Answer*#
+----
+pi is approximately 3.14
+e is approximately 2.718
+golden ratio is approximately 1.618
+----
+
+.#*Exercise 3.28: Write your own program*#
+----
+Q1. Ask the user to input 10 integers, separated by a whitespace. Find the maximum, minimum, and average, and print them in the following form using the format() method:
+        max: M min: m mean: a
+    where M, m, a are numbers
+
+    Use the following line of code to convert user input into a list of 10 integers:
+        lst = list(map(int, input().split()))
+    i.e. If input is 1 2 3 4, lst will hold [1, 2, 3, 4]
+----
+
+.#*Answer*#
+[source,python]
+----
+1    lst = list(map(int, input().split()))
+2    M, m, a = max(lst), min(lst), sum(lst) / 10  # or / len(lst)
+3    print('max: {} min: {} mean: {}'.format(M, m, a))
+4    # or print('max: {0} min: {1} mean: {2}'.format(M, m, a))
+5    # or print('max: {max} min: {min} mean: {avg}'.format(max=M, min=m, avg=a))
+----
+
+<<<
+
+=== Tuples
+
+Tuples are additional data structures in Python. While they might not be used as prominently as lists or other data types, they have their uses. Tuples are very similar to lists, except they are immutable. First, let's look at how we can define a tuple.
+
+==== Creating Tuples
+
+To define a tuple, we use parentheses (`()`) instead of square brackets (`[]`) like we do for lists. Also, just like lists, a tuple can contain values of different types.
+
+.*Tuple Assignment*
+[source,python]
+----
+ 1    a = (1, 2, 3, 'Hello World')
+ 2    print(a)
+ 3
+ 4    # To create an empty tuple, use the tuple() function
+ 5    empty_tuple = tuple()  # empty_tuple = ()
+ 6    print(empty_tuple)
+ 7
+ 8    # To create a tuple with one element, leave a comma
+ 9    b = ('abc',)
+10    print(b)
+----
+
+.*Output*
+----
+(1, 2, 3, 'Hello World')
+('abc',)
+()
+----
+
+As shown in lines 4-6, to create an empty tuple, you can use the `tuple()` function with no parameters or just empty parentheses. Also, as shown in lines 8-10, to create a tuple with one element, we leave a trailing comma after the first element. This is because if we do not, the interpreter will interpret the line as just a value in a parentheses operator instead of a tuple. For example,
+
+[%noheader,grid="none",frame="none",cols=2]
+|====
+a|
+----
+>>> a = (1 + 2)
+>>> a
+3
+>>> type(a)
+<class 'int'>
+----
+a|
+----
+>>> t = (1 + 2,)
+>>> t
+(3,)
+>>> type(t)
+<class 'tuple'>
+----
+|====
+
+You can also create tuples without using parentheses, which is called _tuple packing_.
+
+.*Tuple Packing*
+[source,python]
+----
+1    t1 = 1, 2, 3, 'Hello World'
+2    print(t1)
+3
+4    t2 = 'abc',
+5    print(t2)
+6
+7    # The reverse is called tuple unpacking
+8    a, b, c, d = t1
+9    print(a, b, c, d)
+----
+
+.*Output*
+----
+(1, 2, 3, 'Hello World')
+('abc',)
+1 2 3 Hello World
+----
+
+If you recall, in <<Chapter2.adoc#multiple-assignment, Chapter 2>>, we covered multiple variable assignment. What we were doing there, in fact, was tuple unpacking.
+
+.#*Exercise 3.29: Create your own tuple*#
+----
+Q1. Create an empty tuple.
+Q2. Create a tuple with only even numbers from 1 to 10 (inclusive).
+Q3. Create a tuple with 5 arbitrary string values.
+Q4. Create a tuple with 5 random values (of any variable types).
+Q5. Create a tuple with 1 element.
+----
+
+.#*Answer*#
+[source,python]
+----
+ 1    # Q1
+ 2    empty_t = tuple()  # or empty_t = ()
+ 3    # Q2
+ 4    t1 = (2, 4, 6, 8, 10)
+ 5    # Q3
+ 6    t2 = ('a', 'b', 'c', 'd', 'e')
+ 7    # Q4
+ 8    t3 = (1, 1.1, True, 'abc', [])
+ 9    # Q5
+10    t4 = ('abc',)
+----
+
+==== Accessing Tuple Elements
+
+We can use the square brackets (`[]`) as index operators to access a tuple's elements.
+
+.*Tuple Indices (Python Shell)*
+----
+>>> a = (1, 2, 3, 4, 'a', 'b', 'c', 'd')
+>>> print(a[0], a[3], a[7])
+1 4 d
+>>> print(a[-8], a[-5], a[-1])
+1 4 d
+>>> a[:]
+(1, 2, 3, 4, 'a', 'b', 'c', 'd')
+>>> a[2:5]
+(3, 4, 'a')
+----
+
+Just like lists, we can use positive and negative indices to access elements and the slice operator to create a copy of a range of the original tuple. However, unlike lists, we cannot use the index operator to change a tuple element because a tuple is, as mentioned earlier, immutable.
+
+==== Tuple Operations, Functions, and Methods
+
+[discrete]
+===== A. Tuple Operators
+
+The following are operators that can be used with tuples in Python.
+
+[%header,cols="^.^10%,^.^20%,^.^20%,50%",stripes=none]
+|====
+| Operator | Name | Example | Description
+| `[]` | Index Operator | `t[x]` | Accesses the element at specified index
+| `+` | `+` Operator | `t1 + t2` | Concatenates the second tuple to the end of the first tuple
+| `*` | `*` Operator | `t * n` | Repeats the tuple by the `n` times
+| `==` | Equivalence Operator | `t1 == t2` | Checks if the two tuples are equal
+| `in` | Membership Operator | `el in t` | Checks if the tuple `t` contains the specified element `el`
+| `:` | Slice Operator | `t[x:y]` | _Slices_ the tuple from index `x` (inclusive) to index `y` (exclusive)
+|====
+
+Since the index and slice operators were shown in the previous section, here, we will cover the other operators.
+
+.*`+` Operator Further Example (Python Shell)*
+----
+>>> (1, 2, 3) + (4,)
+(1, 2, 3, 4)
+>>> t1, t2 = ('a', 'b'), ('c', 'd')
+>>> t1 + t2
+('a', 'b', 'c', 'd')
+----
+
+The plus (`+`) operator will combine the two tuples and return a new tuple. Because tuples are immutable, the original two tuples are used but not changed to create a _new_ tuple with a different ID (`id()`) than the original two.
+
+.*`pass:q[*]` Operator Further Example (Python Shell)*
+----
+>>> (1, 2, 3) * 3
+(1, 2, 3, 1, 2, 3, 1, 2, 3)
+>>> t = ('a', 'b', 'c', 'd') * 2
+>>> t
+('a', 'b', 'c', 'd', 'a', 'b', 'c', 'd')
+----
+
+Similar to the plus operator, if you use the `*` operator on a tuple, the resulting tuple is a _new_ tuple with a different ID (`id()`) than the original tuple.
+
+.*`==` Operator Further Example (Python Shell)*
+----
+>>> ('a', 'b', 'c') == ('a', 'b', 'c')
+True
+>>> (1, 2, 3) == (2, 1, 3)
+False
+>>> ('a',) == ('A',)
+False
+----
+
+Like lists and strings, two tuples are considered equal (i.e. `==` evaluates to `True`) if all elements are equal and in the same order. For the second example, because the elements are equal but not in the same order, `==` evaluates to `False`. For the last example, because the letters are in different cases, the operation yields `False`.
+
+.*`in` Operator Further Example (Python Shell)*
+----
+>>> 'el' in ('a', 'b', 'el')
+True
+>>> '1' in (1, 2, 3)
+False
+----
+
+For the `in` operator to yield `True`, the tuple must contain an element that is equal to the value being searched. In other words, if we write the operation in the form of `x in tup`, the operation will yield `True` if and only if the tuple `tup` contains an element `el` that causes `el == x` to evaluate to `True`.
+
+For the first example, assuming `t = ('a', 'b', 'el')`, since `'el' == t[2]` evaluates to `True`, the `in` operator also yields `True`. For the second example, since there is no such element in the tuple, the `in` operator returns `False`.
+
+.#*Exercise 3.30: Guess the Output (Python Shell)*#
+----
+>>> t1, t2 = (1, 2, 3), (3, 6, 9)
+>>> t1 * 3
+...?
+>>> t1 + t2 * 2
+...?
+>>> t2 * 2 + t1 * 2 == (t2 + t1) * 2
+...?
+>>> 6 in t2
+...?
+>>> (3, 6) in t2
+...?
+----
+
+.#*Answer*#
+----
+(1, 2, 3, 1, 2, 3, 1, 2, 3)
+(1, 2, 3, 3, 6, 9, 3, 6, 9)
+False
+True
+False  # -> True if ((3, 6), 9)
+----
+
+[discrete]
+===== B. Tuples and Functions
+
+Here are some functions that can take tuples as parameters.
+
+[%header,cols="^.^15%,^.^25%,60%",stripes=none]
+|====
+| Function | Example | Description
+| `len()` | `len(t)` | Returns the length of tuple `t`
+| `max()` | `max(t)` | Returns the maximum element of tuple `t`
+| `min()` | `min(t)` | Returns the minimum element of tuple `t`
+| `sorted()` | `sorted(t)` | Returns the sorted version of tuple `t` as a _list_
+| `sum()` | `sum(t)` | Returns the sum of all elements of tuple `t`
+| `list()` | `list(t)` | Converts `t` into a list
+|====
+
+The usage and function of these functions are identical to that of lists.
+
+.*Function Examples (Python Shell)*
+----
+>>> a = (2, 1, 4, 3)
+>>> len(a)
+4
+>>> max(a)
+4
+>>> min(a)
+1
+>>> sorted(a)
+[1, 2, 3, 4]
+>>> sum(a)
+10
+>>> max((1, 2, 'a', 'b'))
+...
+TypeError: '>' not supported between instances of 'str' and 'int'
+----
+
+Remember that `max()`, `min()`, and `sorted()` functions can only be used on tuples that contain elements that can all be compared with each other. For example, if a tuple contains both integers and strings, using these functions will cause the interpreter to raise an exception. Also, the `sum()` function can only be used on tuples that contain only numerical elements.
+
+Although these functions can take tuples as parameters, you most likely would not need to use them besides the `len()` function.
+
+.*`list()` Examples (Python Shell)*
+----
+>>> t1 = (1, 2, 3)
+>>> list(t1)
+[1, 2, 3]
+>>> list(('a, 'b', 1, 2))
+['a', 'b', 1, 2]
+>>> tuple([1, 2, 3])
+(1, 2, 3)
+----
+
+The `list()` function can be used to convert a tuple, or any iterables, into a list with same elements. Similarly, the `tuple()` can be used to convert a list, or any iterables, to a tuple with same elements.
+
+[discrete]
+===== C. Tuple Methods
+
+Just like functions, the tuple methods' uses and functions are identical to that of lists and strings.
+
+[%header,cols="^.^15%,^.^25%,60%",stripes=none]
+|====
+| Method | Example | Description
+| `count()` | `a.count(el)` | Returns the number of appearances of `el` in tuple `a`
+| `index()` | `a.index(el[, start[, end]])` | Returns the lowest index of `el` in tuple `a`. You can also designate a range of search by passing in the optional `start` and `end` parameters.
+|====
+
+.*Tuple Method Examples (Python Shell)*
+----
+>>> a = (1, 2, 3, 1, 1, 'a', 'b', True)
+>>> a.count(1)
+3
+>>> a.index(1)
+0
+>>> a.index(1, 1)
+3
+>>> a.index(1, 4, 7)
+4
+>>> a.index('c')
+...
+ValueError: tuple.index(x): x not in tuple
+----
+
+Notice that for the `index()` method, the result changes depending on the range of search. Also, if the element is not in the tuple when using the `index()` method, the interpreter will raise a `ValueError`.
+
+.#*Exercise 3.31: Guess the Output (Python Shell)*#
+----
+>>> t = (1, 1, 2, True, ['abc', 'def'])
+>>> t.count(1)
+...?
+>>> (t * 3).count(1)
+...?
+>>> (t * 100).count(1)
+...?
+>>> t.index('abc')
+...?
+>>> t.index(1, 1)
+...?
+----
+
+.#*Answer*#
+----
+2
+6
+200
+ValueError
+1
+----
+
+==== Tuples and Lists Differences
+// https://medium.com/@GalarnykMichael/python-tuples-and-tuple-methods-4817a6bb6fff
+
+The biggest difference between tuples and lists is that tuples are immutable, while lists are mutable. This means, as mentioned before, you cannot change an element of an existing tuple. Also, if you add two tuples via the plus operator, the resulting tuple will be a new one with a different ID. Let's see some examples:
+
+----
+>>> t1, t2 = (1, 2), (3, 4)
+>>> new_t = t1 + t2
+>>> new_t
+(1, 2, 3, 4)
+>>> id(t1)
+2714843084296
+>>> id(t2)
+2714844616584
+>>> id(new_t)
+2714844602520
+>>> new_t[0] = 10
+...
+TypeError: 'tuple' object does not support item assignment
+----
+
+We can see that the IDs of all three tuples are different. Once tuples are defined, it is final, which means you cannot make any more changes. Therefore, it is better to use tuples over lists when you know you will not be changing their values. One example is creating a variable to represent a color. One of many ways to represent a color with a computer is the RGB value, which stands for red-green-blue. In this case, you should use a tuple to hold the RGB value instead of a list.
+
+[source,python]
+----
+1    COLOR_WHITE = (255, 255, 255)
+2    COLOR_BLACK = (0, 0, 0)
+----
+
+Another use of tuples is to group related information together. For example, you can use a tuple to represent a student (and their information) and a list to represent a class (of students).
+
+[source,python]
+----
+1    class_201 = [
+2        ('Alice', 'F',  92),
+3        ('Bob',   'M',  87),
+4        ('Cate',  'F', 100),
+5        ('Dan',   'M',  74)
+6    ]
+----
+
+In the above example, the list refers to all the students of classroom 201, and each tuple represents a single student, containing their name, gender, and test score.
+
+Since tuples are final once they are created, using tuples may sometimes be faster than using lists, but we will not go into detail. For now, you could use lists to accomplish what tuples can, but later on, you may need to differentiate their uses to increase efficiency.
+
+<<<
+
+=== Dictionaries
+
+Dictionaries are the last data structure in Python that we will be covering in this chapter. Dictionaries are a unique data structure in that they can use specific values to access its elements. For example, they can be used to map the relationship between people's IDs and passwords, which is why they are sometimes referred to as _maps_ as well. Let's see how to utilize them in the following sections.
+
+==== Using Dictionaries
+
+You may have noticed a pattern when creating iterable data structures. Lists used square brackets (`[]`) and tuples used parentheses (`()`). Similarly, dictionaries can be created using the curly braces (`{}`). Remember that dictionaries map the relationship between two values. Let's look at an example to better understand this:
+
+.*Using Dictionaries*
+[source,python]
+----
+1    author_book_map = {
+2        'Shakespeare'   : 'Romeo and Juliet',
+3        'J.K. Rowling'  : 'Harry Potter',
+4        'George Orwell' : '1984'
+5    }
+6
+7    empty_dict = dict()  # or empty_dict = {}
+----
+
+In this example, the dictionary `author_book_map` maps the relationship between an author and his/her book. In this case, we call the author, the _key_, and the book, the _value_. As such, we say that a dictionary has a key-value pairing (to be written as KV pairing henceforth).
+
+We can also create an empty dictionary using the `dict()` function with no parameters or just by using empty curly braces.
+
+To access the values of dictionaries, we can use the keys with the index operator (`[]`). Because we use keys to access values, the keys of a dictionary must be unique. There cannot be two of the same keys in one dictionary.
+
+.*Using Dictionaries (Cont.)*
+[source,python]
+----
+ 8    print(author_book_map)
+ 9    print(author_book_map['J.K. Rowling'])
+10    print(author_book_map['George Orwell'])
+----
+
+.*Output*
+----
+{'Shakespeare': 'Romeo and Juliet', 'J.K. Rowling': 'Harry Potter', 'George Orwell': '1984'}
+Harry Potter
+1984
+----
+
+Similarly, we can create new entries or update existing KV pairs in similar fashion.
+
+.*Using Dictionaries (Cont.)*
+[source,python]
+----
+11    # Create new entries
+12    empty_dict['A'] = 1
+13    empty_dict['B'] = 2
+14
+15    # Update exsiting entries
+16    author_book_map['George Orwell'] = 'Animal Farm'
+17
+18    print(empty_dict)
+19    print(author_book_map)
+----
+
+.*Output*
+----
+{'A': 1, 'B', 2}
+{'Shakespeare': 'Romeo and Juliet', 'J.K. Rowling': 'Harry Potter', 'George Orwell': 'Animal Farm'}
+----
+
+The key takeaway is that instead of using the zero-based indexing system, dictionaries use the _keys_ to access the _values_.
+
+.#*Exercise 3.32: Write your own program*#
+----
+Q1. Create a dictionary that maps the relationship between countries and their capitals. Let keys be countries and values be capitals. Include at least 3 entries.
+
+Q2. Print each element of the dictionary in the following form:
+
+        key1 : capital1
+        key2 : capital2
+        key3 : capital3
+        ...
+
+Q3. Add one more entry to the existing dictionary.
+----
+
+.#*Answer*#
+[source,python]
+----
+ 1    # Q1
+ 2    cntry2cap = {
+ 3        'USA' : 'Washington DC',
+ 4        'South Korea' : 'Seoul',
+ 5        'England' : 'London'
+ 6    }
+ 7
+ 8    # Q2
+ 9    s = '{} : {}'
+10    print(s.format('USA', cntry2cap['USA']))
+11    print(s.format('South Korea', cntry2cap['South Korea']))
+12    print(s.format('England', cntry2cap['England']))
+13
+14    # Q3
+15    cntry2cap['Japan'] = 'Tokyo'
+16    print(cntry2cap)  # check with print() statement
+----
+
+==== Dictionary Operations, Functions, and Methods
+
+===== A. Dictionary Operations
+
+Here are the operators that can be used with dictionaries.
+
+[%header,cols="^.^10%,^.^20%,^.^20%,50%",stripes=none]
+|====
+| Operator | Name | Example | Description
+| `[]` | Index Operator | `d[key]` | Accesses the value with the specified key
+| `==` | Equivalence Operator | `d1 == d2` | Checks if the two dictionaries are equal
+| `in` | Membership Operator | `key in d` | Checks if the dictionary `d` contains the specified `key`
+| `del` | `del` Operator | `del d[key]` | Deletes the KV pair with specified `key` from the dictionary `d`
+|====
+
+Because we have covered the index operator, we will go over the others in this section.
+
+.*Operators Example (Python Shell)*
+----
+>>> d1 = {'A': 1, 'B': 2, 'C': 3}
+>>> d2 = {'B': 2, 'C': 3, 'A': 1}
+>>> d1 == d2
+True
+>>> d1 == {'A': 2, 'B': 2, 'C': 3}
+False
+>>> 'A' in d1
+True
+>>> 1 in d1
+False
+>>> del d1['A']
+>>> d1
+{'B': 2, 'C': 3}
+----
+
+Two dictionaries are considered equal if and only if they have the same KV pairs. The order does not matter because, as mentioned earlier, dictionaries inherently do not maintain a set order of its elements. The mapping between keys and values of both `d1` and `d2` are equal. Therefore, using the equivalence operator on the two dictionaries yield `True`. However, in the second `==` example, the right hand dictionary contains the `'A': 2` pair, which `d1` does not have. Therefore, the operation yields `False`.
+
+The `in` operator will check if the dictionary contains the mentioned _key_, not the value. Therefore, `'A' in d1` yields `True` because `'A'` is a key. On the other hand, `1 in d1` yields `False` because `1` is a value (of the KV pair). It is also possible to use `not` with the `in` operator.
+
+The `del` operator will delete the KV pair with specified key. It is similar to how it works with lists. This shows that dictionaries are mutable just like lists are. It is possible to add, delete, and update KV pairs of a dictionary without creating a new one (in the computer's memory).
+
+===== B. Dictionaries and Functions
+
+[%header,cols="^.^15%,^.^25%,60%",stripes=none]
+|====
+| Function | Example | Description
+| `len()` | `len(d)` | Returns the length of dictionary `d`
+| `list()` | `list(d)` | Returns a list of all the keys of dictionary `d`
+| `max()` | `max(d)` | Returns the maximum element of the keys of dictionary `d`
+| `min()` | `min(d)` | Returns the minimum element of the keys of dictionary `d`
+| `sorted()` | `sorted(d)` | Returns the sorted _list_ of the keys of dictionary `d`
+| `sum()` | `sum(d)` | Returns the sum of all elements of the keys of dictionary `d`
+|====
+
+These functions operate only on the _keys_ of a dictionary. However, you would almost never need to use these functions with dictionaries except for the `len()` and `list()` function. Like lists and tuples, the function yields the length of the dictionary. You can think of it as the number of KV pairs, or simply as the number of keys.
+
+.*`len()` and `list()` Further Examples (Python Shell)*
+----
+>>> len(dict())
+0
+>>> d1, d2 = {1: 1, 2: 2, 3: 3}, {'a': [1, 2, 3], 'b': [4, 5, 6]}
+>>> len(d1)
+3
+>>> len(d2)
+2
+>>> list(d1)
+[1, 2, 3]
+>>> list(d2)
+['a', 'b']
+----
+
+===== C. Dictionary Methods
+
+These are some of the well-used dictionary methods.
+
+[%header,cols="^.^15%,^.^25%,60%",stripes=none]
+|====
+| Method | Example | Description
+| `clear()` | `d.clear()` | Deletes all KV pairs of dictionary `d`
+| `copy()` | `d.copy()` | Returns a shallow copy of dictionary `d`
+| `get()` | `d.get(key[, val])` | Returns the value with specified `key`. The optional parameter `val` is the default value to return if `d` does not contain `key`.
+| `pop()` | `d.pop(key[, val])` | Removes and returns the value with specified `key`. The optional parameter `val` is the default value to return if `d` does not contain `key`.
+| `setdefault()` | `d.setdefault(key[, val])` | If `key` exists in `d`, returns its value. If not, create a new KV pair in `d` with key `key` and value `val` and return `val`. `val` is defaulted to `None`.
+|====
+
+.*`clear()` Further Examples (Python Shell)*
+----
+>>> d = {1: 'a', 2: 'b', 3: 'c'}
+>>> d
+{1: 'a', 2: 'b', 3: 'c'}
+>>> d.clear()
+>>> d
+{}
+>>> d = {1: 'a', 2: 'b', 3: 'c'}
+>>> del d
+>>> d
+...
+NameError: name 'd' is not defined
+----
+
+Using the `clear()` method will delete all the _KV pairs_ of the associated dictionary. The difference between `clear()` and `del` is that the `del` operator will delete the dictionary itself, rather than its elements. The above example shows the difference in action. After you delete the dictionary, using the `del` operator, if you try to call the original dictionary variable, the interpreter will raise an exception because that variable does not exist anymore. On the other hand, if you call the variable after using the `clear()` method, it will yield an empty dictionary (`{}`).
+
+.*`copy()` Further Examples (Python Shell): Values are immutable*
+----
+>>> d1 = {'first': 'John', 'last': 'Doe'}
+>>> d2 = d1.copy()
+>>> print(d1, d2)
+{'first': 'John', 'last': 'Doe'} {'first': 'John', 'last': 'Doe'}
+>>> id(d1) == id(d2)
+False
+>>> d1['first'] = 'Jane'
+>>> print(d1, d2)
+{'first': 'Jane', 'last': 'Doe'} {'first': 'John', 'last': 'Doe'}
+----
+
+.*`copy()` Further Examples (Python Shell): Values are mutable*
+----
+>>> d1 = {1: [1, 2, 3]}
+>>> d2 = d1.copy()
+>>> print(d1, d2)
+{1: [1, 2, 3]} {1: [1, 2, 3]}
+>>> d1[1][0] = 10
+>>> print(d1, d2)
+{1: [10, 2, 3]} {1: [10, 2, 3]}
+----
+
+The `copy()` method will return a shallow copy of the associated dictionary. As covered earlier, this means the resulting dictionary will have a differed ID from the original, but the elements may have the same ID. If we look at the second half of the previous example, both `d1` and `d2` have a KV pair that points to the same list object, `[1, 2, 3]`. This is why when we impose a change on `d1`, it is reflected on `d2` as well.
+
+.*`get()` and `pop()` Further Examples (Python Shell)*
+----
+>>> d = {'a': 3, 'b': 1, 'n': 2}  # 'banana'
+>>> d.get('a')
+3
+>>> print(d.get('c'))
+None
+>>> d.get('c', -1)
+-1
+>>> d
+{'a': 3, 'b': 1, 'n': 2}
+>>> d.pop('n')
+2
+>>> d
+{'a': 3, 'b': 1}
+>>> d.pop('n')
+KeyError: 'n'
+>>> d.pop('n', -1)
+-1
+----
+
+Both `get()` and `pop()` will return the value associated with given key. The difference is that `pop()` will remove the KV pair with given key. Another difference between the two methods is that if the optional parameter `val` is not specified for `get()` and key does not exist in dictionary, `None` is returned. In the previous example, after the third input line (`>>>`), since `d` does not have a key `'c'`, `None` is returned and printed. However, if the optional parameter `val` is not specified for `pop()` and key does not exist, the interpreter will raise an exception, namely `KeyError`.
+
+The optional parameter `val` can be used to give additional meaningful information. If you have not noticed already, the keys of `d` were the unique letters of the string `'banana'`, and the values were the count of those letters in the string. In the fourth input line, `-1` was passed as the optional parameter `val`. So if the method outputs a `-1`, we know that `d` does not contain such key. Since the value associated with each key is the _number_ of appearances of that key in the string `'banana'`, getting `-1`, a _number_, makes much more sense than getting `None` as the output.
+
+.*`setdefault()` Further Examples (Python Shell): `key` not in dict*
+----
+>>> d = {1: 10, 2: 20, 3: 30}
+>>> print(d.setdefault(4))
+None
+>>> d
+{1: 10, 2: 20, 3: 30, 4: None}
+>>> d.setdefault(5, 50)
+50
+>>> d
+{1: 1, 2: 2, 3: 3, 4: None, 5: 50}
+----
+
+If `key` is not in the associated dictionary when using the `setdefault()` method, the method will create a new KV pair with given key and return `val`. If the optional parameter `val` is provided, it will become the value of given `key`. If not, `None` will be assigned as value of given `key`. Then that value is returned.
+
+In `d.setdefault(4)`, since `val` was not specified, `None` was set as the value of the key `4`, and `None` was returned. After `d.setdefault(5, 50)` was called, because `val` was specified, `50` was assigned as value of key `5` and returned.
+
+.*`setdefault()` Further Examples (Python Shell): `key` in dict*
+----
+>>> d = {1: 10, 2: 20, 3: 30}
+>>> d.setdefault(1)
+10
+>>> d.setdefault(1, 100)
+1
+>>> d
+{1: 10, 2: 20, 3: 30}
+----
+
+If `key` is in the associated dictionary, this method will simply return the value associated with the `key`. No additional changes are made to the dictionary and no other operations are carried out.
+
+=== Practice Problems
+
+#*A. Evaluate the output*#
+
+*A-1*
+
+[source,python]
+----
+ 1    a = b = [1, 2, 3, 4, 5, 6]
+ 2    a[-5:4] = [10, 11]
+ 3    print(a, b)
+ 4
+ 5    c = ['a']
+ 6    c.append(['b'])
+ 7    c.extend(['c'])
+ 8    c.append('def')
+ 9    c.extend('ghi')
+10    print(c)
+----
+
+*Answer*
+----
+[1, 10, 11, 5, 6], [1, 10, 11, 5, 6]
+['a', ['b'], 'c', 'def', 'g', 'h', 'i']
+----
+
+*A-2*
+
+[source,python]
+----
+ 1    email = 'csm.python@gmail.com'
+ 2    i1 = email.find('@')
+ 3    i2 = email.find('.', i1)
+ 4
+ 5    part1 = email[:i1]
+ 6    part2 = email[i1 + 1 : i2]
+ 7    part3 = email[i2 + 1:]
+ 8
+ 9    print('::'.join((part1, part2, part3)))
+10    print('Name: {}\nDomain: {}'.format(part1, part2 + '.' + part3))
+----
+
+*Answer*
+----
+csm.python::gmail::com
+Name: csm.python
+Domain: gmail.com
+----
+
+*A-3*
+
+[source,python]
+----
+1    a = b = (1, 2, 3)
+2    a += (4,)
+3    print(a, b)
+4
+5    t = ('hello', 'world', '!!')
+6    print('h' in t)
+7    t *= 2
+8    print(t.index('world', 2))
+----
+
+*Answer*
+----
+(1, 2, 3, 4) (1, 2, 3)
+False
+4
+----
+
+*A-4*
+
+[source,python]
+----
+ 1    a = b = {'a': 'A', 'b': 'B', 'c': 'C'}
+ 2    b['d'] = 'D'
+ 3    print(a, b, sep='\n')
+ 4
+ 5    color2rgb = {
+ 6         'white': (255, 255, 255),
+ 7         'black': (0, 0, 0),
+ 8         'brown': (165, 42, 42)
+ 9    }
+10    print(color2rgb.setdefault('blue', (0, 0, 255)))
+11    print(color2rgb.pop('brown', (255, 0, 0)))
+12    print(color2rgb)
+----
+
+*Answer*
+----
+{'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D'}
+{'a': 'A', 'b': 'B', 'c': 'C', 'd': 'D'}
+(0, 0, 255)
+(165, 42, 42)
+{'white': (255, 255, 255), 'black': (0, 0, 0), 'blue': (0, 0, 255)}
+----
+
+#*B. Find any errors in following Python programs*#
+
+*B-1*
+
+[source,python]
+----
+ 1    a = [3, 11, 2, 6, 17]
+ 2    # Sort list a
+ 3    a = a.sort()
+ 4
+ 5    med = a[2]
+ 6    avg = sum(a) / len(a)
+ 7    rng = a[4] - a[0]
+ 8
+ 9    s = 'Median: {}\nMean: {}\nRange: {}'
+10    print(s.format(avg, rng, med))
+----
+
+*Answer*
+----
+Line  3: a.sort()
+Line 10: print(s.format(med, avg, rng))
+  or
+Line  9: s = 'Median: {2}\nMean: {0}\nRange: {1}'
+----
+
+*B-2*
+
+[source,python]
+----
+1    t = (1, 2, 3)
+2    t.extend((4, 5))
+3
+4    s1 = ','.join('1', '2', '3', '4', '5')
+5    s2 = ','.join(t)
+6
+7    print(s1 == s2)
+----
+
+*Answer*
+----
+Line 2: t += (4, 5)  # no extend() method for tuples
+Line 4: s1 = ','.join(('1', '2', '3', '4', '5'))
+  or  : s1 = ','.join(['1', '2', '3', '4', '5'])
+  or  : s1 = ','.join('12345')  # bc tuples, lists, strings are iterables
+Line 5: # values inside iterables must be string values
+        # line 5 will cause an error because t contains integer values
+----
+
+*B-3*
+
+[source,python]
+----
+1    d = {'Hello': 'World', 'foo': 'bar', 'x': 'y'}
+2    # print the first entry
+3    print(d[0])
+4
+5    d.pop(foo)
+6    d.set('abc', 'def')
+...
+----
+
+*Answer*
+----
+Line 3: print(d['Hello'])
+Line 5: d.pop('foo')
+Line 6: d.setdefault('abc', 'def')
+----
+
+#*C. Write your own program*#
+
+*C-1*
+
+----
+Get user input of one or more sentences. Then output a list containing all words of the sentences in alphabetical (lexicographical) order. For example,
+
+Input : I like cake
+Output: ['I', 'cake', 'like']
+
+Do not worry about the periods at the end of sentences (if any).
+----
+
+*Answer*
+[source,python]
+----
+1    s = input()
+2    words = s.split()
+3    print(sorted(words))
+----
+
+*C-2*
+
+----
+Suppose a client request for a website is of the following form:
+        GETwebsite
+For example, GETwww.google.com will be a request for the Google website.
+
+Get a user input of three back-to-back website requests (assume input is always correct). Print the three websites requested by the client in list form. For example,
+
+Input : GETgoogle.comGETwww.facebook.comGETdocs.python.org
+Output: [google.com, www.facebook.com, docs.python.org]
+----
+
+*Answer*
+[source,python]
+----
+ 1    request = input()
+ 2    websites = []
+ 3
+ 4    # first website
+ 5    start = request.find('GET') + 3  # len('GET')
+ 6    end = request.find('GET', start)
+ 7    websites.append(request[start:end])
+ 8
+ 9    # second website
+10    start = end + 3
+11    end = request.find('GET', start)
+12    websites.append(request[start:end])
+13
+14    # third website
+15    start = end + 3
+16    websites.append(request[start:])
+17
+18    print(websites)
+----
+
+#*Additional Explanation*#
+----
+start and end are indices that indicate the start and endpoints of the websites. The 3 that is being added to start (in lines 5, 10, 15) is to take into consideration the length of the GET command. Line 16 says request[start:] instead of request[start:end] because the last website will extend until the end of the string.
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+

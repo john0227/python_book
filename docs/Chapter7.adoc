@@ -1,0 +1,904 @@
+= Python Book
+:toc:
+:toclevels: 3
+:toc-title:
+:toc-placement: preamble
+:sectnums:
+:sectnumlevels: 3
+:imagesDir: images
+:stylesDir: stylesheets
+:stylesheet: asciidoctor.css
+:xrefstyle: full
+:experimental:
+:table-stripes: none
+:table-grid: all
+
+<<<
+
+== Chapter 1
+
+== Chapter 2
+
+== Chapter 3
+
+== Chapter 4
+
+== Chapter 5
+
+== Chapter 6
+
+== Chapter 7 - Object-Oriented Programming
+
+You may have heard about the term *object-oriented programming* if you have learned other programming languages such as Java or C++. These languages, as well as Python, are object-oriented programming languages. OOP is a programming idea, which tries to create programs by having different objects interact with each other. Objects in programming are basically software implementations of objects in real life.
+
+Let's take a look at the following example. Say you want to create a video game about car racing. Taking real life car racing into consideration, some objects you might implement are cars, other racers (CPUs), and the user. These objects might interact in the following manner:
+
+image::ch7_oop_ex1.jpg[width="80%",align="center"]
+
+Now the question is how do we create/implement objects in Python? This will be explained in the next section.
+
+<<<
+
+=== Class
+
+In Python, we use classes to represent objects. If we look at objects in real life, they each have unique attributes and behaviors. Cars, for example, have attributes, like its color and brand, and behaviors/actions, such as accelerating and braking. As a result, when we create objects, we try to give them appropriate attributes (in forms of variables) and behaviors (in forms of methods).
+
+==== Structure of a Class
+
+Before we look into the structure of a Python class, let's look at an example class first.
+
+.*Example of a Python Class*
+[source,python]
+----
+ 1    class Car:
+ 2
+ 3        brand = 'BMW'
+ 4
+ 5        def __init__(self, color):
+ 6            self.vel = 0
+ 7            self.color = color
+ 8
+ 9        def accelerate(self, vel):
+10            self.vel += vel
+11
+12        def brake(self, vel):
+13            self.vel -= vel
+14
+15        def info(self):
+16            return 'Brand: {}, Color: {}, Speed: {}'.format(Car.brand, self.color, self.vel)
+----
+
+All classes in Python must start with the `class` keyword followed by the class name as shown in line 1. In the previous example, the name of the class is _Car_. Each class in Python are made up of three important components: constructors, variables, and methods.
+
+*Constructor*
+
+The next important part of a class is its constructor. A class, different from other variables, can hold multiple information. For example, an `int` type variable can only hold a single integer, and a `string` type variable can only hold a sequence of characters. However, in this example, the `Car` class can hold three different values: its brand, velocity, and color. The job of the constructor is to assign values to these variables and create an instance of the class. And as the example shows, the method `\\__init__` represents constructors in Python.
+
+In this class, the constructor (lines 5-7) assigns values to the variables `vel` and `color`. The reason why it does not assign a value to the variable `brand` will be explained later. Just like functions, the constructor for the `Car` class takes in `self` and `color` as parameters. Here, `self` refers to the _instance_ of the class as parameter, as supposed to the class itself. After the constructor receives the values for each parameter, it assigns them to its variables in lines 6 and 7. This portion will be explained in further detail later.
+
+Let's see how constructors are used.
+
+.*`Car` Class Instantiation*
+[source,python]
+----
+# Create instances of class
+car1 = Car('red')
+car2 = Car('blue')
+# Print information of each instance
+print(car1.info())
+print(car2.info())
+----
+
+.*Output*
+----
+Brand: BMW, Color: red, Speed: 0
+Brand: BMW, Color: blue, Speed: 0
+----
+
+As you can see, even though the constructor receives two parameters, only one is passed in explicitly. The value that is assigned to the variable `self` is passed in implicitly, so you do not need to do it yourself. However, even though the process is done implicitly, you always need to include the `self` variable in the constructor's parameters.
+
+In addition, if you do not write a constructor of your own, the interpreter will create a default constructor to create an instance of the class.
+
+*Variables*
+
+The next part to look at is variables of the class. In the previous example, there were three, which were `brand`, `vel`, and `color`. In every class in Python, there can be two types of variables: class and instance variables. Class variables are associated with the class itself whereas instance variables are associated with each instance of the object.
+
+Class variables are attributes that must be common to _all_ the instances of a class. Therefore, in this example, all `Car` objects that we are creating represent cars that are manufactured by BMW. On the other hand, instance variables are attributes that are unique to each instance of a class. For example, even though we are working with cars manufactured by BMW, each car will have unique attributes, including colors, speed, tire types, and seat color.
+
+In the previous example, the `brand` variable is a class variable, and `vel` and `color` are instance variables. Class variables are defined in the class while instance variables are defined in the constructor.
+
+[source,python]
+----
+ 1    class Car:
+ 2
+ 3        brand = 'BMW'  # --> Class variable
+ 4
+ 5        def __init__(self, color):
+ 6            self.vel = 0        # --> Instance variable
+ 7            self.color = color  # --> Instance variable
+----
+
+You can access a class variable in the following manner:
+
+[source,python]
+ClassName.variable_name
+
+You can access an instance variable in the following manner:
+
+[source,python]
+instance_name.variable_name
+
+For example,
+
+[source,python]
+----
+car1, car2 = Car('red'), Car('blue')
+print(car1.color, car2.color)
+print(Car.brand)
+
+# Change class variable
+Car.brand = 'Mercedes'
+print(car1.info(), car2.info(), sep='\n')
+
+# Create new instance variables
+car1.wheels = 4
+car2.wheels = 2
+print(car1.wheels, car2.wheels)
+----
+
+.*Output*
+----
+red blue
+BMW
+Brand: Mercedes, Color: red, Speed: 0
+Brand: Mercedes, Color: blue, Speed: 0
+4 2
+----
+
+It is also possible to access the `brand` variable by writing `car1.brand` or `car2.brand`, but that will defeat the purpose of using a class variable. If you make a change to a class variable, it will be reflected across all instances of that class. However, if you write `car1.brand = 'Mercedes'` in an attempt to change the class variable, the interpreter will create a new instance variable `brand` for `car1` and update that value only. Hence, this shows that if a class and instance variables share the same name, the instance variable takes priority.
+
+[source,python]
+----
+car1, car2, car3 = Car('red'), Car('blue'), Car('green')
+car1.brand = 'Mercedes'
+print(car1.brand, car2.brand, car3.brand)
+print(Car.brand)
+----
+
+.*Output*
+----
+Mercedes BMW BMW
+BMW
+----
+
+Inside the constructor (lines 6-7), the `self` variable was used to access the instance variables because `self` represents the current instance of the class. Instance variable assignment inside constructors generally follow this format:
+
+[source,python]
+self.variable_name = value
+
+Therefore, in line 7, `self.color` refers to the instance variable `color`, while `color` on the right hand side refers to the value passed in as the parameter. This way, the instance variables and parameters may share the same name without confusing the interpreter.
+
+*Methods*
+
+The last component is methods. Methods are basically functions that are associated with an object, as covered before. If you recall, some methods associated with lists, strings, and other data structures were introduced in previous chapters. In the example `Car` class, shown earlier, the following are its methods:
+
+[source,python]
+----
+...
+ 9        def accelerate(self, vel):
+10            self.vel += vel
+11
+12        def brake(self, vel):
+13            self.vel -= vel
+14
+15        def info(self):
+16            return 'Brand: {}, Color: {}, Speed: {}'.format(Car.brand, self.color, self.vel)
+...
+----
+
+We can see that the `Car` class contains three methods: `accelerate()`, `brake()`, and `info()`. A common point shared by all three methods is that they all take `self` as a parameter, which means that they take the instance of the class as parameter. Similar to constructors, the passing of `self` parameter is done implicitly, but you must directly specify the variable when writing the methods.
+
+You can access methods in the following manner:
+
+[source,python]
+instance_name.method(params*)
+
+The asterisk after `params` indicate that it should be provided when necessary. Here is an example of the methods in use:
+
+.*Example Snippet of Game Source Code*
+[source,python]
+----
+1    player = Car('blue')
+2    while game_is_not_finished:
+3        if accel_button_press:
+4            player.accelerate(10)  # accerelate method
+5        if brake_button_press:
+6            player.brake(10)  # brake method
+...
+----
+
+The above snippet allows the in-game car to accelerate if the user presses the accelerate button and decelerate if the user presses the brake button. We can see that when we wish to use class methods, we need to use a specific instance - `player` in the above example. We do not write `Car.brake()`, but rather, `player.brake()`. It is the same as when you use methods for lists or strings.
+
+However, there are situations when you may use the class name when accessing a method. Just like variables, methods can also be separated into class and instance methods (and static methods). These will not be covered in this chapter. You can research more into this personally if you are interested.
+
+.#*Exercise 7.1: Create your own class*#
+----
+Create a Person class containing at least the following variables and methods:
+
+Variables
+
+  name (string)
+  age (int)
+  gender (string)
+
+Methods
+
+  greet(name) - Print out a greeting to a person named name (-> string)
+  grow(age) - Increment this Person's age by specified age (-> int)
+  info() - Print basic information about this Person object
+----
+
+.#*Answer*#
+[source,python]
+----
+ 1    class Person:
+ 2
+ 3        def __init__(self, name, age, gender):
+ 4            self.name = name
+ 5            self.age = age
+ 6            self.gender = gender
+ 7
+ 8        def greet(self, name):
+ 9            print('Hi {}!! My name is {}.'.format(name, self.name))
+10
+11        def grow(self, age):
+12            self.age += age
+13
+14        def info(self):
+15            f = 'Name: {}\nAge: {}\nGender: {}'
+16            print(f.format(self.name, self.age, self.gender))
+----
+
+.#*Exercise 7.2: Create your own class (Cont.)*#
+----
+In the Person class, you created a greet(name) method that takes in a string as a parameter. Change the method so that it now receives another Person object as a parameter. In other words, instead of greet(name), change it to greet(person), where person is an instance of the Person class. How would you print out the same greeting message as before?
+----
+
+.#*Answer*#
+[source,python]
+----
+def greet(self, person):
+    print('Hi {}!! My name is {}.'.format(person.name, self.name))
+----
+
+.#*Exercise 7.3: Interact*#
+----
+Create a few instances of the Person class you have created. Pass in different values as parameters and use different methods to see how the objects behave. Familiarize yourself with accessing object attributes and methods.
+----
+
+==== Class Naming Convention
+
+Just like how variables had naming conventions, classes also have specific guidelines on how to name them. Remember that, in Python, variable names had separate words connected with underscores. This is referred to as _snake_case_. Unlike variables, however, classes, in Python, are in _PascalCase_. As the word itself shows, PascalCase is when each separate word are joined together with no spaces and with first letter of each word capitalized. `Car`, `GameBoard`, and `PlayerManager` are all examples of PascalCase.
+
+====
+Another commonly used case in other languages, such as Java and C/C++, is _camelCase_. It is identical to PascalCase, except that the first letter of the first word is lower-cased. `car`, `gameBoard`, and `playerManager` are examples of camelCase.
+====
+
+<<<
+
+=== Inheritance
+
+Inheritance is a very important concept in OOP, which outlines the hierarchical relationship between different objects. We can find object hierarchies in the real world as well. Let's look at the figure below.
+
+image::ch7_inheritance1.jpg[width=60%,align="center"]
+
+In the real world, there are many "subcategories" of animals. A `Cat`, `Dog`, and a `Bird` are all ``Animal``s. In OOP, this relationship is called *_is-a_* relationship. A `Cat` _is-a_(n) `Animal`, and a `Dog` _is-a_(n) `Animal`. However, the converse may not always be true. For example, an `Animal` may not necessarily be a `Cat` (but rather, say, a `Bird`). This relationship can be extended for multiple levels of inheritance.
+
+<<<
+
+Take a look at the following figure:
+
+image::ch7_inheritance2.jpg[width=60%,align="center"]
+
+A `Poodle` is-a `Dog`, _and_ a `Poodle` is-a(n) `Animal` (because a `Dog` is-a(n) `Animal`). However, a `Dog` may not always be a `Poodle`, and likewise, an `Animal` may not always be a `Poodle`.
+
+Another thing to note is that the objects at a lower level can do _all_ the things the objects at a higher level can do. For example, all animals can move and make sounds, which means cats, dogs, and birds can also move and make sounds. Also, all animals have limbs (let's suppose this is true for the sake of simplicity), which means cats, dogs, and birds also have limbs.
+
+Furthermore, objects at a lower level can do _more specific_ things and/or have _more specific_ attributes than the objects at a higher level. For example, cats and dogs can run and walk, while (most) birds can fly. Cats purr, dogs bark, and birds chirp; cats and dogs have four legs, whereas birds have two.
+
+[NOTE]
+====
+[small]#Objects at lower and higher level refer to objects that are directly (or transitively) "connected" by the green arrow.#
+====
+
+The following chart may be easier to understand:
+
+image::ch7_inheritance3.jpg[width="90%",align="center"]
+
+In programming terms, objects at a higher level are called superclasses or parent classes, while objects at a lower level are called subclasses or child classes.
+
+You can create superclasses as you would a regular class. Remember that attributes are simulated as variables and behaviors as methods. Let's create the `Animal` class discussed previously.
+
+.*animal.py*
+[source,python]
+----
+ 1    class Animal:
+ 2
+ 3        def __init__(self, leg):
+ 4            self.leg = leg     # attribute 1
+ 5
+ 6        def move(self):        # behavior 1
+ 7            print('animal moved forward')
+ 8
+ 9        def make_sound(self):  # behavior 2
+10            print('animal made a sound')
+----
+
+Now how should we create the subclasses? A subclass should be able to do all the things its superclass can do. This means that the subclass should at least have access to all the attributes and methods its superclass has. This is called inheriting. We say that the subclass _inherits_ attributes and methods from its superclass. Let's take a look at a simple example.
+
+.*cat.py*
+[source,python]
+----
+1    from animal import Animal
+2
+3    class Cat(Animal):
+4        pass
+----
+
+First, ensure that you have `animal.py` and `cat.py` saved in the same directory. The first line basically means that from `animal.py`, import the `Animal` class into the current file. This step is necessary in order to be able to access the `Animal` class (variables and methods) inside the `cat.py` file. The `pass` keyword in line 4 is a dummy line that the interpreter will ignore.
+
+The real important part is line 3. See that after the class name, `Cat`, there is the `Animal` class placed inside parentheses. This signifies that the `Cat` class is a subclass of the `Animal` class. Other than that, see that no variables or methods are declared for the class. Now let's see how inheritance works. Open Python shell in the same directory as your animal classes.
+
+.*Inheritance Example (Python Shell)*
+----
+>>> from animal import Animal
+>>> from cat import Cat
+>>> animal, cat = Animal(4), Cat(4)
+>>> animal.move()
+animal moved forward
+>>> cat.move()
+animal moved forward
+>>> animal.make_sound()
+animal made a sound
+>>> cat.make_sound()
+animal made a sound
+----
+
+If we see the interaction, we can see that `cat` (an instance of `Cat`) has access to a constructor and the `move()` and `make_sound()` methods, even though nothing was explicitly written inside the `cat.py` file. This is because `Cat` was declared as a subclass of the `Animal` class. In doing so, the `Cat` class gained access to, or _inherited_, all the variables and methods of the `Animal` class.
+
+Besides inheriting, it was said that subclasses can do or have more specific actions and attributes. This means two things:
+
+. A subclass can declare new variables/methods
+. A subclass can specify new values/behaviors to existing variables/methods
+
+Let's see how to do both in the next example.
+
+.*cat.py*
+[source,python]
+----
+ 1    from animal import Animal
+ 2
+ 3    class Cat(Animal):
+ 4
+ 5        def __init__(self, name):
+ 6            super().__init__(4)  # Inherit variable (leg)
+ 7            self.name = name     # Create new variable
+ 8
+ 9        def move(self):        # Override method 1
+10            print(self.name, 'pounced')
+11
+12        def make_sound(self):  # Override method 2
+13            print(self.name, 'purred')
+14
+15        def groom(self):       # Create new method
+16            print(self.name, 'is grooming itself')
+----
+
+There are many things to digest so let's look at things one by one.
+
+*New Constructor (Lines 5-7)*
+
+The method at lines 5-7 is the constructor of the `Cat` class. We can see that it takes one (explicit) parameter, `name`. In line 6, there is a function that we have never seen before: the `super()` function. This function represents the superclass(es) of the current class, which, in this case, is the `Animal` class. So what line 6 is doing is that it is calling the constructor of its superclass (`Animal` class) and passing `4` as a parameter, which the `Animal` class stores inside the `leg` variable. Then, in line 7, it creates a new variable, `name`.
+
+So, in summary, an instance of the `Animal` class will have *one* attribute, `leg`, whereas an instance of the `Cat` class will have *two*, `leg` (inherited) and `name` (new attribute).
+
+[start=2]
+*Overridden Methods (Lines 9-13)*
+
+As the comments show, the `move()` and `make_sound()` are _overridden_ methods. In OOP, method overriding when a subclass implements new behaviors for an already existing method (in its superclass). This is to allow the subclasses to implement more specific and suitable behaviors to a rather general method of its superclass(es).
+
+For example, in the case of `make_sound()` method, it was changed so that an instance of the `Cat` class can make the purring sound instead of just a general sound.
+
+[start=3]
+*New Methods (Lines 15-16)*
+
+Other than overriding existing methods, subclasses can also create new methods to emulate more specific actions. In this example, because grooming is unique to cats, it was created as a new method in lines 15-16. This is a subclass-specific method that its superclass(es) cannot access.
+
+Let's take a look at the interaction between the two classes once more. Open the Python shell in the same directory where the `animal.py` and `cat.py` files are located.
+
+.*Example Interaction (Python Shell)*
+----
+>>> from animal import Animal
+>>> from cat import Cat
+>>> bird, cat = Animal(2), Cat('Leo')
+>>> print(bird.leg, cat.leg)
+2 4
+>>> bird.name
+...
+AttributeError: 'Animal' object has no attribute 'name'
+>>> cat.name
+'Leo'
+>>> bird.move()
+animal moved forward
+>>> cat.move()
+Leo pounced
+>>> bird.make_sound()
+animal made a sound
+>>> cat.make_sound()
+Leo purred
+>>> animal.groom()
+...
+AttributeError: 'Animal' object has no attribute 'groom'
+>>> cat.groom()
+Leo is grooming itself
+----
+
+You can try out more things to better understand the relationship between superclasses and subclasses. Try tweaking the methods a bit. For example, add the statement `super().move()` between lines 9 and 10 of `cat.py` and see what happens.
+
+.#*Exercise 7.4: Create your own classes*#
+----
+Using cat.py as reference, create your own Dog and Bird classes inside dog.py and bird.py files. Make sure to put the two files in the same directory where cat.py and animal.py are located.
+
+Create new variables and methods, override constructors and other methods, and try to become more familiar with classes in general. Make use of the super() function to familiarize yourself with that concept as well.
+----
+
+.#*Answer*#
+[caption=""]
+====
+.*dog.py*
+[source,python]
+----
+ 1    from animal import Animal
+ 2
+ 3    class ExampleDog(Animal):
+ 4
+ 5        def __init__(self, name):
+ 6            super().__init__(4)
+ 7            self.name = name
+ 8
+ 9        def move(self):
+10            print(self.name, 'is running around')
+11
+12        def make_sound(self):
+13            print(self.name, 'barked')
+14
+15        def chase_tail(self):
+16            print(self.name, 'is chasing its tail')
+----
+
+.*bird.py*
+[source,python]
+----
+ 1    from animal import Animal
+ 2
+ 3    class ExampleBird(Animal):
+ 4
+ 5        def __init__(self, name):
+ 6            super().__init__(2)
+ 7            self.name = name
+ 8
+ 9        def move(self):
+10            print(self.name, 'flew away')
+11
+12        def make_sound(self):
+13            print(self.name, 'chirped')
+14
+15        def nest(self):
+16            print(self.name, 'is nesting')
+----
+====
+
+.#*Exercise 7.5: Evaluate the Output*#
+[source,python]
+----
+ 1    class A:
+ 2        def foo(self):
+ 3            print('This is class A')
+ 4
+ 5    class B(A):
+ 6        def foo(self):
+ 7            super().foo()
+ 8            print('This is class B')
+ 9
+10    class C(B):
+11        def foo(self):
+12            super().foo()
+13            print('This is class C')
+14
+15    c = C()
+16    c.foo()
+----
+
+.#*Answer*#
+----
+This is class A
+This is class B
+This is class C
+----
+
+==== _is-a_ Relationship
+
+The is-a relationship was one shared between superclasses and their subclasses. Taking `Animal` and `Cat` as examples,
+
+. `Cat` is-a(n) `Animal`
+
+. `Animal` is not a `Cat`
+
+In programming terms, we can also say the following:
+
+. A `Cat` object is also of type `Animal`
+
+. An `Animal` object is not of type `Cat`
+
+We can check this relationship inside Python as well through the built-in `isinstance(object, type)` function. Open the Python shell in the same directory where the `animal.py` and `cat.py` files are located.
+
+.*_is-a_ Relationship inside Python (Python Shell)*
+----
+>>> from animal import Animal
+>>> from cat import Cat
+>>> animal, cat = Animal(4), Cat('Leo')
+>>> isinstance(animal, Animal)
+True
+>>> isinstance(cat, Animal)  # Statement 1
+True
+>>> isinstance(animal, Cat)  # Statement 2
+False
+>>> isinstance(cat, Cat)
+True
+----
+
+This means that if a function or method receives a parameter of type `Animal`, you are free to pass in instances of `Cat`, `Dog`, or `Bird` class.
+
+.#*Exercise 7.6: is-a Relationship*#
+----
+Use the isinstance() function to check the relationship between Animal and the other subclasses (Bird, Dog) as well.
+----
+
+.#*Answer*#
+----
+>>> from animal import Animal
+>>> from dog import Dog
+>>> from bird import Bird
+>>> animal, dog, bird = Animal(4), Dog('Buddy'), Bird('Kiwi')
+>>> isinstance(animal, Dog)
+False
+>>> isinstance(animal, Bird)
+False
+>>> isinstance(dog, Animal)
+True
+>>> isinstance(dog, Bird)
+False
+>>> isinstance(bird, Animal)
+True
+>>> isinstance(bird, Dog)
+False
+----
+
+<<<
+
+=== Practice Problems
+
+#*A. Evaluate the output*#
+
+*A-1*
+[source,python]
+----
+1    class Foo:
+2        x = 3
+3        def __init__(self, y):
+4            self.y = y
+5
+6    f1, f2 = Foo(5), Foo(10)
+7    f1.x, f2.y = 1, 7
+8    print(f1.x, f2.x, Foo.x)
+9    print(f1.y, f2.y)
+----
+
+*Answer*
+----
+1 3 3
+5 7
+----
+
+*A-2*
+[source,python]
+----
+1    class Foo:
+2        x = 3
+3        def __init__(self, x):
+4            self.x = x
+5
+6    f1 = Foo(5)
+7    print(f1.x, Foo.x)
+----
+
+*Answer*
+----
+5 3
+----
+
+*A-3*
+[source,python]
+----
+ 1    class Book:
+ 2        def __init__(self, title, author, year):
+ 3            self.title = title
+ 4            self.author = author
+ 5            self.year = year
+ 6
+ 7        def info(self):
+ 8            f = 'Title: {}\nAuthor: {}\nYear: {}'
+ 9            return f.format(self.title, self.author, self.year)
+10
+11    class Encyclopedia(Book):
+12        def __init__(self, title, author, year, edition):
+13            super().__init__(title, author, year)
+14            self.edition = edition
+15
+16        def info(self):
+17            return super().info() + '\nEdition: ' + str(self.edition)
+18
+19    e = Encyclopedia('Encyclopedia Britannica', 'many', 2010, 15)
+20    print(e.info())
+----
+
+*Answer*
+----
+Title: Encyclopedia Britannica
+Author: many
+Year: 2010
+Edition: 15
+----
+
+*A-4*
+[source,python]
+----
+ 1    class Book:
+ 2        def __init__(self, title, author):
+ 3            self.title = title
+ 4            self.author = author
+ 5
+ 6    class BookManager:
+ 7        def __init__(self, books):
+ 8            self.books = books
+ 9
+10        def find_title1(self, title):
+11            return [book.title for book in self.books if title in book.title]
+12
+13        def find_title2(self, title):
+14            res = []
+15            for book in self.books:
+16                if title.lower() in book.title.lower():
+17                    res.append(book.title)
+18            return res
+19
+20    lst = [
+21        Book('Harry Potter and the Chamber of Secrets', 'J.K. Rowling'),
+22        Book('Percy Jackson and the Lightning Thief', 'Rick Riordan'),
+23        Book('Lord of the Flies', 'William Golding'),
+24        Book('Animal Farm', 'George Orwell'),
+25        Book('The Giver', 'Lois Lowry')
+26    ]
+27    bm = BookManager(lst)
+28
+29    print('find_title1')
+30    for title in bm.find_title1('The'):
+31        print(title)
+32
+33    print('\nfind_title2')
+34    for title in bm.find_title2('The'):
+35        print(title)
+36
+37    # What is the difference between find_title1() and find_title2()?
+----
+
+*Answer*
+----
+find_title1
+The Giver
+
+find_title2
+Harry Potter and the Chamber of Secrets
+Percy Jackson and the Lightning Thief
+Lord of the Flies
+The Giver
+
+find_title2 does a case-insensitive string check. Other than that, there are no differences between the two. find_title1 is the list comprehension version of find_title2.
+----
+
+#*B. Find any errors in following Python programs*#
+
+*B-1*
+[source,python]
+----
+1    class Foo:
+2        def _init_(self, x, y):
+3            self.x, self.y = x, y
+4            return Foo(x, y)
+5
+6    f = Foo(3, 5)
+7    print(f.x + f.y)
+----
+
+*Answer*
+----
+Line 2: _init_ -> __init__
+Line 4: You should not return an object inside a constructor
+----
+
+*B-2*
+[source,python]
+----
+1    class Foo:
+2        def __init__(x, y):
+3            self.x, self.y = x, y
+4
+5        def add():
+6            return self.x + self.y
+7
+8        def mult():
+9            return self.x * self.y
+----
+
+*Answer*
+----
+Line 2, 5, 8: Each method should be taking in self as a parameter.
+----
+
+*B-3*
+[source,python]
+----
+1    class Student:
+2        def __init__(self, name, grade):
+3            self.name, self.grade = name, grade
+4
+5    class Person(Student):
+6        def __init__(self, name):
+7            self.name = name
+----
+
+*Answer*
+----
+There is no technical error, but logically, Student should be the subclass of Person, not the other way around.
+----
+
+#*C. Write your own program*#
+
+*C-1*
+[subs=quotes]
+----
+Create a Point class with the following attributes and methods:
+
+*Attributes*
+
+    x: x-coordinate of point on Cartesian plane (int)
+    y: y-coordinate of point on Cartesian plane (int)
+
+*Methods*
+
+    dist(point): Calculate and return the distance (in float) between this and given point
+----
+
+*Answer*
+
+.*point.py*
+[source,python]
+----
+1    class Point:
+2
+3        def __init__(self, x, y):
+4            self.x, self.y = x, y
+5
+6        def dist(self, point):
+7            dx, dy = self.x - point.x, self.y - point.y
+8            return (dx * dx + dy * dy) ** 0.5
+----
+
+*C-2*
+[subs=quotes]
+----
+Create a Circle class with the following attributes and methods:
+
+*Attributes*
+
+    center: Point object representing the center point of circle
+    r     : radius of circle (int)
+
+*Methods*
+
+    contains(point): Return True if given point lies inside or on this Circle
+                            False otherwise
+----
+
+*Answer*
+
+.*circle.py*
+[source,python]
+----
+1    from point import Point
+2
+3    class Circle:
+4
+5        def __init__(self, center, r):
+6            self.center, self.r = center, r
+7
+8        def contains(self, point):
+9            return self.center.dist(point) <= self.r
+----
+
+*C-3*
+[subs=quotes]
+----
+Create a Test class with a default constructor. Create two methods called rand_point() and test().
+
+The rand_point() will look like this:
+
+        from random import random  # Place at top of file
+
+        def rand_point(self):
+                return Point(random(), random())
+
+    which returns a random Point where 0.0 <= x, y < 1.0
+
+Inside this method, you should do the following:
+
+    1. Create a Circle object with center (0, 0) and radius 1
+    2. Create a for loop that iterates n (= 1,000) times. In each iteration, create a random Point using rand_point(). Check if the Point is contained inside the Circle created in step 1. Count the total number of Points that are in the Circle and store it in the variable p_in.
+    3. Return 4 * p_in / n
+    4. Try increasing n declared in step 2 (10_000, 1_000_000, 5_000_000), and see how the return value changes.
+----
+
+*Answer*
+
+.*test.py*
+[source,python]
+----
+ 1    from circle import Circle
+ 2    from point import Point
+ 3    from random import random
+ 4
+ 5    # Emulates Monte Carlo method of approximating pi
+ 6    class Test:
+ 7
+ 8        def rand_point(self):
+ 9            return Point(random(), random)
+10
+11        def test(self):
+12            # Step 1
+13            c = Circle(Point(0, 0), 1)
+14
+15            # Step 2
+16            n, p_in = 1_000, 0  # try n = 1_000_000
+17            for i in range(n):
+18                p = self.rand_point()
+19                p_in += c.contains(p)
+20
+21            # Step 3
+22            return 4 * p_in / n  # approximation of pi
+----
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

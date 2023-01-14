@@ -1,0 +1,19 @@
+@startuml
+
+skinparam defaultTextAlignment center
+
+start
+
+if (<size:12>  Do you have  \n<size:12>homework </size>\n<size:12> <b>and</b>\n<size:12> is it urgent?</size>) then (yes)
+    :Do your homework;
+elseif(<size:12>  Do you have  \n<size:12>homework </size>\n<size:12> <b>and</b>\n<size:12> is it not urgent?</size>) then (yes)
+    :Relax for a bit;
+elseif(<size:12> Do you not \n<size:12>have homework</size>\n<size:12> <b>and</b>\n<size:12> do you like playing \n<size:12> outdoors? </size>) then (yes)
+    :Go play sports;
+else (no)
+    :Play\nvideo games;
+endif
+
+stop
+
+@enduml
